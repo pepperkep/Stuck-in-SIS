@@ -9,27 +9,73 @@
     <firstpublished>2019</firstpublished>
   </game>
 
-  <object name="room">
+<object name="room">
+
     <inherit name="editor_room" />
+
     <isroom />
     
-         <exit name="east" to="hallway"/>
-   </object>
- 
-   <object name="hallway">
-     <exit name="east" to="common room"/>
-     <exit name="west" to="lounge"/>
-   </object>
- 
-   <object name="common room">
-     <object name="table">
-       <look>Scratched up old table</look>
+      <object name="Laptop">
+       <prefix>a</prefix>
+       <look>MacBookPro covered in anime stickers.</look>
+       <take type="script">
+          msg ("You turn it on and hastily close the embarassing tabs that you see")
+       </take>
      </object>
 
+
+    
+
+         <exit name="east" to="hallway"/>
+
+   </object>
+
+ 
+
+   <object name="hallway">
+
+	<isroom />
+
+     <exit name="east" to="common room"/>
+
+     <exit name="west" to="lounge"/>
+
+   </object>
+
+ 
+
+   <object name="common room">
+
+	 <isroom />
+
+     <object name="table">
+
+       <look>Scratched up old table</look>
+
+     </object>
+
+
+
     <object name="player">
+
       <inherit name="editor_object" />
+
       <inherit name="editor_player" />
+
     </object>
+
+	
+
+	<object name="lounge">
+
+		<isroom />
+
+		<exit name="east" to="hallway" />
+
+	</object>
+
   </object>
+
+
 
 </asl>
