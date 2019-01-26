@@ -12,6 +12,19 @@
   <object name="room">
     <inherit name="editor_room" />
     <isroom />
+    
+         <exit name="east" to="hallway"/>
+   </object>
+ 
+   <object name="hallway">
+     <exit name="east" to="common room"/>
+     <exit name="west" to="lounge"/>
+   </object>
+ 
+   <object name="common room">
+     <object name="table">
+       <look>Scratched up old table</look>
+     </object>
 
     <object name="player">
       <inherit name="editor_object" />
