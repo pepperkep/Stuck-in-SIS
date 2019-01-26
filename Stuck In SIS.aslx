@@ -1,3 +1,4 @@
+
 <!--Saved by Quest 5.8.6836.13983-->
 <asl version="580">
   <include ref="English.aslx" />
@@ -127,6 +128,7 @@
   <object name="Classes and Enrollment">
     <isroom />
   </object>
+<<<<<<< HEAD
   
   <object name="friends room">
     <inherit name="editor_room" />
@@ -149,4 +151,7 @@
     </object>
   </object>
   
+=======
+
+>>>>>>> 42399939e935e27a9c6249ae007dd328e1141831
 </asl>
