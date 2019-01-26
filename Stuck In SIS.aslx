@@ -8,7 +8,8 @@
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
   </game>
-  <object name="bedroom">
+ 
+ <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
     <object name="Laptop">
@@ -35,7 +36,8 @@
         Laptop.real_place = player.parent
         MoveObject (player, SIS home page)
       </use>
-      <object name="Anime stickers">
+      
+	  <object name="Anime stickers">
         <prefix>a</prefix>
         <look>These stickers make you cringe for a bit. Then you remember they are part of who you are and you cringe even more.</look>
         <take type="script">
@@ -44,7 +46,8 @@
         </take>
       </object>
     </object>
-    <object name="player">
+   
+   <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
     </object>
@@ -52,7 +55,8 @@
       <inherit name="southdirection" />
     </exit>
   </object>
-  <object name="hallway">
+ 
+ <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
       <inherit name="eastdirection" />
@@ -64,22 +68,65 @@
 		<inherit name="northdirection" />
 	</exit>
   </object>
-  <object name="common room">
+ 
+ <object name="common room">
     <isroom />
     <object name="table">
       <look>Scratched up old table</look>
     </object>
+	    
+		<object name="Major Change Form">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>You see a major change form lying on the ground soaked in tears. A Bad Omen.</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">common room</attr>
+      <take type="script">
+        msg ("You shudder when you grab it.")
+        AddToInventory (Major Change Form)
+      </take>
+	  <givesingle type="script">
+        msg ("Bettet keep this in case things go south.")
+      </givesingle>
     <exit alias="west" to="hallway">
       <inherit name="westdirection" />
     </exit>
   </object>
+  
   <object name="lounge">
     <isroom />
     <exit alias="east" to="hallway">
       <inherit name="eastdirection" />
     </exit>
   </object>
-  <object name="SIS home page">
+ 
+	 <object name="Cofee Machine">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>A poorly cleaned Keurig that was recently used.</look>
+      <feature_container />
+      <hidechildren />
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">lounge</attr>
+      <take type="script">
+        msg ("It wouldn't be nice to steal it, but you know that you need it more than others do right now.")
+        AddToInventory (Cofee Machine)
+      </take>
+	  	   <use type="script">
+        GetObject(Cofee)
+      </use>
+ 
+ <object name="SIS home page">
     <inherit name="editor_room" />
     <isroom />
     <description>There are so many buttons on the home screen. Is this supposed to be a maze?</description>
@@ -102,6 +149,7 @@
       <suffix type="string"></suffix>
     </exit>
   </object>
+  
   <object name="Classes and Enrollment">
     <isroom />
   </object>
