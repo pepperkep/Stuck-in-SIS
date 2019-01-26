@@ -9,11 +9,11 @@
     <firstpublished>2019</firstpublished>
   </game>
 
-<object name="room">
 
+  <object name="bedroom">
     <inherit name="editor_room" />
-
     <isroom />
+
     
       <object name="Laptop">
        <prefix>a</prefix>
@@ -24,18 +24,18 @@
      </object>
 
 
-    
-
-         <exit name="east" to="hallway"/>
-
+   
+    <object name="player">
+      <inherit name="editor_object" />
+      <inherit name="editor_player" />
+    </object>
+    <exit name="east" to="hallway"/>
    </object>
 
  
 
    <object name="hallway">
-
 	<isroom />
-
      <exit name="east" to="common room"/>
 
      <exit name="west" to="lounge"/>
@@ -45,9 +45,7 @@
  
 
    <object name="common room">
-
 	 <isroom />
-
      <object name="table">
 
        <look>Scratched up old table</look>
@@ -55,25 +53,15 @@
      </object>
 
 
-
-    <object name="player">
-
-      <inherit name="editor_object" />
-
-      <inherit name="editor_player" />
-
-    </object>
-
 	
-
 	<object name="lounge">
-
 		<isroom />
-
 		<exit name="east" to="hallway" />
-
 	</object>
-
+	
+	<object name="SIS home page">
+	</object>
+	
   </object>
 
 
