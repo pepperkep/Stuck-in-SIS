@@ -75,7 +75,7 @@
       <look>Scratched up old table</look>
     </object>
 	    
-		<object name="Major Change Form">
+<object name="Major Change Form">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -125,6 +125,7 @@
 	  	   <use type="script">
         GetObject(Cofee)
       </use>
+	 
  
  <object name="SIS home page">
     <inherit name="editor_room" />
