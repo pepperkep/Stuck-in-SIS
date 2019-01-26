@@ -1,75 +1,60 @@
+<!--Saved by Quest 5.8.6836.13983-->
 <asl version="580">
-
-  <include ref="English.aslx"/>
-  <include ref="Core.aslx"/>
-
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
   <game name="Stuck In SIS">
     <gameid>58b81593-fd5c-49a5-bd41-f5b3d0c127f8</gameid>
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
   </game>
-
-
   <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
-
-    
-      <object name="Laptop">
+    <object name="Laptop">
+      <prefix>a</prefix>
+      <look>MacBookPro covered in anime stickers.</look>
+      <take type="script">
+        msg ("You turn it on and hastily close the embarassing tabs that you see")
+      </take>
+    </object>
+	
+	  <object name="Bed">
        <prefix>a</prefix>
-       <look>MacBookPro covered in anime stickers.</look>
-       <take type="script">
-          msg ("You turn it on and hastily close the embarassing tabs that you see")
-       </take>
+       <look>You shed a tear as you fail to remember the last time your bed was used.</look>
+       <look type="script">
+          msg ("The bed is as empty as you are.")
+     </look>
      </object>
-
-
-   
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
     </object>
     <exit alias="east" to="hallway">
-		<inherit name="eastdirection" />
-	</exit>
-   </object>
-
- 
-
-   <object name="hallway">
-	<isroom />
-     <exit alias="east" to="common room">
-		<inherit name="eastdirection" />
-	 </exit>
-     <exit alias="west" to="lounge">
-		<inherit name="westdirection" />
-	 </exit>
-   </object>
-
- 
-
-   <object name="common room">
-	 <isroom />
-     <object name="table">
-
-       <look>Scratched up old table</look>
-
-     </object>
-	</object>
-
-
-	
-	<object name="lounge">
-		<isroom />
-		<exit name="east" to="hallway">
-			<inherit name="eastdirection" />
-		</exit>
-	</object>
-	
-	<object name="SIS home page">
-		<isroom />
-	</object>
-
-
-
+      <inherit name="eastdirection" />
+    </exit>
+  </object>
+  <object name="hallway">
+    <isroom />
+    <exit alias="east" to="common room">
+      <inherit name="eastdirection" />
+    </exit>
+    <exit alias="west" to="lounge">
+      <inherit name="westdirection" />
+    </exit>
+  </object>
+  <object name="common room">
+    <isroom />
+    <object name="table">
+      <look>Scratched up old table</look>
+    </object>
+  </object>
+  <object name="lounge">
+    <isroom />
+    <exit name="east" alias="east" to="hallway">
+      <inherit name="eastdirection" />
+    </exit>
+  </object>
+  <object name="SIS home page">
+    <isroom />
+  </object>
 </asl>
