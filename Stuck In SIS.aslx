@@ -1,69 +1,57 @@
+<!--Saved by Quest 5.8.6836.13983-->
 <asl version="580">
-
-  <include ref="English.aslx"/>
-  <include ref="Core.aslx"/>
-
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
   <game name="Stuck In SIS">
     <gameid>58b81593-fd5c-49a5-bd41-f5b3d0c127f8</gameid>
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
   </game>
-
-
   <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
-
-    
-      <object name="Laptop">
-       <prefix>a</prefix>
-       <look>MacBookPro covered in anime stickers.</look>
-       <take type="script">
-          msg ("You turn it on and hastily close the embarassing tabs that you see")
-       </take>
-     </object>
-
-
-   
+    <descprefix>It's a single with not a lot of space. There are some decorations and posters on the walls. To the West is a hallway. To the East there is the common room. </descprefix>
+    <objectslistprefix>You can see</objectslistprefix>
+    <description type="string"></description>
+    <dropdestination type="object">bedroom</dropdestination>
+    <usedefaultprefix type="boolean">false</usedefaultprefix>
+    <prefix>Your Bedroom.</prefix>
+    <object name="Laptop">
+      <prefix>a</prefix>
+      <look>MacBookPro covered in anime stickers.</look>
+      <alt type="stringlist">
+        <value>computer</value>
+      </alt>
+      <dropmsg>You set down your laptop.  </dropmsg>
+      <take type="script">
+        msg ("You turn it on and hastily close the embarassing tabs that you see")
+      </take>
+    </object>
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
     </object>
-    <exit name="east" to="hallway"/>
-   </object>
-
- 
-
-   <object name="hallway">
-	<isroom />
-     <exit name="east" to="common room"/>
-
-     <exit name="west" to="lounge"/>
-
-   </object>
-
- 
-
-   <object name="common room">
-	 <isroom />
-     <object name="table">
-
-       <look>Scratched up old table</look>
-
-     </object>
-
-
-	
-	<object name="lounge">
-		<isroom />
-		<exit name="east" to="hallway" />
-	</object>
-	
-	<object name="SIS home page">
-	</object>
-	
+    <exit alias="west" to="hallway">
+      <inherit name="westdirection" />
+    </exit>
+    <exit alias="east" to="common room">
+      <inherit name="eastdirection" />
+    </exit>
   </object>
-
-
-
+  <object name="hallway">
+    <isroom />
+    <descprefix>You are in the hallway. There isn't much to see.  To the West is your bedroom.  To the East is the Shire.</descprefix>
+    <objectslistprefix>You can see dis dick.</objectslistprefix>
+    <exit alias="east" to="bedroom">
+      <inherit name="eastdirection" />
+    </exit>
+  </object>
+  <object name="common room">
+    <isroom />
+    <descprefix>You are in the common room.  If you stay to long, Clay might think you are his friend.</descprefix>
+    <objectslistprefix>You can see no reason to keep living.</objectslistprefix>
+    <exit alias="west" to="bedroom">
+      <inherit name="westdirection" />
+    </exit>
+  </object>
 </asl>
