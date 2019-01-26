@@ -1,3 +1,4 @@
+
 <!--Saved by Quest 5.8.6836.13983-->
 <asl version="580">
   <include ref="English.aslx" />
@@ -127,7 +128,7 @@
   <object name="Classes and Enrollment">
     <isroom />
   </object>
-  
+
   <object name="friends room">
     <inherit name="editor_room" />
     <alias>Friend's Room</alias>
@@ -148,5 +149,5 @@
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
     </object>
   </object>
-  
+
 </asl>
