@@ -12,18 +12,33 @@
     <isroom />
     <object name="Laptop">
       <inherit name="surface" />
+      <inherit name="editor_object" />
       <prefix>a</prefix>
       <look>MacBookPro covered in anime stickers.</look>
       <feature_container />
+      <hidechildren />
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">bedroom</attr>
       <take type="script">
         msg ("You turn it on and hastily close the embarassing tabs that you see")
         AddToInventory (Laptop)
       </take>
-      <hidechildren />
+      <givesingle type="script">
+        msg ("You cannot give away your laptop! The contents are... too embarassing!")
+      </givesingle>
+      <use type="script">
+        Laptop.real_place = player.parent
+        MoveObject (player, SIS home page)
+      </use>
       <object name="Anime stickers">
         <prefix>a</prefix>
+        <look>These stickers make you cringe for a bit. Then you remember they are part of who you are and you cringe even more.</look>
         <take type="script">
-          msg ("As you look at the stickers you regret the direction your life has taken")
+          msg ("As you look the stickers you regret the direction your life has taken")
           AddToInventory (Anime stickers)
         </take>
       </object>
@@ -61,6 +76,23 @@
     </exit>
   </object>
   <object name="SIS home page">
+    <inherit name="editor_room" />
+    <isroom />
+    <description>There are so many buttons on the home screen. Your eyes are melting just thinking of what to click on.</description>
+    <beforeenter type="script">
+      create exit ("Leave", SIS home page, Laptop.real_place)
+    </beforeenter>
+    <onexit type="script">
+      MakeExitInvisible (GetObject(GetExitByLink(SIS home page, Laptop.real_place )))
+    </onexit>
+    <enter type="script">
+      msg ("Wow, this is the SIS! It looks so incredibly messy. Who designed this?")
+    </enter>
+    <exit name="Enrollment tab" alias="Enrollment tab" to="Classes and Enrollment">
+      <suffix type="string"></suffix>
+    </exit>
+  </object>
+  <object name="Classes and Enrollment">
     <isroom />
   </object>
 </asl>
