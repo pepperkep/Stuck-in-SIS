@@ -86,8 +86,14 @@
       MakeExitInvisible (GetObject(GetExitByLink(SIS home page, Laptop.real_place )))
     </onexit>
     <enter type="script">
-      msg ("Wow, this is the SIS! It looks so incredibly messy. Who designed this?")
     </enter>
+    <firstenter type="script">
+      msg ("Wow, this is the SIS! It looks so incredibly messy. Who designed this?")
+      game.autodescription_description = 4
+    </firstenter>
+    <beforefirstenter type="script">
+      game.autodescription_description = 0
+    </beforefirstenter>
     <exit name="Enrollment tab" alias="Enrollment tab" to="Classes and Enrollment">
       <suffix type="string"></suffix>
     </exit>
