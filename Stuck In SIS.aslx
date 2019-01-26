@@ -33,13 +33,13 @@
       </givesingle>
       <use type="script">
         Laptop.real_place = player.parent
-        MoveObject (player, SIS home page)
+        MoveObject (player, Desktop)
       </use>
       <object name="Anime stickers">
         <prefix>a</prefix>
         <look>These stickers make you cringe for a bit. Then you remember they are part of who you are and you cringe even more.</look>
         <take type="script">
-          msg ("As you look the stickers you regret the direction your life has taken")
+          msg ("As you look at the stickers you regret the direction your life has taken")
           AddToInventory (Anime stickers)
         </take>
       </object>
@@ -47,6 +47,8 @@
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
+	  <attr name="num_classes" type="int">0</attr>
+	  <attr name="caffeine" type="int">5</attr>
     </object>
     <exit alias="south" to="hallway">
       <inherit name="southdirection" />
@@ -79,26 +81,33 @@
       <inherit name="eastdirection" />
     </exit>
   </object>
-  <object name="SIS home page">
+  <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
-    <description>There are so many buttons on the home screen. Is this supposed to be a maze?</description>
+    <description>You have several applications open. You definitely opened all of them for a reason have forgotten exactly why.</description>
     <beforeenter type="script">
-      create exit ("Leave", SIS home page, Laptop.real_place)
+      create exit ("Leave", Desktop, Laptop.real_place)
     </beforeenter>
     <onexit type="script">
-      MakeExitInvisible (GetObject(GetExitByLink(SIS home page, Laptop.real_place )))
+      MakeExitInvisible (GetObject(GetExitByLink(Desktop, Laptop.real_place )))
     </onexit>
     <enter type="script">
     </enter>
-    <firstenter type="script">
+    <exit name="Web browser" alias="SIS home page" to="SIS home page">
+      <suffix type="string"></suffix>
+    </exit>
+  </object>
+  <object name = "SIS home page">
+	<isroom />
+	<firstenter type="script">
       msg ("Wow, this is the SIS! It looks so incredibly messy. Who designed this?")
       game.autodescription_description = 4
     </firstenter>
     <beforefirstenter type="script">
       game.autodescription_description = 0
     </beforefirstenter>
-    <exit name="Enrollment tab" alias="Enrollment tab" to="Classes and Enrollment">
+	<description>There are so many buttons on the home screen. Is this supposed to be a maze?</description>
+	<exit name="Enrollment tab" alias="Enrollment tab" to="Classes and Enrollment">
       <suffix type="string"></suffix>
     </exit>
   </object>
