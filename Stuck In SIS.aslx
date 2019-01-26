@@ -1,4 +1,3 @@
-
 <!--Saved by Quest 5.8.6836.13983-->
 <asl version="580">
   <include ref="English.aslx" />
@@ -8,6 +7,7 @@
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
   </game>
+  
   <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
@@ -51,7 +51,22 @@
     <exit alias="south" to="hallway">
       <inherit name="southdirection" />
     </exit>
+    <object name="Alarm Clock">
+      <inherit name="editor_object" />
+      <alt type="stringlist">
+        <value>clock</value>
+        <value>alarm</value>
+      </alt>
+      <take type="boolean">false</take>
+      <feature_usegive />
+      <attr name="feature_switchable" type="boolean">false</attr>
+      <use type="script">
+      </use>
+      <look>It's an alarm clock.</look>
+      <switchedon type="boolean">false</switchedon>
+    </object>
   </object>
+  
   <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
@@ -60,10 +75,14 @@
     <exit alias="west" to="lounge">
       <inherit name="westdirection" />
     </exit>
-	<exit alias="north" to="bedroom">
-		<inherit name="northdirection" />
-	</exit>
+    <exit alias="north" to="bedroom">
+      <inherit name="northdirection" />
+    </exit>
+    <exit alias="south" to="friends room">
+      <inherit name="southdirection" />
+    </exit>
   </object>
+  
   <object name="common room">
     <isroom />
     <object name="table">
@@ -73,12 +92,14 @@
       <inherit name="westdirection" />
     </exit>
   </object>
+  
   <object name="lounge">
     <isroom />
     <exit alias="east" to="hallway">
       <inherit name="eastdirection" />
     </exit>
   </object>
+  
   <object name="SIS home page">
     <inherit name="editor_room" />
     <isroom />
@@ -102,7 +123,30 @@
       <suffix type="string"></suffix>
     </exit>
   </object>
+  
   <object name="Classes and Enrollment">
     <isroom />
   </object>
+  
+  <object name="friends room">
+    <inherit name="editor_room" />
+    <alias>Friend's Room</alias>
+    <descprefix>You are in your friend's room.  It's just as small as yours, but because their bed is lofted it has the illusion of more space. </descprefix>
+    <objectslistprefix>You can see</objectslistprefix>
+    <exit alias="north" to="hallway">
+      <inherit name="northdirection" />
+    </exit>
+    <object name="Coffee Mix">
+      <inherit name="editor_object" />
+      <alt type="stringlist">
+        <value>coffee</value>
+      </alt>
+      <take />
+      <takemsg>You took your friend's coffee. Most people ask before taking other people's things. 
+		AddToInventory (Coffee Mix)
+	  </takemsg>
+      <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
+    </object>
+  </object>
+  
 </asl>
