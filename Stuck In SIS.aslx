@@ -29,17 +29,21 @@
       <inherit name="editor_object" />
       <inherit name="editor_player" />
     </object>
-    <exit name="east" to="hallway"/>
+    <exit alias="east" to="hallway">
+		<inherit name="eastdirection" />
+	</exit>
    </object>
 
  
 
    <object name="hallway">
 	<isroom />
-     <exit name="east" to="common room"/>
-
-     <exit name="west" to="lounge"/>
-
+     <exit alias="east" to="common room">
+		<inherit name="eastdirection" />
+	 </exit>
+     <exit alias="west" to="lounge">
+		<inherit name="westdirection" />
+	 </exit>
    </object>
 
  
@@ -51,20 +55,20 @@
        <look>Scratched up old table</look>
 
      </object>
+	</object>
 
 
 	
 	<object name="lounge">
 		<isroom />
-		<exit name="east" to="hallway" />
+		<exit name="east" to="hallway">
+			<inherit name="eastdirection" />
+		</exit>
 	</object>
 	
 	<object name="SIS home page">
 		<isroom />
-		<exit name="
 	</object>
-	
-  </object>
 
 
 
