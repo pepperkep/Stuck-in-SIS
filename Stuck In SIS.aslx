@@ -8,8 +8,7 @@
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
   </game>
-  
-  <object name="bedroom">
+ <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
     <object name="Laptop">
@@ -36,7 +35,8 @@
         Laptop.real_place = player.parent
         MoveObject (player, Desktop)
       </use>
-      <object name="Anime stickers">
+      
+	  <object name="Anime stickers">
         <prefix>a</prefix>
         <look>These stickers make you cringe for a bit. Then you remember they are part of who you are and you cringe even more.</look>
         <take type="script">
@@ -45,7 +45,8 @@
         </take>
       </object>
     </object>
-    <object name="player">
+   
+   <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
 	  <attr name="num_classes" type="int">0</attr>
@@ -88,8 +89,13 @@
 		</look>
     </object>
   </object>
+<<<<<<< HEAD
   
   <object name="hallway">
+=======
+ 
+ <object name="hallway">
+>>>>>>> 891526f5f6d566e622de96d3dd82d5c7e2adcd77
     <isroom />
     <exit alias="east" to="common room">
       <inherit name="eastdirection" />
@@ -104,12 +110,36 @@
       <inherit name="southdirection" />
     </exit>
   </object>
+<<<<<<< HEAD
   
   <object name="common room">
+=======
+ 
+ <object name="common room">
+>>>>>>> 891526f5f6d566e622de96d3dd82d5c7e2adcd77
     <isroom />
     <object name="table">
       <look>Scratched up old table</look>
     </object>
+	    
+<object name="Major Change Form">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>You see a major change form lying on the ground soaked in tears. A Bad Omen.</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">common room</attr>
+      <take type="script">
+        msg ("You shudder when you grab it.")
+        AddToInventory (Major Change Form)
+      </take>
+	  <givesingle type="script">
+        msg ("Bettet keep this in case things go south.")
+      </givesingle>
     <exit alias="west" to="hallway">
       <inherit name="westdirection" />
     </exit>
@@ -121,7 +151,34 @@
       <inherit name="eastdirection" />
     </exit>
   </object>
+<<<<<<< HEAD
   <object name="Desktop">
+=======
+ 
+	 <object name="Cofee Machine">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>A poorly cleaned Keurig that was recently used.</look>
+      <feature_container />
+      <hidechildren />
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">lounge</attr>
+      <take type="script">
+        msg ("It wouldn't be nice to steal it, but you know that you need it more than others do right now.")
+        AddToInventory (Cofee Machine)
+      </take>
+	  	   <use type="script">
+        GetObject(Cofee)
+      </use>
+	 
+ 
+ <object name="SIS home page">
+>>>>>>> 891526f5f6d566e622de96d3dd82d5c7e2adcd77
     <inherit name="editor_room" />
     <isroom />
     <description>You have several applications open. You definitely opened all of them for a reason have forgotten exactly why.</description>
