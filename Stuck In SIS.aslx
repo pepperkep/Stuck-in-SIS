@@ -62,14 +62,25 @@
       </alt>
       <take type="boolean">false</take>
       <feature_usegive />
+	  <look type="script">
+		<![CDATA[
+			time = "The current time is "
+			if((9 + Alarm Clock.time/60) % 12 = 0) time = time + "12:"
+			else time = time + ((9 + Alarm Clock.time/60) % 12) + ":"
+			if(Alarm Clock.time % 60 < 10) time = time + "0"
+			time = time + Alarm Clock.time % 60
+			msg(time)
+		]]>
+	  </look>
       <attr name="feature_switchable" type="boolean">false</attr>
       <use type="script">
       </use>
+	  <attr name="time" type="int">0</attr>
+	  <attr name="alarms" type="list"></attr>
       <look>It's an alarm clock.</look>
       <switchedon type="boolean">false</switchedon>
     </object>
-	</object>
-	   <object name="Bed">
+	<object name="Bed">
 		<prefix>a</prefix>
 		<look>You shed a tear as you fail to remember the last time your bed was used.</look>
 		<look type="script">
@@ -166,4 +177,12 @@
     </object>
   </object>
   
+  
+  
+  <turnscript name="TimePass">
+    <script>
+      Alarm Clock.time = Alarm Clock.time + 5
+    </script>
+	<enabled />
+  </turnscript>
 </asl>
