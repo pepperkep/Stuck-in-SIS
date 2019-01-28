@@ -89,13 +89,7 @@
 		</look>
     </object>
   </object>
-<<<<<<< HEAD
-  
-  <object name="hallway">
-=======
- 
  <object name="hallway">
->>>>>>> 891526f5f6d566e622de96d3dd82d5c7e2adcd77
     <isroom />
     <exit alias="east" to="common room">
       <inherit name="eastdirection" />
@@ -110,19 +104,13 @@
       <inherit name="southdirection" />
     </exit>
   </object>
-<<<<<<< HEAD
-  
-  <object name="common room">
-=======
- 
  <object name="common room">
->>>>>>> 891526f5f6d566e622de96d3dd82d5c7e2adcd77
     <isroom />
     <object name="table">
       <look>Scratched up old table</look>
     </object>
 	    
-<object name="Major Change Form">
+	<object name="Major Change Form">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -138,23 +126,19 @@
         AddToInventory (Major Change Form)
       </take>
 	  <givesingle type="script">
-        msg ("Bettet keep this in case things go south.")
+        msg ("Better keep this in case things go south.")
       </givesingle>
     <exit alias="west" to="hallway">
       <inherit name="westdirection" />
     </exit>
-  </object>
+   </object>
+ </object>
   
   <object name="lounge">
     <isroom />
     <exit alias="east" to="hallway">
       <inherit name="eastdirection" />
     </exit>
-  </object>
-<<<<<<< HEAD
-  <object name="Desktop">
-=======
- 
 	 <object name="Cofee Machine">
       <inherit name="surface" />
       <inherit name="editor_object" />
@@ -172,13 +156,14 @@
         msg ("It wouldn't be nice to steal it, but you know that you need it more than others do right now.")
         AddToInventory (Cofee Machine)
       </take>
-	  	   <use type="script">
-        GetObject(Cofee)
+	  	<use type="script">
+        //GetObject(Cofee)
       </use>
+	</object>
+ </object>
 	 
  
- <object name="SIS home page">
->>>>>>> 891526f5f6d566e622de96d3dd82d5c7e2adcd77
+ <object name="SIS Desktop">
     <inherit name="editor_room" />
     <isroom />
     <description>You have several applications open. You definitely opened all of them for a reason have forgotten exactly why.</description>
@@ -215,6 +200,7 @@
   
   <object name="friends room">
     <inherit name="editor_room" />
+	<isroom />
     <alias>Friend's Room</alias>
     <descprefix>You are in your friend's room.  It's just as small as yours, but because their bed is lofted it has the illusion of more space. </descprefix>
     <objectslistprefix>You can see</objectslistprefix>
@@ -234,11 +220,34 @@
     </object>
   </object>
   
-  
+  <object name="Sleep">
+	<isroom/>
+	<description>You hallucinate vividly. No you are not going crazy, you are just asleep.</description>
+	<command name="wake">
+		<pattern>wake+|get{1}\sup{1}</pattern>
+		<script>
+			<![CDATA[
+			if(Alarm Clock.time < 720){
+				msg("You feel like there is something you need to wake up for, but you are too tired. You can... just... sleep... a little longer.")
+				Alarm Clock.time = Alarm Clock.time + 59
+			}
+			else{
+				msg("You slept in too late! It's past scheduling time and your next semester might be ruined!")
+				MoveObject(player, Bedroom)
+			}
+			]]>
+		</script>
+	</command>
+  </object>
   
   <turnscript name="TimePass">
     <script>
       Alarm Clock.time = Alarm Clock.time + 5
+	  if(Alarm Clock.time % 60 = 0) player.caffeine = player.caffeine - 1
+	  if(player.caffeine = 0){
+	  MoveObject(player, Sleep)
+	  player.caffeine = 20
+	  }
     </script>
 	<enabled />
   </turnscript>
