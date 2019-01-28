@@ -89,7 +89,8 @@
 		</look>
     </object>
   </object>
- <object name="hallway">
+  
+  <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
       <inherit name="eastdirection" />
@@ -159,11 +160,10 @@
 	  	<use type="script">
         //GetObject(Cofee)
       </use>
-	</object>
- </object>
-	 
+	 </object>
+  </object>
  
- <object name="SIS Desktop">
+ <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
     <description>You have several applications open. You definitely opened all of them for a reason have forgotten exactly why.</description>
@@ -197,7 +197,7 @@
   <object name="Classes and Enrollment">
     <isroom />
   </object>
-  
+
   <object name="friends room">
     <inherit name="editor_room" />
 	<isroom />
@@ -219,7 +219,6 @@
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
     </object>
   </object>
-  
   <object name="Sleep">
 	<isroom/>
 	<description>You hallucinate vividly. No you are not going crazy, you are just asleep.</description>
