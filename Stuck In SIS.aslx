@@ -130,10 +130,10 @@
 	  <givesingle type="script">
         msg ("Better keep this in case things go south.")
       </givesingle>
+	  </object>
     <exit alias="west" to="hallway">
       <inherit name="westdirection" />
     </exit>
-   </object>
  </object>
   
   <object name="lounge">
@@ -220,6 +220,7 @@
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
     </object>
   </object>
+  
   <object name="Sleep">
 	<isroom/>
 	<description>You hallucinate vividly. No you are not going crazy, you are just asleep.</description>
