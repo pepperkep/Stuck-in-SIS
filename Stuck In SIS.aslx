@@ -8,8 +8,7 @@
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
   </game>
-  
-  <object name="bedroom">
+ <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
     <object name="Laptop">
@@ -34,20 +33,24 @@
       </givesingle>
       <use type="script">
         Laptop.real_place = player.parent
-        MoveObject (player, SIS home page)
+        MoveObject (player, Desktop)
       </use>
-      <object name="Anime stickers">
+      
+	  <object name="Anime stickers">
         <prefix>a</prefix>
         <look>These stickers make you cringe for a bit. Then you remember they are part of who you are and you cringe even more.</look>
         <take type="script">
-          msg ("As you look the stickers you regret the direction your life has taken")
+          msg ("As you look at the stickers you regret the direction your life has taken")
           AddToInventory (Anime stickers)
         </take>
       </object>
     </object>
-    <object name="player">
+   
+   <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
+	  <attr name="num_classes" type="int">0</attr>
+	  <attr name="caffeine" type="int">5</attr>
     </object>
     <exit alias="south" to="hallway">
       <inherit name="southdirection" />
@@ -60,11 +63,30 @@
       </alt>
       <take type="boolean">false</take>
       <feature_usegive />
+	  <look type="script">
+		<![CDATA[
+			time = "The current time is "
+			if((9 + Alarm Clock.time/60) % 12 = 0) time = time + "12:"
+			else time = time + ((9 + Alarm Clock.time/60) % 12) + ":"
+			if(Alarm Clock.time % 60 < 10) time = time + "0"
+			time = time + Alarm Clock.time % 60
+			msg(time)
+		]]>
+	  </look>
       <attr name="feature_switchable" type="boolean">false</attr>
       <use type="script">
       </use>
+	  <attr name="time" type="int">0</attr>
+	  <attr name="alarms" type="list"></attr>
       <look>It's an alarm clock.</look>
       <switchedon type="boolean">false</switchedon>
+    </object>
+	<object name="Bed">
+		<prefix>a</prefix>
+		<look>You shed a tear as you fail to remember the last time your bed was used.</look>
+		<look type="script">
+          msg ("The bed is as empty as you are.")
+		</look>
     </object>
   </object>
   
@@ -83,12 +105,30 @@
       <inherit name="southdirection" />
     </exit>
   </object>
-  
   <object name="common room">
     <isroom />
     <object name="table">
       <look>Scratched up old table</look>
     </object>
+	    
+<object name="Major Change Form">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>You see a major change form lying on the ground soaked in tears. A Bad Omen.</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">common room</attr>
+      <take type="script">
+        msg ("You shudder when you grab it.")
+        AddToInventory (Major Change Form)
+      </take>
+	  <givesingle type="script">
+        msg ("Bettet keep this in case things go south.")
+      </givesingle>
     <exit alias="west" to="hallway">
       <inherit name="westdirection" />
     </exit>
@@ -100,27 +140,57 @@
       <inherit name="eastdirection" />
     </exit>
   </object>
-  
-  <object name="SIS home page">
+
+	 <object name="Cofee Machine">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>A poorly cleaned Keurig that was recently used.</look>
+      <feature_container />
+      <hidechildren />
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">lounge</attr>
+      <take type="script">
+        msg ("It wouldn't be nice to steal it, but you know that you need it more than others do right now.")
+        AddToInventory (Cofee Machine)
+      </take>
+	  	   <use type="script">
+        GetObject(Cofee)
+      </use>
+	 </object>
+  </object>
+ 
+ <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
-    <description>There are so many buttons on the home screen. Is this supposed to be a maze?</description>
+    <description>You have several applications open. You definitely opened all of them for a reason have forgotten exactly why.</description>
     <beforeenter type="script">
-      create exit ("Leave", SIS home page, Laptop.real_place)
+      create exit ("Leave", Desktop, Laptop.real_place)
     </beforeenter>
     <onexit type="script">
-      MakeExitInvisible (GetObject(GetExitByLink(SIS home page, Laptop.real_place )))
+      MakeExitInvisible (GetObject(GetExitByLink(Desktop, Laptop.real_place )))
     </onexit>
     <enter type="script">
     </enter>
-    <firstenter type="script">
+    <exit name="Web browser" alias="SIS home page" to="SIS home page">
+      <suffix type="string"></suffix>
+    </exit>
+  </object>
+  <object name = "SIS home page">
+	<isroom />
+	<firstenter type="script">
       msg ("Wow, this is the SIS! It looks so incredibly messy. Who designed this?")
       game.autodescription_description = 4
     </firstenter>
     <beforefirstenter type="script">
       game.autodescription_description = 0
     </beforefirstenter>
-    <exit name="Enrollment tab" alias="Enrollment tab" to="Classes and Enrollment">
+	<description>There are so many buttons on the home screen. Is this supposed to be a maze?</description>
+	<exit name="Enrollment tab" alias="Enrollment tab" to="Classes and Enrollment">
       <suffix type="string"></suffix>
     </exit>
   </object>
@@ -150,4 +220,10 @@
     </object>
   </object>
 
+  <turnscript name="TimePass">
+    <script>
+      Alarm Clock.time = Alarm Clock.time + 5
+    </script>
+	<enabled />
+  </turnscript>
 </asl>
