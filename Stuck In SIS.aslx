@@ -71,11 +71,12 @@
  
  <object name="common room">
     <isroom />
-    <object name="table">
+   
+   <object name="table">
       <look>Scratched up old table</look>
     </object>
 	    
-<object name="Major Change Form">
+   <object name="Major Change Form">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -90,29 +91,24 @@
         msg ("You shudder when you grab it.")
         AddToInventory (Major Change Form)
       </take>
-	  <givesingle type="script">
-        msg ("Bettet keep this in case things go south.")
-      </givesingle>
-    <exit alias="west" to="hallway">
+        </object>
+   <exit alias="west" to="hallway">
       <inherit name="westdirection" />
     </exit>
   </object>
+ 
+ 
   
   <object name="lounge">
     <isroom />
-    <exit alias="east" to="hallway">
-      <inherit name="eastdirection" />
-    </exit>
-  </object>
- 
-	 <object name="Cofee Machine">
+		 <object name="Cofee Machine">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
       <look>A poorly cleaned Keurig that was recently used.</look>
       <feature_container />
       <hidechildren />
-      <inventoryverbs type="stringlist">
+     <inventoryverbs type="stringlist">
         <value>Look at</value>
         <value>Use</value>
       </inventoryverbs>
@@ -122,9 +118,13 @@
         msg ("It wouldn't be nice to steal it, but you know that you need it more than others do right now.")
         AddToInventory (Cofee Machine)
       </take>
-	  	   <use type="script">
-        GetObject(Cofee)
-      </use>
+	  </object>
+    <exit alias="east" to="hallway">
+      <inherit name="eastdirection" />
+    </exit>
+  </object>
+ 
+	
 	 
  
  <object name="SIS home page">
