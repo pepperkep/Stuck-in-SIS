@@ -89,13 +89,8 @@
 		</look>
     </object>
   </object>
-<<<<<<< HEAD
   
   <object name="hallway">
-=======
- 
- <object name="hallway">
->>>>>>> 891526f5f6d566e622de96d3dd82d5c7e2adcd77
     <isroom />
     <exit alias="east" to="common room">
       <inherit name="eastdirection" />
@@ -110,13 +105,7 @@
       <inherit name="southdirection" />
     </exit>
   </object>
-<<<<<<< HEAD
-  
   <object name="common room">
-=======
- 
- <object name="common room">
->>>>>>> 891526f5f6d566e622de96d3dd82d5c7e2adcd77
     <isroom />
     <object name="table">
       <look>Scratched up old table</look>
@@ -151,10 +140,7 @@
       <inherit name="eastdirection" />
     </exit>
   </object>
-<<<<<<< HEAD
-  <object name="Desktop">
-=======
- 
+
 	 <object name="Cofee Machine">
       <inherit name="surface" />
       <inherit name="editor_object" />
@@ -175,10 +161,10 @@
 	  	   <use type="script">
         GetObject(Cofee)
       </use>
-	 
+	 </object>
+  </object>
  
- <object name="SIS home page">
->>>>>>> 891526f5f6d566e622de96d3dd82d5c7e2adcd77
+ <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
     <description>You have several applications open. You definitely opened all of them for a reason have forgotten exactly why.</description>
@@ -212,7 +198,7 @@
   <object name="Classes and Enrollment">
     <isroom />
   </object>
-  
+
   <object name="friends room">
     <inherit name="editor_room" />
     <alias>Friend's Room</alias>
@@ -233,9 +219,7 @@
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
     </object>
   </object>
-  
-  
-  
+
   <turnscript name="TimePass">
     <script>
       Alarm Clock.time = Alarm Clock.time + 5
