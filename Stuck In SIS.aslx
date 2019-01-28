@@ -257,14 +257,13 @@
         msg ("Better keep this in case things go south.")
 
       </givesingle>
-
+     </object>
     <exit alias="west" to="hallway">
 
       <inherit name="westdirection" />
 
     </exit>
 
-   </object>
 
  </object>
 
