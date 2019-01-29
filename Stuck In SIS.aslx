@@ -306,13 +306,12 @@
 
      </object>
 
-	  </object>
-
     <exit alias="west" to="hallway">
 
       <inherit name="westdirection" />
 
     </exit>
+	</object>
 
 
 
@@ -432,6 +431,8 @@
 
     </exit>
 
+	<exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid"></exit>
+
   </object>
 
   
@@ -439,6 +440,7 @@
   <object name="Classes and Enrollment">
 
     <isroom />
+
 	
 	<object name="EECS 340">
 
@@ -713,10 +715,33 @@
         msg ("Maybe you'll get the class if you sell your kidney to the professor." )
 
       </take>
+	  </object>
 	 
-     </object>
-	 
-
+	<description>Is there anything scarier than having to plan your future?</description>
+  </object>
+  
+  <object name="Financial Aid">
+	<isroom />
+	<exit name="view bill" alias="view bill" to="bill"></exit>
+  </object>
+  
+  <object name="bill">
+	<isroom/>
+	<description>The bill is too high. You need to react to maintain your sanity.</description>
+	<command name="sob">
+		<pattern>cry+|sob+</pattern>
+		<script>
+			msg("You cry as hard as you can, but the bill remains too high. You try to forget you looked at it and go back to the SIS main page")
+			MoveObject(player, SIS home page)
+		</script>
+	</command>
+	<command name="yell">
+		<pattern>yell+|scream+</pattern>
+		<script>
+			msg("You let out your loudest scream, but Babs cannot hear it and thus nothing changes. You go back to the SIS main page")
+			MoveObject(player, SIS home page)
+		</script>
+	</command>
   </object>
 
 
@@ -809,7 +834,7 @@
 
       Alarm Clock.time = Alarm Clock.time + 5
 
-	  if(Alarm Clock.time % 60 = 0) player.caffeine = player.caffeine - 1
+	  if(Alarm Clock.time % 60 = 0) player.caffeine = player.caffeine - 1s
 
 	  if(player.caffeine = 0){
 
