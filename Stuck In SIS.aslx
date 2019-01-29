@@ -105,6 +105,7 @@
       <inherit name="southdirection" />
     </exit>
   </object>
+  
  <object name="common room">
     <isroom />
     <object name="table">
@@ -129,10 +130,10 @@
 	  <givesingle type="script">
         msg ("Better keep this in case things go south.")
       </givesingle>
+	  </object>
     <exit alias="west" to="hallway">
       <inherit name="westdirection" />
     </exit>
-   </object>
  </object>
   
   <object name="lounge">
@@ -166,7 +167,7 @@
  <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
-    <description>You have several applications open. You definitely opened all of them for a reason but have forgotten exactly why.</description>
+    <description>You have several applications open. You definitely opened all of them for a reason, but have forgotten exactly why.</description>
     <beforeenter type="script">
       create exit ("Leave", Desktop, Laptop.real_place)
     </beforeenter>
