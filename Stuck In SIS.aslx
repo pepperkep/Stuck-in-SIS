@@ -1,4 +1,3 @@
-
 <!--Saved by Quest 5.8.6836.13983-->
 <asl version="580">
   <include ref="English.aslx" />
@@ -8,7 +7,6 @@
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
   </game>
-  
   <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
@@ -61,21 +59,16 @@
       <take type="boolean">false</take>
       <feature_usegive />
       <attr name="feature_switchable" type="boolean">false</attr>
-      <use type="script">
-      </use>
       <look>It's an alarm clock.</look>
       <switchedon type="boolean">false</switchedon>
+      <use type="script">
+      </use>
     </object>
-	</object>
-	   <object name="Bed">
-		<prefix>a</prefix>
-		<look>You shed a tear as you fail to remember the last time your bed was used.</look>
-		<look type="script">
-          msg ("The bed is as empty as you are.")
-		</look>
+    <object name="Bed">
+      <inherit name="editor_object" />
+      <look>You shed a tear as you fail to remember the last time your bed was used</look>
     </object>
   </object>
-  
   <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
@@ -91,7 +84,6 @@
       <inherit name="southdirection" />
     </exit>
   </object>
-  
   <object name="common room">
     <isroom />
     <object name="table">
@@ -101,14 +93,12 @@
       <inherit name="westdirection" />
     </exit>
   </object>
-  
   <object name="lounge">
     <isroom />
     <exit alias="east" to="hallway">
       <inherit name="eastdirection" />
     </exit>
   </object>
-  
   <object name="SIS home page">
     <inherit name="editor_room" />
     <isroom />
@@ -132,11 +122,10 @@
       <suffix type="string"></suffix>
     </exit>
   </object>
-  
   <object name="Classes and Enrollment">
     <isroom />
+    <exit alias="Student Registration" to="Class Search" />
   </object>
-  
   <object name="friends room">
     <inherit name="editor_room" />
     <alias>Friend's Room</alias>
@@ -151,11 +140,14 @@
         <value>coffee</value>
       </alt>
       <take />
-      <takemsg>You took your friend's coffee. Most people ask before taking other people's things. 
+      <takemsg>
+	    msg("You took your friend's coffee. Most people ask before taking other people's things.")
 		AddToInventory (Coffee Mix)
-	  </takemsg>
+	        </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
     </object>
   </object>
-  
+  <object name="Class Search">
+    <inherit name="editor_room" />
+  </object>
 </asl>
