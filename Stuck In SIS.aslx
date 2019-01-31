@@ -41,8 +41,7 @@
         Laptop.real_place = player.parent
         MoveObject (player, Desktop)
       </use>
-      
-	  <object name="Anime stickers">
+      <object name="Anime stickers">
         <prefix>a</prefix>
         <look>These stickers make you cringe for a bit. Then you remember they are part of who you are and you cringe even more.</look>
         <take type="script">
@@ -51,12 +50,11 @@
         </take>
       </object>
     </object>
-   
-   <object name="player">
+    <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
-	  <attr name="num_classes" type="int">0</attr>
-	  <attr name="caffeine" type="int">5</attr>
+      <attr name="num_classes" type="int">0</attr>
+      <caffeine type="int">5</caffeine>
     </object>
     <exit alias="south" to="hallway">
       <inherit name="southdirection" />
@@ -126,12 +124,36 @@
         }
       </set>
     </object>
-	<object name="Bed">
-		<prefix>a</prefix>
-		<look>You shed a tear as you fail to remember the last time your bed was used.</look>
-		<look type="script">
-          msg ("The bed is as empty as you are.")
-		</look>
+    <object name="Bed">
+      <prefix>a</prefix>
+      <look type="script">
+        msg ("The bed is as empty as you are.")
+      </look>
+      <feature_usegive />
+      <use type="script">
+      </use>
+    </object>
+    <object name="Journal">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>You see your journal which has some of your deepest darkest secrets...and some fanfiction.</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">common room</attr>
+      <take type="script">
+        msg ("Might have some important info in it.")
+        AddToInventory (Journal)
+      </take>
+      <givesingle type="script">
+        msg ("You can't possibly let your Pride and Prejudice fanfiction fall into the wrong hands!")
+      </givesingle>
+      <use type="script">
+        msg ("On the first page you flip open to you see some hastily scrawled notes.'Need a few CS courses, a SAGES and a humanities. Thank God that I don't need a math course.'")
+      </use>
     </object>
 	<object name="Journal">
 		   <inherit name="surface" />
@@ -156,7 +178,7 @@
       </use>
      </object>
   </object>
- 
+
   <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
@@ -178,8 +200,7 @@
     <object name="table">
       <look>Scratched up old table</look>
     </object>
-	    
-	<object name="Major Change Form">
+    <object name="Major Change Form">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -194,22 +215,21 @@
         msg ("You shudder when you grab it.")
         AddToInventory (Major Change Form)
       </take>
-	  <givesingle type="script">
+      <givesingle type="script">
         msg ("Better keep this in case things go south.")
       </givesingle>
-     </object>
+    </object>
     <exit alias="west" to="hallway">
       <inherit name="westdirection" />
     </exit>
-   </object>
+  </object>
 
-  
   <object name="lounge">
     <isroom />
     <exit alias="east" to="hallway">
       <inherit name="eastdirection" />
     </exit>
-	 <object name="Cofee Machine">
+    <object name="Cofee Machine">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -226,10 +246,16 @@
         msg ("It wouldn't be nice to steal it, but you know that you need it more than others do right now.")
         AddToInventory (Cofee Machine)
       </take>
-	  	<use type="script">
-        //GetObject(Cofee)
-      </use>
-	 </object>
+      <use type="boolean">false</use>
+      <useon type="scriptdictionary">
+        <item key="Cofee Mix">
+          MoveObjectHere (Coffee)
+          AddToInventory (Coffee)
+          RemoveObject (Cofee Machine)
+          OutputTextNoBr ("One Caramel Macchiato with a doubleshot of espresso and vanilla topped coming up!")
+        </item>
+      </useon>
+    </object>
   </object>
 
  <object name="Desktop">
@@ -249,27 +275,26 @@
     </exit>
   </object>
 
-  <object name = "SIS home page">
-	<isroom />
-	<firstenter type="script">
+  <object name="SIS home page">
+    <isroom />
+    <description>There are so many buttons on the home screen. Is this supposed to be a maze?</description>
+    <firstenter type="script">
       msg ("Wow, this is the SIS! It looks so incredibly messy. Who designed this?")
       game.autodescription_description = 4
     </firstenter>
     <beforefirstenter type="script">
       game.autodescription_description = 0
     </beforefirstenter>
-	<description>There are so many buttons on the home screen. Is this supposed to be a maze?</description>
-	<exit name="Enrollment tab" alias="Enrollment tab" to="Classes and Enrollment">
+    <exit name="Enrollment tab" alias="Enrollment tab" to="Classes and Enrollment">
       <suffix type="string"></suffix>
     </exit>
-	<exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid"></exit>
+    <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
   </object>
 
   <object name="Classes and Enrollment">
     <isroom />
-
-
-	<object name="EECS 340">
+    <description>Is there anything scarier than having to plan your future?</description>
+    <object name="EECS 340">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -284,11 +309,11 @@
         msg ("Course Added.Better grab it before some freshman does.")
         AddToInventory (EECS 340)
       </take>
-	  <givesingle type="script">
+      <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
       </givesingle>
-     </object>
-	 <object name="EECS 255">
+    </object>
+    <object name="EECS 255">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -303,12 +328,11 @@
         msg ("Course Added.You grab it, thanking the gods for making add/drop. ")
         AddToInventory (EECS 255)
       </take>
-	  <givesingle type="script">
+      <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
       </givesingle>
-     </object>
-	
-	 <object name="Boring SAGES">
+    </object>
+    <object name="Boring SAGES">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -323,11 +347,11 @@
         msg ("Taken. At least it's your last SAGES ")
         AddToInventory (Boring SAGES)
       </take>
-	  <givesingle type="script">
+      <givesingle type="script">
         msg ("Yeah sure, if you want to spend an extra semester paying tuition.")
       </givesingle>
-     </object>
-	 	 <object name="EECS 290">
+    </object>
+    <object name="EECS 290">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -339,10 +363,10 @@
       <feature_usegive />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
-        msg ("Why would you try to take a course that you're in currently. Do you have that litle faith in yourself, huh?!" )
+        msg ("Why would you try to take a course that you're in currently. Do you have that litle faith in yourself, huh?!")
       </take>
-     </object>
-	 	 <object name="MATH 122">
+    </object>
+    <object name="MATH 122">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -357,7 +381,7 @@
         msg ("You've already had your lifetime's worth of integrals.No need for more.")
       </take>
      </object>
-	 	 <object name="FRCH 404">
+	 <object name="FRCH 404">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -372,11 +396,11 @@
         msg (" Cours Ajouter. Cette classe est dans ton baguette! ")
         AddToInventory (FRCH 404)
       </take>
-	  <givesingle type="script">
+      <givesingle type="script">
         msg ("Non, mon ami.")
       </givesingle>
-     </object>
-	 	 <object name="HIST 307">
+    </object>
+    <object name="HIST 307">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -407,34 +431,31 @@
       <feature_usegive />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
-        msg ("Maybe you'll get the class if you sell your kidney to the professor." )
+        msg ("Maybe you'll get the class if you sell your kidney to the professor.")
       </take>
-	  </object>
-	<description>Is there anything scarier than having to plan your future?</description>
+    </object>
   </object>
-  
   <object name="Financial Aid">
-	<isroom />
-	<exit name="view bill" alias="view bill" to="bill"></exit>
+    <isroom />
+    <exit name="view bill" alias="view bill" to="bill" />
   </object>
-  
   <object name="bill">
-	<isroom/>
-	<description>The bill is too high. You need to react to maintain your sanity.</description>
-	<command name="sob">
-		<pattern>cry+|sob+</pattern>
-		<script>
-			msg("You cry as hard as you can, but the bill remains too high. You try to forget you looked at it and go back to the SIS main page")
-			MoveObject(player, SIS home page)
-		</script>
-	</command>
-	<command name="yell">
-		<pattern>yell+|scream+</pattern>
-		<script>
-			msg("You let out your loudest scream, but Babs cannot hear it and thus nothing changes. You go back to the SIS main page")
-			MoveObject(player, SIS home page)
-		</script>
-	</command>
+    <isroom />
+    <description>The bill is too high. You need to react to maintain your sanity.</description>
+    <command name="sob">
+      <pattern>cry+|sob+</pattern>
+      <script>
+        msg ("You cry as hard as you can, but the bill remains too high. You try to forget you looked at it and go back to the SIS main page")
+        MoveObject (player, SIS home page)
+      </script>
+    </command>
+    <command name="yell">
+      <pattern>yell+|scream+</pattern>
+      <script>
+        msg ("You let out your loudest scream, but Babs cannot hear it and thus nothing changes. You go back to the SIS main page")
+        MoveObject (player, SIS home page)
+      </script>
+    </command>
   </object>
 
   <object name="Mike's room">
@@ -454,42 +475,77 @@
       <take />
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things. 
 		AddToInventory (Coffee Mix)
-	  </takemsg>
+	        </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
+      <feature_usegive />
+      <use type="script">
+      </use>
+      <selfuseon type="scriptdictionary">
+        <item key="Coffee Machine">
+          msg ("One Caramel Macchiato with a doubleshot of espresso and vanilla coming up!")
+          MoveObjectHere (Coffee)
+          AddToInventory (Coffee)
+          RemoveObject (Coffee Mix)
+        </item>
+      </selfuseon>
     </object>
   </object>
 
   <object name="Sleep">
-	<isroom/>
-	<description>You hallucinate vividly. No you are not going crazy, you are just asleep.</description>
-	<command name="wake">
-		<pattern>wake+|get{1}\sup{1}</pattern>
-		<script>
-			<![CDATA[
-			if(Alarm Clock.time < 720){
-				msg("You feel like there is something you need to wake up for, but you are too tired. You can... just... sleep... a little longer.")
-				Alarm Clock.time = Alarm Clock.time + 59
-			}
-			else{
-				msg("You slept in too late! It's past scheduling time and your next semester might be ruined!")
-				MoveObject(player, Bedroom)
-			}
-			]]>
-		</script>
-	</command>
+    <isroom />
+    <description>You hallucinate vividly. No you are not going crazy, you are just asleep.</description>
+    <command name="wake">
+      <pattern>wake+|get{1}\sup{1}</pattern>
+      <script><![CDATA[
+        if (Alarm Clock.time < 720) {
+          msg ("You feel like there is something you need to wake up for, but you are too tired. You can... just... sleep... a little longer.")
+          Alarm Clock.time = Alarm Clock.time + 59
+        }
+        else {
+          msg ("You slept in too late! It's past scheduling time and your next semester might be ruined!")
+          MoveObject (player, bedroom)
+        }
+      ]]></script>
+    </command>
   </object>
 
-  
-
   <turnscript name="TimePass">
-    <script>
+    <enabled />
+    <script><![CDATA[
       Alarm Clock.time = Alarm Clock.time + 5
-	  if(Alarm Clock.time % 60 = 0) player.caffeine = player.caffeine - 1
-	  if(player.caffeine = 0){
-	  MoveObject(player, Sleep)
-	  player.caffeine = 20
+      if (Alarm Clock.time % 60 = 0) {
+        player.caffeine = player.caffeine - 1
+      }
+      if (player.caffeine = 0) {
+        MoveObject (player, Sleep)
+        player.caffeine = 20
+      }
+	  removeTime = -1
+	  foreach(time, Alarm Clock.alarms){
+		if (time < Alarm Clock.time){
+			removeTime = time
+			if (player.parent = Sleep){
+				msg("You were asleep and an alarm went off")
+			}
+			else{
+				msg("That alarms you set just went off! Did you really think you would be asleep now?")
+			}
+		}
 	  }
-    </script>
-	<enabled />
+	  if(not (removeTime = -1)){
+		list remove(Alarm Clock.alarms, removeTime)
+	  }
+    ]]></script>
   </turnscript>
+  
+  <object name="Coffee">
+    <inherit name="editor_object" />
+    <feature_edible />
+    <feature_usegive />
+    <eatmsg>I'm probably going to pass out during my classes tomorrow, but at least I will be awake for registration.</eatmsg>
+    <look>It's absolutely brimming with caffeine. Better drink it while its warm!</look>
+    <take />
+    <use type="script">
+    </use>
+  </object>
 </asl>
