@@ -46,7 +46,7 @@
       </alt>
       <object name="Anime stickers">
         <prefix>a</prefix>
-        <look>These stickers make you cringe for a bit. Then you remember they are part of who you are and you cringe even more.</look>
+        <look>These stickers make you cringe for a bit. After that,you remember that they are part of who you are, and you cringe even more.</look>
         <take type="script">
           msg ("As you look at the stickers you regret the direction your life has taken")
           AddToInventory (Anime stickers)
@@ -148,7 +148,7 @@
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
-      <look>You see your journal which has some of your deepest darkest secrets...and some fanfiction.</look>
+      <look>You see your journal which has some of your deepest darkest secrets ... and some fanfiction.</look>
       <inventoryverbs type="stringlist">
         <value>Look at</value>
         <value>Use</value>
@@ -192,7 +192,7 @@
   <object name="common room">
     <isroom />
     <object name="table">
-      <look>Scratched up old table</look>
+      <look>It's a scratched up old table</look>
       <alt type="stringlist">
         <value>Table</value>
       </alt>
@@ -201,7 +201,7 @@
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
-      <look>You see a major change form lying on the ground soaked in tears. A Bad Omen.</look>
+      <look>You see a major change form lying on the ground soaked in tears.  You try not to think about how this could be a bad omen.</look>
       <inventoryverbs type="stringlist">
         <value>Look at</value>
         <value>Use</value>
