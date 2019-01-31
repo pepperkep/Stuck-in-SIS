@@ -178,10 +178,15 @@
         msg ("It wouldn't be nice to steal it, but you know that you need it more than others do right now.")
         AddToInventory (Cofee Machine)
       </take>
-      <use type="script">
-        // GetObject(Cofee)
-      </use>
-      <useon>One large Caramel Macchiato with a double shot of vanilla and espresso coming up!</useon>
+      <use type="boolean">false</use>
+      <useon type="scriptdictionary">
+        <item key="Cofee Mix">
+          MoveObjectHere (Coffee)
+          AddToInventory (Coffee)
+          RemoveObject (Cofee Machine)
+          OutputTextNoBr ("One Caramel Macchiato with a doubleshot of espresso and vanilla topped coming up!")
+        </item>
+      </useon>
     </object>
   </object>
   <object name="Desktop">
@@ -401,6 +406,16 @@
 	        </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
+      <use type="script">
+      </use>
+      <selfuseon type="scriptdictionary">
+        <item key="Cofee Machine">
+          msg ("One Caramel Macchiato with a doubleshot of espresso and vanilla coming up!")
+          MoveObjectHere (Coffee)
+          AddToInventory (Coffee)
+          RemoveObject (Coffee Mix)
+        </item>
+      </selfuseon>
     </object>
   </object>
   <object name="Sleep">
@@ -433,4 +448,14 @@
       }
     </script>
   </turnscript>
+  <object name="Coffee">
+    <inherit name="editor_object" />
+    <feature_edible />
+    <feature_usegive />
+    <eatmsg>I'm probably going to pass out during my classes tomorrow, but at least I will be awake for registration.</eatmsg>
+    <look>It's absolutely brimming with caffeine. Better drink it while its warm!</look>
+    <take />
+    <use type="script">
+    </use>
+  </object>
 </asl>
