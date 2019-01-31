@@ -7,14 +7,12 @@
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
   </game>
-
   <verb>
-	<property>set</property>
-	<pattern>set</pattern>
-	<defaultexpression>You cannot just set any object!</defaultexpression>
+    <property>set</property>
+    <pattern>set</pattern>
+    <defaultexpression>You cannot just set any object!</defaultexpression>
   </verb>
-  
- <object name="bedroom">
+  <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
     <object name="Laptop">
@@ -41,13 +39,21 @@
         Laptop.real_place = player.parent
         MoveObject (player, Desktop)
       </use>
+      <alt type="stringlist">
+        <value>computer</value>
+        <value>Laptop</value>
+        <value>Computer</value>
+      </alt>
       <object name="Anime stickers">
         <prefix>a</prefix>
-        <look>These stickers make you cringe for a bit. Then you remember they are part of who you are and you cringe even more.</look>
+        <look>These stickers make you cringe for a bit. After that,you remember that they are part of who you are, and you cringe even more.</look>
         <take type="script">
           msg ("As you look at the stickers you regret the direction your life has taken")
           AddToInventory (Anime stickers)
         </take>
+        <alt type="stringlist">
+          <value>stickers</value>
+        </alt>
       </object>
     </object>
     <object name="player">
@@ -59,17 +65,20 @@
     <exit alias="south" to="hallway">
       <inherit name="southdirection" />
     </exit>
-<object name="Alarm Clock">
+    <object name="Alarm Clock">
       <inherit name="editor_object" />
       <alt type="stringlist">
         <value>clock</value>
         <value>alarm</value>
+        <value>Clock</value>
+        <value>Alarm</value>
       </alt>
       <take type="boolean">false</take>
       <feature_usegive />
       <attr name="feature_switchable" type="boolean">false</attr>
       <time type="int">0</time>
-      <alarms type="list"></alarms>
+      <alarms type="list" />
+      <switchedon type="boolean">false</switchedon>
       <look type="script"><![CDATA[
         time = "The current time is "
         if ((9 + Alarm Clock.time/60) % 12 = 0) {
@@ -84,7 +93,6 @@
         time = time + Alarm Clock.time % 60
         msg (time)
       ]]></look>
-      <switchedon type="boolean">false</switchedon>
       <use type="script">
       </use>
       <set type="script">
@@ -126,18 +134,21 @@
     </object>
     <object name="Bed">
       <prefix>a</prefix>
+      <feature_usegive />
       <look type="script">
         msg ("The bed is as empty as you are.")
       </look>
-      <feature_usegive />
       <use type="script">
       </use>
+      <alt type="stringlist">
+        <value>bed</value>
+      </alt>
     </object>
     <object name="Journal">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
-      <look>You see your journal which has some of your deepest darkest secrets...and some fanfiction.</look>
+      <look>You see your journal which has some of your deepest darkest secrets ... and some fanfiction.</look>
       <inventoryverbs type="stringlist">
         <value>Look at</value>
         <value>Use</value>
@@ -154,31 +165,15 @@
       <use type="script">
         msg ("On the first page you flip open to you see some hastily scrawled notes.'Need a few CS courses, a SAGES and a humanities. Thank God that I don't need a math course.'")
       </use>
+      <alt type="stringlist">
+        <value>journal</value>
+        <value>log</value>
+        <value>Log</value>
+        <value>diary</value>
+        <value>Diary</value>
+      </alt>
     </object>
-	<object name="Journal">
-		   <inherit name="surface" />
-      <inherit name="editor_object" />
-      <prefix>a</prefix>
-      <look>You see your journal which has some of your deepest darkest secrets...and some fanfiction.</look>
-      <inventoryverbs type="stringlist">
-        <value>Look at</value>
-        <value>Use</value>
-      </inventoryverbs>
-      <feature_usegive />
-      <attr name="real_place" type="object">common room</attr>
-      <take type="script">
-        msg ("Might have some important info in it.")
-        AddToInventory (Journal)
-      </take>
-	  <givesingle type="script">
-        msg ("You can't possibly let your Pride and Prejudice fanfiction fall into the wrong hands!")
-      </givesingle>
-	  <use type="script">
-       msg("On the first page you flip open to you see some hastily scrawled notes.'Need a few CS courses, a SAGES and a humanities. Thank God that I don't need a math course.'")
-      </use>
-     </object>
   </object>
-
   <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
@@ -194,17 +189,19 @@
       <inherit name="southdirection" />
     </exit>
   </object>
-
- <object name="common room">
+  <object name="common room">
     <isroom />
     <object name="table">
-      <look>Scratched up old table</look>
+      <look>It's a scratched up old table</look>
+      <alt type="stringlist">
+        <value>Table</value>
+      </alt>
     </object>
     <object name="Major Change Form">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
-      <look>You see a major change form lying on the ground soaked in tears. A Bad Omen.</look>
+      <look>You see a major change form lying on the ground soaked in tears.  You try not to think about how this could be a bad omen.</look>
       <inventoryverbs type="stringlist">
         <value>Look at</value>
         <value>Use</value>
@@ -218,18 +215,21 @@
       <givesingle type="script">
         msg ("Better keep this in case things go south.")
       </givesingle>
+      <alt type="stringlist">
+        <value>form</value>
+        <value>Form</value>
+      </alt>
     </object>
     <exit alias="west" to="hallway">
       <inherit name="westdirection" />
     </exit>
   </object>
-
   <object name="lounge">
     <isroom />
     <exit alias="east" to="hallway">
       <inherit name="eastdirection" />
     </exit>
-    <object name="Cofee Machine">
+    <object name="Coffee Machine">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -241,12 +241,12 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <use type="boolean">false</use>
       <attr name="real_place" type="object">lounge</attr>
       <take type="script">
         msg ("It wouldn't be nice to steal it, but you know that you need it more than others do right now.")
         AddToInventory (Cofee Machine)
       </take>
-      <use type="boolean">false</use>
       <useon type="scriptdictionary">
         <item key="Cofee Mix">
           MoveObjectHere (Coffee)
@@ -255,10 +255,16 @@
           OutputTextNoBr ("One Caramel Macchiato with a doubleshot of espresso and vanilla topped coming up!")
         </item>
       </useon>
+      <alt type="stringlist">
+        <value>coffee machine</value>
+        <value>machine</value>
+        <value>Machine</value>
+        <value>coffee Machine</value>
+        <value>Coffee Machine</value>
+      </alt>
     </object>
   </object>
-
- <object name="Desktop">
+  <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
     <description>You have several applications open. You definitely opened all of them for a reason, but have forgotten exactly why.</description>
@@ -274,7 +280,6 @@
       <suffix type="string"></suffix>
     </exit>
   </object>
-
   <object name="SIS home page">
     <isroom />
     <description>There are so many buttons on the home screen. Is this supposed to be a maze?</description>
@@ -290,7 +295,6 @@
     </exit>
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
   </object>
-
   <object name="Classes and Enrollment">
     <isroom />
     <description>Is there anything scarier than having to plan your future?</description>
@@ -312,6 +316,11 @@
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
       </givesingle>
+      <alt type="stringlist">
+        <value>340</value>
+        <value>Algorithms</value>
+        <value>algorithms</value>
+      </alt>
     </object>
     <object name="EECS 255">
       <inherit name="surface" />
@@ -365,6 +374,11 @@
       <take type="script">
         msg ("Why would you try to take a course that you're in currently. Do you have that litle faith in yourself, huh?!")
       </take>
+      <alt type="stringlist">
+        <value>game design</value>
+        <value>Game Design</value>
+        <value>Intro to Game Design</value>
+      </alt>
     </object>
     <object name="MATH 122">
       <inherit name="surface" />
@@ -380,8 +394,8 @@
       <take type="script">
         msg ("You've already had your lifetime's worth of integrals.No need for more.")
       </take>
-     </object>
-	 <object name="FRCH 404">
+    </object>
+    <object name="FRCH 404">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -415,11 +429,11 @@
         msg ("Course Added. Now you can become educated in the gnomery of the Netherlands. ")
         AddToInventory (HIST 307)
       </take>
-	  <givesingle type="script">
+      <givesingle type="script">
         msg ("Wait, but how else will you learn about the gnomery of the Netherlands?!")
       </givesingle>
-	  </object>
-	  <object name="An Interesting SAGES">
+    </object>
+    <object name="An Interesting SAGES">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -457,10 +471,9 @@
       </script>
     </command>
   </object>
-
   <object name="Mike's room">
     <inherit name="editor_room" />
-	<isroom />
+    <isroom />
     <alias>Mike's Room</alias>
     <descprefix>You are in your friend Mike's room. You like him because his name is short for Micycle.  It's just as small as yours, but because their bed is lofted it has the illusion of more space. </descprefix>
     <objectslistprefix>You can see</objectslistprefix>
@@ -471,17 +484,20 @@
       <inherit name="editor_object" />
       <alt type="stringlist">
         <value>coffee</value>
+        <value>mix</value>
+        <value>Coffee</value>
+        <value>Mix</value>
       </alt>
       <take />
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things. 
 		AddToInventory (Coffee Mix)
-	        </takemsg>
+	              </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
       <use type="script">
       </use>
       <selfuseon type="scriptdictionary">
-        <item key="Cofee Machine">
+        <item key="Coffee Machine">
           msg ("One Caramel Macchiato with a doubleshot of espresso and vanilla coming up!")
           MoveObjectHere (Coffee)
           AddToInventory (Coffee)
@@ -490,7 +506,6 @@
       </selfuseon>
     </object>
   </object>
-
   <object name="Sleep">
     <isroom />
     <description>You hallucinate vividly. No you are not going crazy, you are just asleep.</description>
@@ -508,7 +523,6 @@
       ]]></script>
     </command>
   </object>
-
   <turnscript name="TimePass">
     <enabled />
     <script>
@@ -531,5 +545,9 @@
     <take />
     <use type="script">
     </use>
+    <alt type="stringlist">
+      <value>coffee</value>
+      <value>caramel macchiato</value>
+    </alt>
   </object>
 </asl>
