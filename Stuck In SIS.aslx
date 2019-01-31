@@ -27,6 +27,11 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <alt type="stringlist">
+        <value>computer</value>
+        <value>Laptop</value>
+        <value>Computer</value>
+      </alt>
       <attr name="real_place" type="object">bedroom</attr>
       <take type="script">
         msg ("You turn it on and hastily close the embarassing tabs that you see")
@@ -39,21 +44,16 @@
         Laptop.real_place = player.parent
         MoveObject (player, Desktop)
       </use>
-      <alt type="stringlist">
-        <value>computer</value>
-        <value>Laptop</value>
-        <value>Computer</value>
-      </alt>
       <object name="Anime stickers">
         <prefix>a</prefix>
         <look>These stickers make you cringe for a bit. After that,you remember that they are part of who you are, and you cringe even more.</look>
+        <alt type="stringlist">
+          <value>stickers</value>
+        </alt>
         <take type="script">
           msg ("As you look at the stickers you regret the direction your life has taken")
           AddToInventory (Anime stickers)
         </take>
-        <alt type="stringlist">
-          <value>stickers</value>
-        </alt>
       </object>
     </object>
     <object name="player">
@@ -135,14 +135,16 @@
     <object name="Bed">
       <prefix>a</prefix>
       <feature_usegive />
+      <alt type="stringlist">
+        <value>bed</value>
+      </alt>
       <look type="script">
         msg ("The bed is as empty as you are.")
       </look>
       <use type="script">
+        msg ("Time to sleep before the hellish nightmare that is tomorrow morning.")
+        player.caffeine = 0
       </use>
-      <alt type="stringlist">
-        <value>bed</value>
-      </alt>
     </object>
     <object name="Journal">
       <inherit name="surface" />
@@ -154,6 +156,13 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <alt type="stringlist">
+        <value>journal</value>
+        <value>log</value>
+        <value>Log</value>
+        <value>diary</value>
+        <value>Diary</value>
+      </alt>
       <attr name="real_place" type="object">common room</attr>
       <take type="script">
         msg ("Might have some important info in it.")
@@ -165,13 +174,6 @@
       <use type="script">
         msg ("On the first page you flip open to you see some hastily scrawled notes.'Need a few CS courses, a SAGES and a humanities. Thank God that I don't need a math course.'")
       </use>
-      <alt type="stringlist">
-        <value>journal</value>
-        <value>log</value>
-        <value>Log</value>
-        <value>diary</value>
-        <value>Diary</value>
-      </alt>
     </object>
   </object>
   <object name="hallway">
@@ -207,6 +209,10 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <alt type="stringlist">
+        <value>form</value>
+        <value>Form</value>
+      </alt>
       <attr name="real_place" type="object">common room</attr>
       <take type="script">
         msg ("You shudder when you grab it.")
@@ -215,10 +221,6 @@
       <givesingle type="script">
         msg ("Better keep this in case things go south.")
       </givesingle>
-      <alt type="stringlist">
-        <value>form</value>
-        <value>Form</value>
-      </alt>
     </object>
     <exit alias="west" to="hallway">
       <inherit name="westdirection" />
@@ -242,6 +244,13 @@
       </inventoryverbs>
       <feature_usegive />
       <use type="boolean">false</use>
+      <alt type="stringlist">
+        <value>coffee machine</value>
+        <value>machine</value>
+        <value>Machine</value>
+        <value>coffee Machine</value>
+        <value>Coffee Machine</value>
+      </alt>
       <attr name="real_place" type="object">lounge</attr>
       <take type="script">
         msg ("It wouldn't be nice to steal it, but you know that you need it more than others do right now.")
@@ -255,13 +264,6 @@
           OutputTextNoBr ("One Caramel Macchiato with a doubleshot of espresso and vanilla topped coming up!")
         </item>
       </useon>
-      <alt type="stringlist">
-        <value>coffee machine</value>
-        <value>machine</value>
-        <value>Machine</value>
-        <value>coffee Machine</value>
-        <value>Coffee Machine</value>
-      </alt>
     </object>
   </object>
   <object name="Desktop">
@@ -279,6 +281,7 @@
     <exit name="Web browser" alias="SIS home page" to="SIS home page">
       <suffix type="string"></suffix>
     </exit>
+    <exit alias="Email" to="Email" />
   </object>
   <object name="SIS home page">
     <isroom />
@@ -308,6 +311,11 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <alt type="stringlist">
+        <value>340</value>
+        <value>Algorithms</value>
+        <value>algorithms</value>
+      </alt>
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Course Added.Better grab it before some freshman does.")
@@ -316,11 +324,6 @@
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
       </givesingle>
-      <alt type="stringlist">
-        <value>340</value>
-        <value>Algorithms</value>
-        <value>algorithms</value>
-      </alt>
     </object>
     <object name="EECS 255">
       <inherit name="surface" />
@@ -332,6 +335,9 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <alt type="stringlist">
+        <value>255</value>
+      </alt>
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Course Added.You grab it, thanking the gods for making add/drop. ")
@@ -370,15 +376,16 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
-      <attr name="real_place" type="object">Classes and Enrollment</attr>
-      <take type="script">
-        msg ("Why would you try to take a course that you're in currently. Do you have that litle faith in yourself, huh?!")
-      </take>
       <alt type="stringlist">
         <value>game design</value>
         <value>Game Design</value>
         <value>Intro to Game Design</value>
+        <value>290</value>
       </alt>
+      <attr name="real_place" type="object">Classes and Enrollment</attr>
+      <take type="script">
+        msg ("Why would you try to take a course that you're in currently. Do you have that litle faith in yourself, huh?!")
+      </take>
     </object>
     <object name="MATH 122">
       <inherit name="surface" />
@@ -390,6 +397,9 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <alt type="stringlist">
+        <value>122</value>
+      </alt>
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("You've already had your lifetime's worth of integrals.No need for more.")
@@ -405,6 +415,10 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <alt type="stringlist">
+        <value>404</value>
+        <value>French</value>
+      </alt>
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg (" Cours Ajouter. Cette classe est dans ton baguette! ")
@@ -424,6 +438,10 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <alt type="stringlist">
+        <value>307</value>
+        <value>history</value>
+      </alt>
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Course Added. Now you can become educated in the gnomery of the Netherlands. ")
@@ -448,6 +466,9 @@
         msg ("Maybe you'll get the class if you sell your kidney to the professor.")
       </take>
     </object>
+    <exit name="Enroll Tab" to="Enroll">
+      <locked />
+    </exit>
   </object>
   <object name="Financial Aid">
     <isroom />
@@ -491,7 +512,7 @@
       <take />
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things. 
 		AddToInventory (Coffee Mix)
-	              </takemsg>
+	                                      </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
       <use type="script">
@@ -518,7 +539,7 @@
         }
         else {
           msg ("You slept in too late! It's past scheduling time and your next semester might be ruined!")
-          MoveObject (player, Bedroom)
+          MoveObject (player, bedroom)
         }
       ]]></script>
     </command>
@@ -538,16 +559,67 @@
   </turnscript>
   <object name="Coffee">
     <inherit name="editor_object" />
-    <feature_edible />
+    <attr name="feature_edible" type="boolean">false</attr>
     <feature_usegive />
     <eatmsg>I'm probably going to pass out during my classes tomorrow, but at least I will be awake for registration.</eatmsg>
     <look>It's absolutely brimming with caffeine. Better drink it while its warm!</look>
     <take />
-    <use type="script">
-    </use>
     <alt type="stringlist">
       <value>coffee</value>
       <value>caramel macchiato</value>
     </alt>
+    <use type="script">
+      RemoveObject (Coffee)
+      player.caffeine = player.caffeine + 2
+    </use>
+  </object>
+  <object name="Email">
+    <inherit name="editor_room" />
+    <descprefix>You are in your email page.</descprefix>
+    <exit alias="outbox" to="Outbox" />
+    <exit alias="inbox" to="Inbox" />
+  </object>
+  <object name="Outbox">
+    <inherit name="editor_room" />
+    <object name="New Email">
+      <inherit name="editor_object" />
+      <feature_usegive />
+      <use type="script">
+        Ask ("Who do you want to email?") {
+          get input {
+            if (IsRegexMatch("Advisor | advisor")) {
+              if () {
+                UnlockExit (Enroll Tab)
+                msg ("Your advisor happened to be near their computer and thought you picked out some good classes.  Your registration hold has been lifted!")
+              }
+              else {
+                msg ("Your advisor didn't like your selection of classes.  Better change those quickly before it's to late to register!")
+              }
+            }
+            else {
+              msg ("Hmmm.  Probably shouldn't do that right now.")
+            }
+          }
+        }
+      </use>
+    </object>
+  </object>
+  <object name="Inbox">
+    <inherit name="editor_room" />
+    <object name="Email from Advisor">
+      <inherit name="editor_object" />
+      <look>Its a message from your advisor.  Your advisor thinks you should end up taking a MATH clas, an EECS class, your last SAGES, and two humanities classes. </look>
+    </object>
+    <object name="Email from friend">
+      <inherit name="editor_object" />
+      <look>It's a message from your best friend.  It included a ViewTube link that they thought was funny.  You would watch it if you didn't have important stuff to do.</look>
+    </object>
+    <object name="Spam Email">
+      <inherit name="editor_object" />
+      <look>It's a spam advertisement from a shady website.  You might want to download a trusty computer security program. </look>
+    </object>
+  </object>
+  <object name="Enroll">
+    <inherit name="editor_room" />
   </object>
 </asl>
