@@ -588,7 +588,7 @@
         Ask ("Who do you want to email?") {
           get input {
             if (IsRegexMatch("Advisor | advisor")) {
-              if () {
+              if (Got(Major Change Form)) {
                 UnlockExit (Enroll Tab)
                 msg ("Your advisor happened to be near their computer and thought you picked out some good classes.  Your registration hold has been lifted!")
               }
