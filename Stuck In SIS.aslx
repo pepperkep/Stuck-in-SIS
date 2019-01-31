@@ -158,10 +158,6 @@
       <feature_usegive />
       <alt type="stringlist">
         <value>journal</value>
-        <value>log</value>
-        <value>Log</value>
-        <value>diary</value>
-        <value>Diary</value>
       </alt>
       <attr name="real_place" type="object">common room</attr>
       <take type="script">
@@ -512,7 +508,7 @@
       <take />
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things. 
 		AddToInventory (Coffee Mix)
-	                                      </takemsg>
+	                                                  </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
       <use type="script">
@@ -581,27 +577,40 @@
   </object>
   <object name="Outbox">
     <inherit name="editor_room" />
-    <object name="New Email">
+    <description type="string"></description>
+    <descprefix>You are in your outbox.  You could probably send an email from here.</descprefix>
+    <object name="Advisor">
       <inherit name="editor_object" />
-      <feature_usegive />
-      <use type="script">
-        Ask ("Who do you want to email?") {
-          get input {
-            if (IsRegexMatch("Advisor | advisor")) {
-              if (Got(Major Change Form)) {
-                UnlockExit (Enroll Tab)
-                msg ("Your advisor happened to be near their computer and thought you picked out some good classes.  Your registration hold has been lifted!")
-              }
-              else {
-                msg ("Your advisor didn't like your selection of classes.  Better change those quickly before it's to late to register!")
-              }
+      <alt type="stringlist">
+        <value>advisor</value>
+      </alt>
+      <visible type="boolean">false</visible>
+      <scenery />
+    </object>
+    <object name="Email1">
+      <inherit name="editor_object" />
+      <alias>Email</alias>
+      <send type="script">
+        msg ("To Who?")
+        get input {
+          if (IsRegexMatch("advisor", LCase(result))) {
+            if (Got(Major Change Form)) {
+              msg ("Your advisor happened to be by their computer and liked your class selection. ")
+              msg ("Your registration hold has been lifted!")
+              UnlockExit (Enroll Tab)
+              RemoveObject (Email)
             }
             else {
-              msg ("Hmmm.  Probably shouldn't do that right now.")
+              msg ("Your advisor didn't think those were the best choices.  Time to try again.")
             }
           }
+          else {
+            msg ("Probably shouldn't right now.")
+          }
         }
-      </use>
+      </send>
+      <usedefaultprefix type="boolean">false</usedefaultprefix>
+      <prefix>unwritten</prefix>
     </object>
   </object>
   <object name="Inbox">
@@ -622,4 +631,11 @@
   <object name="Enroll">
     <inherit name="editor_room" />
   </object>
+  <verb>
+    <pattern>send</pattern>
+    <property>send</property>
+    <defaultexpression>It's gonna be hard to send</defaultexpression>
+    <scope>outbox</scope>
+    <multiobjectmenu>To who?</multiobjectmenu>
+  </verb>
 </asl>
