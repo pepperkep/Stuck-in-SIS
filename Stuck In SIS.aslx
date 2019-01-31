@@ -532,10 +532,6 @@
       <pattern>wake+|get{1}\sup{1}</pattern>
       <script><![CDATA[
         if (Alarm Clock.time < 720) {
-<<<<<<< HEAD
-          msg ("You feel like there is something you need to wake up for, but you are too tired. You can... just... sleep... a little longer.")
-          Alarm Clock.time = Alarm Clock.time + 59
-=======
 		  isAlarm = false
 		  foreach(alarm, Alarm Clock.alarms){
 			if(alarm < Alarm Clock.time){
@@ -546,7 +542,6 @@
 			msg("You feel like there is something you need to wake up for, but you are too tired. You can... just... sleep... a little longer.")
 		  }
           Alarm Clock.time = Alarm Clock.time + 10
->>>>>>> Keppers
         }
         else {
           msg ("You slept in too late! It's past scheduling time and your next semester might be ruined!")
