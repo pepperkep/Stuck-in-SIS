@@ -266,7 +266,44 @@
 
     </object>
 
-	    
+	 <object name="Bottles">
+
+      <inherit name="surface" />
+
+      <inherit name="editor_object" />
+
+      <prefix>some</prefix>
+
+      <look>You see some glass bottles strewn across the common room floor. They must have been filled with soda at some point right?</look>
+
+      <inventoryverbs type="stringlist">
+
+        <value>Look at</value>
+
+        <value>Use</value>
+
+      </inventoryverbs>
+
+      <feature_usegive />
+
+      <attr name="real_place" type="object">common room</attr>
+
+      <take type="script">
+
+        msg ("What's the harm in having a few extra bottles?")
+
+        AddToInventory (Bottles)
+
+      </take>
+
+	  <givesingle type="script">
+
+        msg ("Better get rid of these. Would't want an RA to get the wrong idea.")
+
+      </givesingle>
+
+     </object>
+   
 
 	<object name="Major Change Form">
 
@@ -466,9 +503,10 @@
 
       <take type="script">
 
-        msg ("Course Added.Better grab it before some freshman does.")
+        msg ("Course Added. Better grab it before some freshman does.")
 
         AddToInventory (EECS 340)
+		player.num_classes=player.num_classes + 1
 
       </take>
 
@@ -506,6 +544,7 @@
         msg ("Course Added.You grab it, thanking the gods for making add/drop. ")
 
         AddToInventory (EECS 255)
+		player.num_classes=player.num_classes + 1
 
       </take>
 
@@ -544,6 +583,7 @@
         msg ("Taken. At least it's your last SAGES ")
 
         AddToInventory (Boring SAGES)
+		player.num_classes=player.num_classes + 1
 
       </take>
 
@@ -608,7 +648,7 @@
 
       <take type="script">
 
-        msg ("You've already had your lifetime's worth of integrals.No need for more.")
+        msg ("You've already had your lifetime's worth of integrals. No need for more.")
 
       </take>
      </object>
@@ -640,6 +680,7 @@
         msg (" Cours Ajouter. Cette classe est dans ton baguette! ")
 
         AddToInventory (FRCH 404)
+		player.num_classes=player.num_classes + 1
 
       </take>
 
@@ -678,6 +719,7 @@
         msg ("Course Added. Now you can become educated in the gnomery of the Netherlands. ")
 
         AddToInventory (HIST 307)
+		player.num_classes=player.num_classes + 1
 
       </take>
 
@@ -763,6 +805,7 @@
       <inherit name="northdirection" />
 
     </exit>
+	
 
     <object name="Coffee Mix">
 
@@ -834,7 +877,7 @@
 
       Alarm Clock.time = Alarm Clock.time + 5
 
-	  if(Alarm Clock.time % 60 = 0) player.caffeine = player.caffeine - 1s
+	  if(Alarm Clock.time % 60 = 0) player.caffeine = player.caffeine - 1
 
 	  if(player.caffeine = 0){
 
