@@ -734,7 +734,6 @@
         MoveObject (player, Sleep)
         player.caffeine = 20
       }
-<<<<<<< HEAD
       if (not (Alarm Clock.snooze = -1)) {
         Alarm Clock.time = Alarm Clock.snooze
         msg ("The snoozed alarm wakes you up. You desparately need to get up. What do you do?")
