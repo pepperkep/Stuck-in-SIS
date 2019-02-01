@@ -205,7 +205,47 @@
         <value>Table</value>
       </alt>
     </object>
-    <object name="Major Change Form">
+	 <object name="Bottles">
+
+      <inherit name="surface" />
+
+      <inherit name="editor_object" />
+
+      <prefix>some</prefix>
+
+      <look>You see some glass bottles strewn across the common room floor. They must have been filled with soda at some point right?</look>
+
+      <inventoryverbs type="stringlist">
+
+        <value>Look at</value>
+
+        <value>Use</value>
+
+      </inventoryverbs>
+
+      <feature_usegive />
+
+      <attr name="real_place" type="object">common room</attr>
+
+      <take type="script">
+
+        msg ("What's the harm in having a few extra bottles?")
+
+        AddToInventory (Bottles)
+
+      </take>
+
+	  <givesingle type="script">
+
+        msg ("Better get rid of these. Would't want an RA to get the wrong idea.")
+
+      </givesingle>
+
+     </object>
+   
+
+	<object name="Major Change Form">
+
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -415,8 +455,10 @@
       </alt>
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
-        msg ("Course Added.Better grab it before some freshman does.")
+        msg ("Course Added. Better grab it before some freshman does.")
+
         AddToInventory (EECS 340)
+		player.num_classes=player.num_classes + 1
       </take>
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
@@ -439,6 +481,8 @@
       <take type="script">
         msg ("Course Added.You grab it, thanking the gods for making add/drop. ")
         AddToInventory (EECS 255)
+		player.num_classes=player.num_classes + 1
+
       </take>
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
@@ -458,6 +502,7 @@
       <take type="script">
         msg ("Taken. At least it's your last SAGES ")
         AddToInventory (Boring SAGES)
+		player.num_classes=player.num_classes + 1
       </take>
       <givesingle type="script">
         msg ("Yeah sure, if you want to spend an extra semester paying tuition.")
@@ -499,7 +544,7 @@
       </alt>
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
-        msg ("You've already had your lifetime's worth of integrals.No need for more.")
+        msg ("You've already had your lifetime's worth of integrals. No need for more.")
       </take>
     </object>
     <object name="FRCH 404">
@@ -520,6 +565,8 @@
       <take type="script">
         msg (" Cours Ajouter. Cette classe est dans ton baguette! ")
         AddToInventory (FRCH 404)
+		player.num_classes=player.num_classes + 1
+
       </take>
       <givesingle type="script">
         msg ("Non, mon ami.")
@@ -543,6 +590,7 @@
       <take type="script">
         msg ("Course Added. Now you can become educated in the gnomery of the Netherlands. ")
         AddToInventory (HIST 307)
+		player.num_classes=player.num_classes + 1
       </take>
       <givesingle type="script">
         msg ("Wait, but how else will you learn about the gnomery of the Netherlands?!")
