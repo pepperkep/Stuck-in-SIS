@@ -17,6 +17,7 @@
     <pattern>click</pattern>
     <defaultexpression>You seem to have spent so much time in the digital realm that you think you can click on anything. Pftshaw!</defaultexpression>
   </verb>
+  
   <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
@@ -73,6 +74,7 @@
       <inherit name="editor_player" />
       <attr name="num_classes" type="int">0</attr>
       <caffeine type="int">5</caffeine>
+	  <intelligence type="int">0</intelligence>
     </object>
     <exit alias="south" to="hallway">
       <inherit name="southdirection" />
@@ -182,6 +184,7 @@
       </use>
     </object>
   </object>
+  
   <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
@@ -193,10 +196,11 @@
     <exit alias="north" to="bedroom">
       <inherit name="northdirection" />
     </exit>
-    <exit alias="south" to="Mike's room">
+    <exit alias="south" to="Mikes Room">
       <inherit name="southdirection" />
     </exit>
   </object>
+  
   <object name="common room">
     <isroom />
     <object name="table">
@@ -266,6 +270,7 @@
       <look>It's a trash can.  </look>
     </object>
   </object>
+  
   <object name="lounge">
     <isroom />
     <exit alias="east" to="hallway">
@@ -306,6 +311,7 @@
       </useon>
     </object>
   </object>
+  
   <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
@@ -347,19 +353,20 @@
     <exit name="Look at Transcript" alias="Look at Transcript" to="View Transcript" />
   </object>
   <object name="View Transcript">
-    <description>You created a copy of your {object:Transcript}?! Why would you? You must get rid of it while you can!</description>
-    <isroom />
-    <object name="Transcript">
-      <inherit name="edible" />
-      <feature_edible />
-      <eatmsg>Phew! You hid the evidence</eatmsg>
-      <eat type="script">
-        msg (this.eatmsg)
-        destroy (this.name)
-      </eat>
-      <take type="script">
-        msg ("Better be careful who you let see this")
-        AddToInventory (Transcript)
+	<description>You created a copy of your {object:Transcript}?! Why would you? You must get rid of it while you can!</description>
+	<isroom/>
+	<object name="Transcript">
+	<inherit name="edible" />
+		<feature_edible />
+		<eatmsg>Phew! You hid the evidence, but somehow the world makes less sense now....</eatmsg>
+		<eat type="script">
+			msg (this.eatmsg)
+			destroy (this.name)
+			player.intelligence = player.intelligence - 1
+		</eat>
+		<take type="script">
+			msg ("Better be careful who you let see this")
+			AddToInventory (Transcript)
       </take>
     </object>
     <exit name="back to Grades and History" alias="back to Grades and History Tab" to="GradesandHistory" />
@@ -589,11 +596,13 @@
     </exit>
     <exit alias="Back" to="SIS home page" />
   </object>
+  
   <object name="Financial Aid">
     <isroom />
     <description>Your heart stops for a bit whenever you visit this page.</description>
     <exit name="view bill" alias="view bill" to="bill" />
   </object>
+  
   <object name="bill">
     <isroom />
     <description>The bill is too high. You need to react to maintain your sanity.</description>
@@ -612,11 +621,12 @@
       </script>
     </command>
   </object>
-  <object name="Mike's room">
+  
+  <object name="Mikes Room">
     <inherit name="editor_room" />
     <isroom />
     <alias>Mike's Room</alias>
-    <descprefix>You are in your friend Mike's room. You like him because his name is short for Micycle.  It's just as small as yours, but because their bed is lofted it has the illusion of more space. </descprefix>
+    <descprefix>You are in your friend Mikes Room. You like him because his name is short for Micycle.  It's just as small as yours, but because their bed is lofted it has the illusion of more space. </descprefix>
     <objectslistprefix>You can see</objectslistprefix>
     <exit alias="north" to="hallway">
       <inherit name="northdirection" />
@@ -693,12 +703,25 @@
       <feature_usegive />
       <give type="scriptdictionary">
         <item key="Major Change Form">
-          msg ("Thanks! I was looking for this! Here's an energy drink to wake you up tomorrow morning.")
+          msg ("\"Thanks! I was looking for this! Here's an energy drink to wake you up tomorrow morning.\"")
           MoveObjectHere (Energy Drink)
           AddToInventory (Energy Drink)
           RemoveObject (Major Change Form)
         </item>
       </give>
+	  <speak type="script"><![CDATA[
+		if(Mike.parent = Mikes Room){
+		  if(player.intelligence > -1){
+			msg("\"Why are you in my room? My door was closed!\"")
+		  }
+		  else{
+			msg("\"Do you ever find it weird how much better 2D girls are than 3D girls? I think that's because each pixel of an anime girl is made with perfection while 3D girls are always flawed in some way\"")
+		  }
+		}
+		else{
+			msg("\"Why would you set off an alarm at this time!\"")
+		}
+	  ]]></speak>
     </object>
   </object>
   <object name="Sleep">
@@ -817,7 +840,8 @@
             }
           }
           else {
-            msg ("That alarms you set just went off! Did you really think you would be asleep now?")
+            msg ("That alarms you set just went off! Mike steps out of his room to find you. He seems angry.")
+			MoveObject(Mike, player.parent)
           }
         }
       }
