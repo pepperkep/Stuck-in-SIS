@@ -249,18 +249,6 @@
       </alt>
       <listchildren />
       <look>It's a trash can.  </look>
-      <object name="Energy Drink">
-        <inherit name="editor_object" />
-        <alt type="stringlist">
-          <value>drink</value>
-        </alt>
-        <feature_usegive />
-        <look>It's a can of 2-Hour Power brand Energy Drink.</look>
-        <use type="script">
-          msg ("Tastes like sugar and artificial flavoring.")
-          player.caffeine = player.caffeine + 2
-        </use>
-      </object>
     </object>
   </object>
   
@@ -629,12 +617,20 @@
         <value>Coffee</value>
         <value>Mix</value>
       </alt>
-      <take />
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things. 
 		AddToInventory (Coffee Mix)
-	                                      </takemsg>
+	                                            </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
+      <take type="script">
+        if (ListContains(ScopeVisible(), Mike)) {
+          msg ("Mike yells at you, \"Hey! Don't take my stuff!\"")
+        }
+        else {
+          msg ("You know it's not nice to take other people's things without their permission, right?")
+          AddToInventory (Coffee Mix)
+        }
+      </take>
       <use type="script">
       </use>
       <selfuseon type="scriptdictionary">
@@ -659,17 +655,38 @@
         <inherit name="editor_object" />
         <look>Special chocolates that each contain as much caffeine as half a cup of coffee. </look>
         <feature_usegive />
+        <take type="script">
+		if (ListContains(ScopeVisible(), Mike)) {
+          msg ("Mike yells at you, \"Hey! Don't take my stuff!\"")
+        }
+        else {
+		msg ("You know it's not nice to take other people's things without their permission, right?")
+		AddToInventory (Coffee Mix)
+        }
+        </take>
         <use type="script">
           msg ("Eating a few these should keep me awake for a while.")
           player.caffeine = player.caffeine + 2
         </use>
-        <take />
-        <takemsg>I hope Mike doesn't get mad that I took his special chocolates. </takemsg>
       </object>
       <object name="Mikes Laptop">
         <inherit name="editor_object" />
         <alias>Mike's Laptop</alias>
       </object>
+    </object>
+    <object name="Mike">
+      <inherit name="editor_object" />
+      <inherit name="male" />
+      <look>He's your friend Mike.  Earlier this week you heard him talk about all the different forms of caffeine he has stocked up. </look>
+      <feature_usegive />
+      <give type="scriptdictionary">
+        <item key="Major Change Form">
+          msg ("Thanks! I was looking for this! Here's an energy drink to wake you up tomorrow morning.")
+          MoveObjectHere (Energy Drink)
+          AddToInventory (Energy Drink)
+          RemoveObject (Major Change Form)
+        </item>
+      </give>
     </object>
   </object>
   <object name="Sleep">
@@ -727,7 +744,6 @@
         MoveObject (player, Sleep)
         player.caffeine = 20
       }
-<<<<<<< HEAD
       if (not (Alarm Clock.snooze = -1)) {
         Alarm Clock.time = Alarm Clock.snooze
         msg ("The snoozed alarm wakes you up. You desparately need to get up. What do you do?")
@@ -768,7 +784,7 @@
                               msg ("You turn off the alarm, only to immediately fall asleep again. You are just too tired...")
                             }
                             else {
-                              msg ("You neither turn the alarm off or snooze it and fall back asleep.")
+                              msg ("You neither turn the alarm off nor snooze it and fall back asleep.")
                             }
                           }
                         }
@@ -825,14 +841,6 @@
     <inherit name="editor_room" />
     <description type="string"></description>
     <descprefix>You are in your outbox.  You could probably send an email from here.</descprefix>
-    <object name="Advisor">
-      <inherit name="editor_object" />
-      <alt type="stringlist">
-        <value>advisor</value>
-      </alt>
-      <visible type="boolean">false</visible>
-      <scenery />
-    </object>
     <object name="Email1">
       <inherit name="editor_object" />
       <alias>Email</alias>
@@ -884,4 +892,17 @@
     <scope>outbox</scope>
     <multiobjectmenu>To who?</multiobjectmenu>
   </verb>
+  <object name="Energy Drink">
+    <inherit name="editor_object" />
+    <usedefaultprefix type="boolean">false</usedefaultprefix>
+    <alt type="stringlist">
+      <value>drink</value>
+    </alt>
+    <feature_usegive />
+    <look>It's a can of 2-Hour Power brand Energy Drink.</look>
+    <use type="script">
+      msg ("Tastes like sugar and artificial flavoring.")
+      player.caffeine = player.caffeine + 2
+    </use>
+  </object>
 </asl>
