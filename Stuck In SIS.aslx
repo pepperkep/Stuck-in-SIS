@@ -1,4 +1,3 @@
-
 <!--Saved by Quest 5.8.6836.13983-->
 <asl version="580">
   <include ref="English.aslx" />
@@ -8,6 +7,13 @@
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
   </game>
+
+  <verb>
+	<property>set</property>
+	<pattern>set</pattern>
+	<defaultexpression>You cannot just set any object!</defaultexpression>
+  </verb>
+  
  <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
@@ -55,7 +61,7 @@
     <exit alias="south" to="hallway">
       <inherit name="southdirection" />
     </exit>
-    <object name="Alarm Clock">
+<object name="Alarm Clock">
       <inherit name="editor_object" />
       <alt type="stringlist">
         <value>clock</value>
@@ -63,23 +69,62 @@
       </alt>
       <take type="boolean">false</take>
       <feature_usegive />
-	  <look type="script">
-		<![CDATA[
-			time = "The current time is "
-			if((9 + Alarm Clock.time/60) % 12 = 0) time = time + "12:"
-			else time = time + ((9 + Alarm Clock.time/60) % 12) + ":"
-			if(Alarm Clock.time % 60 < 10) time = time + "0"
-			time = time + Alarm Clock.time % 60
-			msg(time)
-		]]>
-	  </look>
       <attr name="feature_switchable" type="boolean">false</attr>
+      <time type="int">0</time>
+      <alarms type="list"></alarms>
+      <look type="script"><![CDATA[
+        time = "The current time is "
+        if ((9 + Alarm Clock.time/60) % 12 = 0) {
+          time = time + "12:"
+        }
+        else {
+          time = time + ((9 + Alarm Clock.time/60) % 12) + ":"
+        }
+        if (Alarm Clock.time % 60 < 10) {
+          time = time + "0"
+        }
+        time = time + Alarm Clock.time % 60
+        msg (time)
+      ]]></look>
+      <switchedon type="boolean">false</switchedon>
       <use type="script">
       </use>
-	  <attr name="time" type="int">0</attr>
-	  <attr name="alarms" type="list"></attr>
-      <look>It's an alarm clock.</look>
-      <switchedon type="boolean">false</switchedon>
+      <set type="script">
+        msg ("Scheduling begins tomorrow at 7:00a.m. Do you want to set an alarm?")
+        get input {
+          if (IsRegexMatch("yes|y", LCase(result))) {
+            time = 0
+            msg ("How many hours from now?")
+            get input {
+              if (IsRegexMatch("^[0-9]*$", result)) {
+                time = time + ToInt(result) * 60
+                msg ("How many minutes?")
+                get input {
+                  if (IsRegexMatch("^[0-9]*$", result)) {
+                    time = time + ToInt(result)
+                    list add (Alarm Clock.alarms, time)
+                    msg ("Sucessfully added alarm")
+                  }
+                  else {
+                    msg ("Nice try, but that is not a number!")
+                  }
+                }
+              }
+              else {
+                msg ("Nice try, but that is not a number!")
+              }
+            }
+          }
+          else {
+            if (IsRegexMatch("no|n", LCase(result))) {
+              msg ("You choose to take the risk and not set an alarm")
+            }
+            else {
+              msg ("Could not parse input. Say yes or no next time")
+            }
+          }
+        }
+      </set>
     </object>
 	<object name="Bed">
 		<prefix>a</prefix>
@@ -88,8 +133,30 @@
           msg ("The bed is as empty as you are.")
 		</look>
     </object>
+	<object name="Journal">
+		   <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>You see your journal which has some of your deepest darkest secrets...and some fanfiction.</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">common room</attr>
+      <take type="script">
+        msg ("Might have some important info in it.")
+        AddToInventory (Journal)
+      </take>
+	  <givesingle type="script">
+        msg ("You can't possibly let your Pride and Prejudice fanfiction fall into the wrong hands!")
+      </givesingle>
+	  <use type="script">
+       msg("On the first page you flip open to you see some hastily scrawled notes.'Need a few CS courses, a SAGES and a humanities. Thank God that I don't need a math course.'")
+      </use>
+     </object>
   </object>
-  
+ 
   <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
@@ -101,11 +168,11 @@
     <exit alias="north" to="bedroom">
       <inherit name="northdirection" />
     </exit>
-    <exit alias="south" to="friends room">
+    <exit alias="south" to="Mike's room">
       <inherit name="southdirection" />
     </exit>
   </object>
-  
+
  <object name="common room">
     <isroom />
     <object name="table">
@@ -130,11 +197,12 @@
 	  <givesingle type="script">
         msg ("Better keep this in case things go south.")
       </givesingle>
-	  </object>
+     </object>
     <exit alias="west" to="hallway">
       <inherit name="westdirection" />
     </exit>
- </object>
+   </object>
+
   
   <object name="lounge">
     <isroom />
@@ -163,7 +231,7 @@
       </use>
 	 </object>
   </object>
- 
+
  <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
@@ -180,7 +248,7 @@
       <suffix type="string"></suffix>
     </exit>
   </object>
-  
+
   <object name = "SIS home page">
 	<isroom />
 	<firstenter type="script">
@@ -196,9 +264,152 @@
     </exit>
 	<exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid"></exit>
   </object>
-  
+
   <object name="Classes and Enrollment">
     <isroom />
+
+
+	<object name="EECS 340">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>You see an open 300 level CS course and think that you must be dreaming.</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">Classes and Enrollment</attr>
+      <take type="script">
+        msg ("Course Added.Better grab it before some freshman does.")
+        AddToInventory (EECS 340)
+      </take>
+	  <givesingle type="script">
+        msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
+      </givesingle>
+     </object>
+	 <object name="EECS 255">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>You've heard a lot of bad things about the professor, but you're desperate at this point.</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">Classes and Enrollment</attr>
+      <take type="script">
+        msg ("Course Added.You grab it, thanking the gods for making add/drop. ")
+        AddToInventory (EECS 255)
+      </take>
+	  <givesingle type="script">
+        msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
+      </givesingle>
+     </object>
+	
+	 <object name="Boring SAGES">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>You're guranteed an hour and a half of browsing Reddit for a semester if you pick this class.</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">Classes and Enrollment</attr>
+      <take type="script">
+        msg ("Taken. At least it's your last SAGES ")
+        AddToInventory (Boring SAGES)
+      </take>
+	  <givesingle type="script">
+        msg ("Yeah sure, if you want to spend an extra semester paying tuition.")
+      </givesingle>
+     </object>
+	 	 <object name="EECS 290">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>A class on game design sounds interesting, if not a little bit meta.</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">Classes and Enrollment</attr>
+      <take type="script">
+        msg ("Why would you try to take a course that you're in currently. Do you have that litle faith in yourself, huh?!" )
+      </take>
+     </object>
+	 	 <object name="MATH 122">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>Memories of pancakes and HOMEWORK swirl around in your head.</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">Classes and Enrollment</attr>
+      <take type="script">
+        msg ("You've already had your lifetime's worth of integrals.No need for more.")
+      </take>
+     </object>
+	 	 <object name="FRCH 404">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>Est-ce que vous voulez finir ton Minor en francais?</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">Classes and Enrollment</attr>
+      <take type="script">
+        msg (" Cours Ajouter. Cette classe est dans ton baguette! ")
+        AddToInventory (FRCH 404)
+      </take>
+	  <givesingle type="script">
+        msg ("Non, mon ami.")
+      </givesingle>
+     </object>
+	 	 <object name="HIST 307">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>You've always wanted to learn the history of Dutch garden gnomes, and this class fills a Humanities requirement!</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">Classes and Enrollment</attr>
+      <take type="script">
+        msg ("Course Added. Now you can become educated in the gnomery of the Netherlands. ")
+        AddToInventory (HIST 307)
+      </take>
+	  <givesingle type="script">
+        msg ("Wait, but how else will you learn about the gnomery of the Netherlands?!")
+      </givesingle>
+	  </object>
+	  <object name="An Interesting SAGES">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>An Interesting SAGES that's been full for 17 years.</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">Classes and Enrollment</attr>
+      <take type="script">
+        msg ("Maybe you'll get the class if you sell your kidney to the professor." )
+      </take>
+	  </object>
 	<description>Is there anything scarier than having to plan your future?</description>
   </object>
   
@@ -226,11 +437,11 @@
 	</command>
   </object>
 
-  <object name="friends room">
+  <object name="Mike's room">
     <inherit name="editor_room" />
 	<isroom />
-    <alias>Friend's Room</alias>
-    <descprefix>You are in your friend's room.  It's just as small as yours, but because their bed is lofted it has the illusion of more space. </descprefix>
+    <alias>Mike's Room</alias>
+    <descprefix>You are in your friend Mike's room. You like him because his name is short for Micycle.  It's just as small as yours, but because their bed is lofted it has the illusion of more space. </descprefix>
     <objectslistprefix>You can see</objectslistprefix>
     <exit alias="north" to="hallway">
       <inherit name="northdirection" />
@@ -241,13 +452,13 @@
         <value>coffee</value>
       </alt>
       <take />
-      <takemsg>You took your friend's coffee. Most people ask before taking other people's things. 
+      <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things. 
 		AddToInventory (Coffee Mix)
 	  </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
     </object>
   </object>
-  
+
   <object name="Sleep">
 	<isroom/>
 	<description>You hallucinate vividly. No you are not going crazy, you are just asleep.</description>
@@ -267,7 +478,9 @@
 		</script>
 	</command>
   </object>
+
   
+
   <turnscript name="TimePass">
     <script>
       Alarm Clock.time = Alarm Clock.time + 5
