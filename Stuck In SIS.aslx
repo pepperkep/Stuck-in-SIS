@@ -17,6 +17,7 @@
 	<pattern>click</pattern>
 	<defaultexpression>You seem to have spent so much time in the digital realm that you think you can click on anything. Pftshaw!</defaultexpression>
   </verb>
+  
   <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
@@ -73,6 +74,7 @@
       <inherit name="editor_player" />
       <attr name="num_classes" type="int">0</attr>
       <caffeine type="int">5</caffeine>
+	  <intelligence type="int">0</intelligence>
     </object>
     <exit alias="south" to="hallway">
       <inherit name="southdirection" />
@@ -182,6 +184,7 @@
       </use>
     </object>
   </object>
+  
   <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
@@ -197,6 +200,7 @@
       <inherit name="southdirection" />
     </exit>
   </object>
+  
   <object name="common room">
     <isroom />
     <object name="table">
@@ -259,6 +263,7 @@
       </object>
     </object>
   </object>
+  
   <object name="lounge">
     <isroom />
     <exit alias="east" to="hallway">
@@ -299,6 +304,7 @@
       </useon>
     </object>
   </object>
+  
   <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
@@ -347,10 +353,11 @@
 	<object name="Transcript">
 	<inherit name="edible" />
 		<feature_edible />
-		<eatmsg>Phew! You hid the evidence</eatmsg>
+		<eatmsg>Phew! You hid the evidence, but somehow the world makes less sense now....</eatmsg>
 		<eat type="script">
 			msg (this.eatmsg)
 			destroy (this.name)
+			player.intelligence = player.intelligence - 1
 		</eat>
 		<take type="script">
 			msg ("Better be careful who you let see this")
@@ -579,11 +586,13 @@
       <locked />
     </exit>
   </object>
+  
   <object name="Financial Aid">
     <isroom />
     <description>Your heart stops for a bit whenever you visit this page.</description>
     <exit name="view bill" alias="view bill" to="bill" />
   </object>
+  
   <object name="bill">
     <isroom />
     <description>The bill is too high. You need to react to maintain your sanity.</description>
@@ -602,6 +611,7 @@
       </script>
     </command>
   </object>
+  
   <object name="Mike's room">
     <inherit name="editor_room" />
     <isroom />
