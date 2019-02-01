@@ -17,7 +17,6 @@
     <pattern>click</pattern>
     <defaultexpression>You seem to have spent so much time in the digital realm that you think you can click on anything. Pftshaw!</defaultexpression>
   </verb>
-  
   <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
@@ -74,7 +73,7 @@
       <inherit name="editor_player" />
       <attr name="num_classes" type="int">0</attr>
       <caffeine type="int">5</caffeine>
-	  <intelligence type="int">0</intelligence>
+      <intelligence type="int">0</intelligence>
     </object>
     <exit alias="south" to="hallway">
       <inherit name="southdirection" />
@@ -184,7 +183,6 @@
       </use>
     </object>
   </object>
-  
   <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
@@ -200,7 +198,6 @@
       <inherit name="southdirection" />
     </exit>
   </object>
-  
   <object name="common room">
     <isroom />
     <object name="table">
@@ -270,7 +267,6 @@
       <look>It's a trash can.  </look>
     </object>
   </object>
-  
   <object name="lounge">
     <isroom />
     <exit alias="east" to="hallway">
@@ -311,7 +307,6 @@
       </useon>
     </object>
   </object>
-  
   <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
@@ -344,6 +339,9 @@
     </exit>
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
     <exit name="Grades and History Tab" alias="Grades and History Tab" to="GradesandHistory" />
+    <exit alias="Desktop" to="SIS home page">
+      <message>Huh.  Thats weird,  For whatever reason, you cannot close the SIS home page.</message>
+    </exit>
   </object>
   <object name="GradesandHistory">
     <isroom />
@@ -353,20 +351,20 @@
     <exit name="Look at Transcript" alias="Look at Transcript" to="View Transcript" />
   </object>
   <object name="View Transcript">
-	<description>You created a copy of your {object:Transcript}?! Why would you? You must get rid of it while you can!</description>
-	<isroom/>
-	<object name="Transcript">
-	<inherit name="edible" />
-		<feature_edible />
-		<eatmsg>Phew! You hid the evidence, but somehow the world makes less sense now....</eatmsg>
-		<eat type="script">
-			msg (this.eatmsg)
-			destroy (this.name)
-			player.intelligence = player.intelligence - 1
-		</eat>
-		<take type="script">
-			msg ("Better be careful who you let see this")
-			AddToInventory (Transcript)
+    <description>You created a copy of your {object:Transcript}?! Why would you? You must get rid of it while you can!</description>
+    <isroom />
+    <object name="Transcript">
+      <inherit name="edible" />
+      <feature_edible />
+      <eatmsg>Phew! You hid the evidence, but somehow the world makes less sense now....</eatmsg>
+      <eat type="script">
+        msg (this.eatmsg)
+        destroy (this.name)
+        player.intelligence = player.intelligence - 1
+      </eat>
+      <take type="script">
+        msg ("Better be careful who you let see this")
+        AddToInventory (Transcript)
       </take>
     </object>
     <exit name="back to Grades and History" alias="back to Grades and History Tab" to="GradesandHistory" />
@@ -374,6 +372,7 @@
   <object name="Grades">
     <isroom />
     <description>Is this page supposed to have the whole alphabet on it? You can click any letter you want as long as it is early on in the alphabet!</description>
+    <look>It's a list of all the grades you've recieved in your classes. </look>
     <object name="A">
       <displayverbs type="stringlist" />
       <click type="script">
@@ -596,13 +595,11 @@
     </exit>
     <exit alias="Back" to="SIS home page" />
   </object>
-  
   <object name="Financial Aid">
     <isroom />
     <description>Your heart stops for a bit whenever you visit this page.</description>
     <exit name="view bill" alias="view bill" to="bill" />
   </object>
-  
   <object name="bill">
     <isroom />
     <description>The bill is too high. You need to react to maintain your sanity.</description>
@@ -621,7 +618,6 @@
       </script>
     </command>
   </object>
-  
   <object name="Mikes Room">
     <inherit name="editor_room" />
     <isroom />
@@ -641,7 +637,7 @@
       </alt>
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things. 
 		AddToInventory (Coffee Mix)
-	                                                  </takemsg>
+	                                                        </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
       <take type="script">
@@ -701,6 +697,19 @@
       <inherit name="male" />
       <look>He's your friend Mike.  Earlier this week you heard him talk about all the different forms of caffeine he has stocked up. </look>
       <feature_usegive />
+      <speak type="script"><![CDATA[
+        if (Mike.parent = Mikes Room) {
+          if (player.intelligence > -1) {
+            msg ("\"Why are you in my room? My door was closed!\"")
+          }
+          else {
+            msg ("\"Do you ever find it weird how much better 2D girls are than 3D girls? I think that's because each pixel of an anime girl is made with perfection while 3D girls are always flawed in some way\"")
+          }
+        }
+        else {
+          msg ("\"Why would you set off an alarm at this time!\"")
+        }
+      ]]></speak>
       <give type="scriptdictionary">
         <item key="Major Change Form">
           msg ("\"Thanks! I was looking for this! Here's an energy drink to wake you up tomorrow morning.\"")
@@ -709,19 +718,6 @@
           RemoveObject (Major Change Form)
         </item>
       </give>
-	  <speak type="script"><![CDATA[
-		if(Mike.parent = Mikes Room){
-		  if(player.intelligence > -1){
-			msg("\"Why are you in my room? My door was closed!\"")
-		  }
-		  else{
-			msg("\"Do you ever find it weird how much better 2D girls are than 3D girls? I think that's because each pixel of an anime girl is made with perfection while 3D girls are always flawed in some way\"")
-		  }
-		}
-		else{
-			msg("\"Why would you set off an alarm at this time!\"")
-		}
-	  ]]></speak>
     </object>
   </object>
   <object name="Sleep">
@@ -841,7 +837,7 @@
           }
           else {
             msg ("That alarms you set just went off! Mike steps out of his room to find you. He seems angry.")
-			MoveObject(Mike, player.parent)
+            MoveObject (Mike, player.parent)
           }
         }
       }
@@ -872,6 +868,7 @@
     <descprefix>You are in your email page.</descprefix>
     <exit alias="outbox" to="Outbox" />
     <exit alias="inbox" to="Inbox" />
+    <exit alias="Back" to="Desktop" />
   </object>
   <object name="Outbox">
     <inherit name="editor_room" />
@@ -893,7 +890,7 @@
               RemoveObject (Email)
             }
             else {
-              msg ("Your advisor didn't think those were the best choices.  Time to try again.")
+              msg ("You were lucky that your advisor managed to reply right away, but theydidn't think those were the best choices.  Time to try again.")
             }
           }
           else {
@@ -901,7 +898,9 @@
           }
         }
       </send>
+      <look>It's an unwritten email.   The subject line says "Please please please please lift my registration hold."</look>
     </object>
+    <exit alias="Back" to="Email" />
   </object>
   <object name="Inbox">
     <inherit name="editor_room" />
@@ -917,6 +916,7 @@
       <inherit name="editor_object" />
       <look>It's a spam advertisement from a shady website.  You might want to download a trusty computer security program. </look>
     </object>
+    <exit alias="Back" to="Email" />
   </object>
   <object name="Enroll">
     <inherit name="editor_room" />
