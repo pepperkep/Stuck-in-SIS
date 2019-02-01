@@ -26,6 +26,7 @@
         <value>Look at</value>
         <value>Use</value>
       </inventoryverbs>
+	  <inLaptop type="boolean">false</inLaptop>
       <feature_usegive />
       <alt type="stringlist">
         <value>computer</value>
@@ -41,8 +42,14 @@
         msg ("You cannot give away your laptop! The contents are... too embarassing!")
       </givesingle>
       <use type="script">
-        Laptop.real_place = player.parent
-        MoveObject (player, Desktop)
+		if(not Laptop.inLaptop){
+			Laptop.real_place = player.parent
+			Laptop.inLaptop = true
+			MoveObject (player, Desktop)
+		}
+		else{
+			msg("You are already using the laptop!")
+		}
       </use>
       <object name="Anime stickers">
         <prefix>a</prefix>
@@ -296,6 +303,7 @@
     </exit>
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
   </object>
+  
   <object name="Classes and Enrollment">
     <isroom />
     <description>Is there anything scarier than having to plan your future?</description>
@@ -467,29 +475,33 @@
     <exit name="Enroll Tab" to="Enroll">
       <locked />
     </exit>
+	
   </object>
   <object name="Financial Aid">
     <isroom />
+	<description>Your heart stops for a bit whenever you visit this page.</description>
     <exit name="view bill" alias="view bill" to="bill" />
   </object>
+  
   <object name="bill">
     <isroom />
     <description>The bill is too high. You need to react to maintain your sanity.</description>
     <command name="sob">
       <pattern>cry+|sob+</pattern>
       <script>
-        msg ("You cry as hard as you can, but the bill remains too high. You try to forget you looked at it and go back to the SIS main page")
-        MoveObject (player, SIS home page)
+        msg ("You cry as hard as you can, but the bill remains too high. You try to forget you looked at it and close the SIS page and go back to your desktop.")
+        MoveObject (player, Desktop)
       </script>
     </command>
     <command name="yell">
       <pattern>yell+|scream+</pattern>
       <script>
-        msg ("You let out your loudest scream, but Babs cannot hear it and thus nothing changes. You go back to the SIS main page")
-        MoveObject (player, SIS home page)
+        msg ("You let out your loudest scream, but Babs cannot hear it and thus nothing changes. You close SIS out of anger and go back to your desktop.")
+        MoveObject (player, Desktop)
       </script>
     </command>
   </object>
+  
   <object name="Mike's room">
     <inherit name="editor_room" />
     <isroom />
@@ -570,6 +582,9 @@
     <enabled />
     <script><![CDATA[
       Alarm Clock.time = Alarm Clock.time + 5
+	  if(player.parent = Laptop.real_place){
+		Laptop.inLaptop = false
+	  }
       if (Alarm Clock.time % 60 = 0) {
         player.caffeine = player.caffeine - 1
       }
@@ -665,12 +680,14 @@
       player.caffeine = player.caffeine + 2
     </use>
   </object>
+  
   <object name="Email">
     <inherit name="editor_room" />
     <descprefix>You are in your email page.</descprefix>
     <exit alias="outbox" to="Outbox" />
     <exit alias="inbox" to="Inbox" />
   </object>
+  
   <object name="Outbox">
     <inherit name="editor_room" />
     <description type="string"></description>
@@ -709,6 +726,7 @@
       <prefix>unwritten</prefix>
     </object>
   </object>
+  
   <object name="Inbox">
     <inherit name="editor_room" />
     <object name="Email from Advisor">
@@ -724,9 +742,11 @@
       <look>It's a spam advertisement from a shady website.  You might want to download a trusty computer security program. </look>
     </object>
   </object>
+  
   <object name="Enroll">
     <inherit name="editor_room" />
   </object>
+  
   <verb>
     <pattern>send</pattern>
     <property>send</property>
