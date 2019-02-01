@@ -12,6 +12,11 @@
     <pattern>set</pattern>
     <defaultexpression>You cannot just set any object!</defaultexpression>
   </verb>
+  <verb>
+	<property>click</property>
+	<pattern>click</pattern>
+	<defaultexpression>You seem to have spent so much time in the digital realm that you think you can click on anything. Pftshaw!</defaultexpression>
+  </verb>
   <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
@@ -302,6 +307,82 @@
       <suffix type="string"></suffix>
     </exit>
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
+	<exit name="Grades and History Tab" alias="Grades and History Tab" to="GradesandHistory" />
+  </object>
+  
+  <object name="GradesandHistory">
+	<isroom/>
+	<alias>Grads and History</alias>
+	<description>This is the part of the website where they store all the letters. I think they're supposed to represent something?</description>
+	<exit name="View Grades" alias="View Grades" to="Grades"/>
+	<exit name="Look at Transcript" alias="Look at Transcript" to="View Transcript"/>
+  </object>
+  
+  <object name="View Transcript">
+	<description>You created a copy of your {object:Transcript}?! Why would you? You must get rid of it while you can!</description>
+	<isroom/>
+	<object name="Transcript">
+	<inherit name="edible" />
+		<feature_edible />
+		<eatmsg>Phew! You hid the evidence</eatmsg>
+		<eat type="script">
+			msg (this.eatmsg)
+			destroy (this.name)
+		</eat>
+		<take type="script">
+			msg ("Better be careful who you let see this")
+			AddToInventory (Transcript)
+      </take>
+	</object>
+	<exit name="back to Grades and History" alias="back to Grades and History Tab" to="GradesandHistory" />
+  </object>
+  
+  <object name="Grades">
+	<isroom/>
+	<description>Is this page supposed to have the whole alphabet on it? You can click any letter you want as long as it is early on in the alphabet!</description>
+	<object name="A">
+		<click type="script">
+			msg("You sigh as you realize you only got an A in that course because it was easy. If only first semester could come again...")
+			MoveObject(player, GradesandHistory)
+		</click>
+		<displayverbs type="stringlist" />
+	</object>
+	<object name="B">
+		<click type="script">
+			msg("That was a good grade considering how difficult the course was. It gives you just enough confident to visit your email")
+			MoveObject(player, Email)
+		</click>
+		<displayverbs type="stringlist" />
+	</object>
+	<object name="C">
+		<click type="script">
+			msg("Looking at this grade makes you feel average. Stationary even.")
+			MoveObject(player, Grades)
+		</click>
+		<displayverbs type="stringlist" />
+	</object>
+	<object name="D">
+		<click type="script">
+			msg("Looking at this grade is hurts, and thus it leads you to somewhere else that also hurts.")
+			MoveObject(player, Financial Aid)
+		</click>
+		<displayverbs type="stringlist" />
+	</object>
+	<object name="F">
+		<click type="script">
+			msg("That class really gave you a good kick. A really hard kick. The memory kicks just as hard as the class did and you fall out of SIS.")
+			MoveObject(player, Laptop.real_place)
+			Laptop.inLaptop = false
+		</click>
+		<displayverbs type="stringlist" />
+	</object>
+	<object name="Pass">
+		<click type="script">
+			msg("Ah yes, the class you only had to pass. You were able to fall asleep for that all you want. The very thought makes you drowsy and you fall asleep.")
+			MoveObject(player, Sleep)
+		</click>
+		<displayverbs type="stringlist" />
+	</object>
   </object>
   
   <object name="Classes and Enrollment">
@@ -558,6 +639,7 @@
         else {
           msg ("You slept in too late! It's past scheduling time and your next semester might be ruined!")
           MoveObject (player, bedroom)
+		  Laptop.inLaptop = false
         }
       ]]></script>
     </command>
@@ -599,6 +681,7 @@
 			if(IsRegexMatch("get up|move|get off", LCase(result))){
 				msg("You successfully woke up to the alarm!")
 				MoveObject(player, bedroom)
+				Laptop.inLaptop = false
 				Alarm Clock.snooze = -1
 			}
 			else{
@@ -731,7 +814,7 @@
     <inherit name="editor_room" />
     <object name="Email from Advisor">
       <inherit name="editor_object" />
-      <look>Its a message from your advisor.  Your advisor thinks you should end up taking a MATH clas, an EECS class, your last SAGES, and two humanities classes. </look>
+      <look>Its a message from your advisor.  Your advisor thinks you should end up taking a MATH class, an EECS class, your last SAGES, and two humanities classes. </look>
     </object>
     <object name="Email from friend">
       <inherit name="editor_object" />
