@@ -13,9 +13,9 @@
     <defaultexpression>You cannot just set any object!</defaultexpression>
   </verb>
   <verb>
-	<property>click</property>
-	<pattern>click</pattern>
-	<defaultexpression>You seem to have spent so much time in the digital realm that you think you can click on anything. Pftshaw!</defaultexpression>
+    <property>click</property>
+    <pattern>click</pattern>
+    <defaultexpression>You seem to have spent so much time in the digital realm that you think you can click on anything. Pftshaw!</defaultexpression>
   </verb>
 
   <object name="bedroom">
@@ -209,6 +209,7 @@
         <value>Table</value>
       </alt>
     </object>
+
 	 <object name="Bottles">
       <inherit name="surface" />
       <inherit name="editor_object" />
@@ -224,12 +225,11 @@
         msg ("What's the harm in having a few extra bottles?")
         AddToInventory (Bottles)
       </take>
-	  <givesingle type="script">
+      <givesingle type="script">
         msg ("Better get rid of these. Would't want an RA to get the wrong idea.")
       </givesingle>
-     </object>
-
-	<object name="Major Change Form">
+    </object>
+    <object name="Major Change Form">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -353,74 +353,73 @@
 	<exit name="View Grades" alias="View Grades" to="Grades"/>
 	<exit name="Look at Transcript" alias="Look at Transcript" to="View Transcript"/>
   </object>
-
   <object name="View Transcript">
-	<description>You created a copy of your {object:Transcript}?! Why would you? You must get rid of it while you can!</description>
-	<isroom/>
-	<object name="Transcript">
-	<inherit name="edible" />
-		<feature_edible />
-		<eatmsg>Phew! You hid the evidence, but somehow the world makes less sense now....</eatmsg>
-		<eat type="script">
-			msg (this.eatmsg)
-			destroy (this.name)
-			player.intelligence = player.intelligence - 1
-		</eat>
-		<take type="script">
-			msg ("Better be careful who you let see this")
-			AddToInventory (Transcript)
+    <description>You created a copy of your {object:Transcript}?! Why would you? You must get rid of it while you can!</description>
+    <isroom />
+    <object name="Transcript">
+      <inherit name="edible" />
+      <feature_edible />
+      <eatmsg>Phew! You hid the evidence, but somehow the world makes less sense now....</eatmsg>
+      <eat type="script">
+        msg (this.eatmsg)
+        destroy (this.name)
+        player.intelligence = player.intelligence - 1
+      </eat>
+      <take type="script">
+        msg ("Better be careful who you let see this")
+        AddToInventory (Transcript)
       </take>
-	</object>
-	<exit name="back to Grades and History" alias="back to Grades and History Tab" to="GradesandHistory" />
+    </object>
+    <exit name="back to Grades and History" alias="back to Grades and History Tab" to="GradesandHistory" />
   </object>
 
   <object name="Grades">
-	<isroom/>
-	<description>Is this page supposed to have the whole alphabet on it? You can click any letter you want as long as it is early on in the alphabet!</description>
-	<object name="A">
-		<click type="script">
-			msg("You sigh as you realize you only got an A in that course because it was easy. If only first semester could come again...")
-			MoveObject(player, GradesandHistory)
-		</click>
-		<displayverbs type="stringlist" />
-	</object>
-	<object name="B">
-		<click type="script">
-			msg("That was a good grade considering how difficult the course was. It gives you just enough confident to visit your email")
-			MoveObject(player, Email)
-		</click>
-		<displayverbs type="stringlist" />
-	</object>
-	<object name="C">
-		<click type="script">
-			msg("Looking at this grade makes you feel average. Stationary even.")
-			MoveObject(player, Grades)
-		</click>
-		<displayverbs type="stringlist" />
-	</object>
-	<object name="D">
-		<click type="script">
-			msg("Looking at this grade is hurts, and thus it leads you to somewhere else that also hurts.")
-			MoveObject(player, Financial Aid)
-		</click>
-		<displayverbs type="stringlist" />
-	</object>
-	<object name="F">
-		<click type="script">
-			msg("That class really gave you a good kick. A really hard kick. The memory kicks just as hard as the class did and you fall out of SIS.")
-			MoveObject(player, Laptop.real_place)
-			Laptop.inLaptop = false
-		</click>
-		<displayverbs type="stringlist" />
-	</object>
-	<object name="Pass">
-		<click type="script">
-			msg("Ah yes, the class you only had to pass. You were able to fall asleep for that all you want. The very thought makes you drowsy and you fall asleep.")
-			MoveObject(player, Sleep)
-		</click>
-		<displayverbs type="stringlist" />
-	</object>
-
+    <isroom />
+    <description>Is this page supposed to have the whole alphabet on it? You can click any letter you want as long as it is early on in the alphabet!</description>
+    <look>It's a list of all the grades you've recieved in your classes. </look>
+    <object name="A">
+      <displayverbs type="stringlist" />
+      <click type="script">
+        msg ("You sigh as you realize you only got an A in that course because it was easy. If only first semester could come again...")
+        MoveObject (player, GradesandHistory)
+      </click>
+    </object>
+    <object name="B">
+      <displayverbs type="stringlist" />
+      <click type="script">
+        msg ("That was a good grade considering how difficult the course was. It gives you just enough confident to visit your email")
+        MoveObject (player, Email)
+      </click>
+    </object>
+    <object name="C">
+      <displayverbs type="stringlist" />
+      <click type="script">
+        msg ("Looking at this grade makes you feel average. Stationary even.")
+        MoveObject (player, Grades)
+      </click>
+    </object>
+    <object name="D">
+      <displayverbs type="stringlist" />
+      <click type="script">
+        msg ("Looking at this grade is hurts, and thus it leads you to somewhere else that also hurts.")
+        MoveObject (player, Financial Aid)
+      </click>
+    </object>
+    <object name="F">
+      <displayverbs type="stringlist" />
+      <click type="script">
+        msg ("That class really gave you a good kick. A really hard kick. The memory kicks just as hard as the class did and you fall out of SIS.")
+        MoveObject (player, Laptop.real_place)
+        Laptop.inLaptop = false
+      </click>
+    </object>
+    <object name="Pass">
+      <displayverbs type="stringlist" />
+      <click type="script">
+        msg ("Ah yes, the class you only had to pass. You were able to fall asleep for that all you want. The very thought makes you drowsy and you fall asleep.")
+        MoveObject (player, Sleep)
+      </click>
+    </object>
   </object>
   <object name="Classes and Enrollment">
     <description>Is there anything scarier than having to plan your future?</description>
@@ -446,13 +445,10 @@
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Course Added. Better grab it before some freshman does.")
-
         AddToInventory (EECS 340)
-
 		player.num_classes=player.num_classes +1
 
 		player.num_classes=player.num_classes + 1
-
       </take>
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
@@ -475,9 +471,7 @@
       <take type="script">
         msg ("Course Added.You grab it, thanking the gods for making add/drop. ")
         AddToInventory (EECS 255)
-		player.num_classes=player.num_classes + 1
-
-
+        player.num_classes = player.num_classes + 1
       </take>
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
@@ -497,9 +491,7 @@
       <take type="script">
         msg ("Taken. At least it's your last SAGES ")
         AddToInventory (Boring SAGES)
-
-		player.num_classes=player.num_classes + 1
-
+        player.num_classes = player.num_classes + 1
       </take>
       <givesingle type="script">
         msg ("Yeah sure, if you want to spend an extra semester paying tuition.")
@@ -562,10 +554,7 @@
       <take type="script">
         msg (" Cours Ajouter. Cette classe est dans ton baguette! ")
         AddToInventory (FRCH 404)
-
-		player.num_classes=player.num_classes + 1
-
-
+        player.num_classes = player.num_classes + 1
       </take>
       <givesingle type="script">
         msg ("Non, mon ami.")
@@ -589,9 +578,7 @@
       <take type="script">
         msg ("Course Added. Now you can become educated in the gnomery of the Netherlands. ")
         AddToInventory (HIST 307)
-
-		player.num_classes=player.num_classes + 1
-
+        player.num_classes = player.num_classes + 1
       </take>
       <givesingle type="script">
         msg ("Wait, but how else will you learn about the gnomery of the Netherlands?!")
@@ -704,13 +691,14 @@
 		 <exit name="Enroll Tab" to="Enroll">
       <locked />
     </exit>
+    <exit alias="Back" to="SIS home page" />
   </object>
   <object name="Financial Aid">
     <isroom />
     <description>Your heart stops for a bit whenever you visit this page.</description>
     <exit name="view bill" alias="view bill" to="bill" />
   </object>
-  
+
   <object name="bill">
     <isroom />
     <description>The bill is too high. You need to react to maintain your sanity.</description>
@@ -752,7 +740,8 @@
 
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things.
 		AddToInventory (Coffee Mix)
-	                                            </takemsg>
+	  </takemsg>
+
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
       <take type="script">
@@ -789,13 +778,13 @@
         <look>Special chocolates that each contain as much caffeine as half a cup of coffee. </look>
         <feature_usegive />
         <take type="script">
-		if (ListContains(ScopeVisible(), Mike)) {
-          msg ("Mike yells at you, \"Hey! Don't take my stuff!\"")
-        }
-        else {
-		msg ("You know it's not nice to take other people's things without their permission, right?")
-		AddToInventory (Coffee Mix)
-        }
+          if (ListContains(ScopeVisible(), Mike)) {
+            msg ("Mike yells at you, \"Hey! Don't take my stuff!\"")
+          }
+          else {
+            msg ("You know it's not nice to take other people's things without their permission, right?")
+            AddToInventory (Coffee Mix)
+          }
         </take>
         <use type="script">
           msg ("Eating a few these should keep me awake for a while.")
@@ -813,6 +802,19 @@
       <inherit name="male" />
       <look>He's your friend Mike.  Earlier this week you heard him talk about all the different forms of caffeine he has stocked up. </look>
       <feature_usegive />
+      <speak type="script"><![CDATA[
+        if (Mike.parent = Mikes Room) {
+          if (player.intelligence > -1) {
+            msg ("\"Why are you in my room? My door was closed!\"")
+          }
+          else {
+            msg ("\"Do you ever find it weird how much better 2D girls are than 3D girls? I think that's because each pixel of an anime girl is made with perfection while 3D girls are always flawed in some way\"")
+          }
+        }
+        else {
+          msg ("\"Why would you set off an alarm at this time!\"")
+        }
+      ]]></speak>
       <give type="scriptdictionary">
         <item key="Major Change Form">
           msg ("\"Thanks! I was looking for this! Here's an energy drink to wake you up tomorrow morning.\"")
@@ -821,19 +823,6 @@
           RemoveObject (Major Change Form)
         </item>
       </give>
-	  <speak type="script"><![CDATA[
-		if(Mike.parent = Mikes Room){
-		  if(player.intelligence > -1){
-			msg("\"Why are you in my room? My door was closed!\"")
-		  }
-		  else{
-			msg("\"Do you ever find it weird how much better 2D girls are than 3D girls? I think that's because each pixel of an anime girl is made with perfection while 3D girls are always flawed in some way\"")
-		  }
-		}
-		else{
-			msg("\"Why would you set off an alarm at this time!\"")
-		}
-	  ]]></speak>
     </object>
   </object>
 
@@ -985,6 +974,7 @@
     <descprefix>You are in your email page.</descprefix>
     <exit alias="outbox" to="Outbox" />
     <exit alias="inbox" to="Inbox" />
+    <exit alias="Back" to="Desktop" />
   </object>
   <object name="Outbox">
     <inherit name="editor_room" />
@@ -1006,7 +996,7 @@
               RemoveObject (Email)
             }
             else {
-              msg ("Your advisor didn't think those were the best choices.  Time to try again.")
+              msg ("You were lucky that your advisor managed to reply right away, but they didn't think those were the best choices.  Time to try again.")
             }
           }
           else {
@@ -1014,7 +1004,9 @@
           }
         }
       </send>
+      <look>It's an unwritten email.   The subject line says "Please please please please lift my registration hold."</look>
     </object>
+    <exit alias="Back" to="Email" />
   </object>
   <object name="Inbox">
     <inherit name="editor_room" />
@@ -1030,6 +1022,7 @@
       <inherit name="editor_object" />
       <look>It's a spam advertisement from a shady website.  You might want to download a trusty computer security program. </look>
     </object>
+    <exit alias="Back" to="Email" />
   </object>
   <object name="Enroll">
     <inherit name="editor_room" />
