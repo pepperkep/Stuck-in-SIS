@@ -526,12 +526,20 @@
         <value>Coffee</value>
         <value>Mix</value>
       </alt>
-      <take />
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things. 
 		AddToInventory (Coffee Mix)
-	                                      </takemsg>
+	                                            </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
+      <take type="script">
+        if (ListContains(ScopeVisible(), Mike)) {
+          msg ("Mike yells at you, \"Hey! Don't take my stuff!\"")
+        }
+        else {
+          msg ("You know it's not nice to take other people's things without their permission, right?")
+          AddToInventory (Coffee Mix)
+        }
+      </take>
       <use type="script">
       </use>
       <selfuseon type="scriptdictionary">
@@ -556,12 +564,19 @@
         <inherit name="editor_object" />
         <look>Special chocolates that each contain as much caffeine as half a cup of coffee. </look>
         <feature_usegive />
+        <take type="script">
+		if (ListContains(ScopeVisible(), Mike)) {
+          msg ("Mike yells at you, \"Hey! Don't take my stuff!\"")
+        }
+        else {
+		msg ("You know it's not nice to take other people's things without their permission, right?")
+		AddToInventory (Coffee Mix)
+        }
+        </take>
         <use type="script">
           msg ("Eating a few these should keep me awake for a while.")
           player.caffeine = player.caffeine + 2
         </use>
-        <take />
-        <takemsg>I hope Mike doesn't get mad that I took his special chocolates. </takemsg>
       </object>
       <object name="Mikes Laptop">
         <inherit name="editor_object" />
@@ -578,6 +593,7 @@
           msg ("Thanks! I was looking for this! Here's an energy drink to wake you up tomorrow morning.")
           MoveObjectHere (Energy Drink)
           AddToInventory (Energy Drink)
+          RemoveObject (Major Change Form)
         </item>
       </give>
     </object>
@@ -676,7 +692,7 @@
                               msg ("You turn off the alarm, only to immediately fall asleep again. You are just too tired...")
                             }
                             else {
-                              msg ("You neither turn the alarm off or snooze it and fall back asleep.")
+                              msg ("You neither turn the alarm off nor snooze it and fall back asleep.")
                             }
                           }
                         }
