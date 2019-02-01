@@ -18,24 +18,17 @@
   </game>
 
   <verb>
-
     <property>set</property>
-
     <pattern>set</pattern>
-
     <defaultexpression>You cannot just set any object!</defaultexpression>
-
   </verb>
 
   <verb>
-
 	<property>click</property>
-
 	<pattern>click</pattern>
-
 	<defaultexpression>You seem to have spent so much time in the digital realm that you think you can click on anything. Pftshaw!</defaultexpression>
-
   </verb>
+  
 
   <object name="bedroom">
 
@@ -148,6 +141,8 @@
       <attr name="num_classes" type="int">0</attr>
 
       <caffeine type="int">5</caffeine>
+
+	  <intelligence type="int">0</intelligence>
 
     </object>
 
@@ -367,6 +362,8 @@
 
   </object>
 
+  
+
   <object name="hallway">
 
     <isroom />
@@ -389,13 +386,14 @@
 
     </exit>
 
-    <exit alias="south" to="Mike's room">
-
+    <exit alias="south" to="Mikes Room">
       <inherit name="southdirection" />
 
     </exit>
 
   </object>
+
+  
 
   <object name="common room">
 
@@ -413,7 +411,47 @@
 
     </object>
 
-    <object name="Major Change Form">
+	 <object name="Bottles">
+
+      <inherit name="surface" />
+
+      <inherit name="editor_object" />
+
+      <prefix>some</prefix>
+
+      <look>You see some glass bottles strewn across the common room floor. They must have been filled with soda at some point right?</look>
+
+      <inventoryverbs type="stringlist">
+
+        <value>Look at</value>
+
+        <value>Use</value>
+
+      </inventoryverbs>
+
+      <feature_usegive />
+
+      <attr name="real_place" type="object">common room</attr>
+
+      <take type="script">
+
+        msg ("What's the harm in having a few extra bottles?")
+
+        AddToInventory (Bottles)
+
+      </take>
+
+	  <givesingle type="script">
+
+        msg ("Better get rid of these. Would't want an RA to get the wrong idea.")
+
+      </givesingle>
+
+     </object>
+   
+
+	<object name="Major Change Form">
+
 
       <inherit name="surface" />
 
@@ -496,6 +534,8 @@
     </object>
 
   </object>
+
+  
 
   <object name="lounge">
 
@@ -640,155 +680,81 @@
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
 
 	<exit name="Grades and History Tab" alias="Grades and History Tab" to="GradesandHistory" />
-
   </object>
-
   
-
   <object name="GradesandHistory">
-
 	<isroom/>
-
 	<alias>Grads and History</alias>
-
 	<description>This is the part of the website where they store all the letters. I think they're supposed to represent something?</description>
-
 	<exit name="View Grades" alias="View Grades" to="Grades"/>
-
 	<exit name="Look at Transcript" alias="Look at Transcript" to="View Transcript"/>
-
   </object>
-
   
-
   <object name="View Transcript">
-
 	<description>You created a copy of your {object:Transcript}?! Why would you? You must get rid of it while you can!</description>
-
 	<isroom/>
-
 	<object name="Transcript">
-
 	<inherit name="edible" />
-
 		<feature_edible />
-
-		<eatmsg>Phew! You hid the evidence</eatmsg>
-
+		<eatmsg>Phew! You hid the evidence, but somehow the world makes less sense now....</eatmsg>
 		<eat type="script">
-
 			msg (this.eatmsg)
-
 			destroy (this.name)
-
+			player.intelligence = player.intelligence - 1
 		</eat>
-
 		<take type="script">
-
 			msg ("Better be careful who you let see this")
-
 			AddToInventory (Transcript)
-
       </take>
-
 	</object>
-
 	<exit name="back to Grades and History" alias="back to Grades and History Tab" to="GradesandHistory" />
-
   </object>
-
   
-
   <object name="Grades">
-
 	<isroom/>
-
 	<description>Is this page supposed to have the whole alphabet on it? You can click any letter you want as long as it is early on in the alphabet!</description>
-
 	<object name="A">
-
 		<click type="script">
-
 			msg("You sigh as you realize you only got an A in that course because it was easy. If only first semester could come again...")
-
 			MoveObject(player, GradesandHistory)
-
 		</click>
-
 		<displayverbs type="stringlist" />
-
 	</object>
-
 	<object name="B">
-
 		<click type="script">
-
 			msg("That was a good grade considering how difficult the course was. It gives you just enough confident to visit your email")
-
 			MoveObject(player, Email)
-
 		</click>
-
 		<displayverbs type="stringlist" />
-
 	</object>
-
 	<object name="C">
-
 		<click type="script">
-
 			msg("Looking at this grade makes you feel average. Stationary even.")
-
 			MoveObject(player, Grades)
-
 		</click>
-
 		<displayverbs type="stringlist" />
-
 	</object>
-
 	<object name="D">
-
 		<click type="script">
-
 			msg("Looking at this grade is hurts, and thus it leads you to somewhere else that also hurts.")
-
 			MoveObject(player, Financial Aid)
-
 		</click>
-
 		<displayverbs type="stringlist" />
-
 	</object>
-
 	<object name="F">
-
 		<click type="script">
-
 			msg("That class really gave you a good kick. A really hard kick. The memory kicks just as hard as the class did and you fall out of SIS.")
-
 			MoveObject(player, Laptop.real_place)
-
 			Laptop.inLaptop = false
-
 		</click>
-
 		<displayverbs type="stringlist" />
-
 	</object>
-
 	<object name="Pass">
-
 		<click type="script">
-
 			msg("Ah yes, the class you only had to pass. You were able to fall asleep for that all you want. The very thought makes you drowsy and you fall asleep.")
-
 			MoveObject(player, Sleep)
-
 		</click>
-
 		<displayverbs type="stringlist" />
-
 	</object>
 
   </object>
@@ -815,9 +781,14 @@
       </alt>
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
-        msg ("Course Added.Better grab it before some freshman does.")
+        msg ("Course Added. Better grab it before some freshman does.")
+
         AddToInventory (EECS 340)
+
 		player.num_classes=player.num_classes +1
+
+		player.num_classes=player.num_classes + 1
+
       </take>
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
@@ -840,7 +811,9 @@
       <take type="script">
         msg ("Course Added.You grab it, thanking the gods for making add/drop. ")
         AddToInventory (EECS 255)
-		player.num_classes=player.num_classes +1
+		player.num_classes=player.num_classes + 1
+
+
       </take>
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
@@ -860,7 +833,9 @@
       <take type="script">
         msg ("Taken. At least it's your last SAGES ")
         AddToInventory (Boring SAGES)
-		player.num_classes=player.num_classes +1
+
+		player.num_classes=player.num_classes + 1
+
       </take>
       <givesingle type="script">
         msg ("Yeah sure, if you want to spend an extra semester paying tuition.")
@@ -902,7 +877,7 @@
       </alt>
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
-        msg ("You've already had your lifetime's worth of integrals.No need for more.")
+        msg ("You've already had your lifetime's worth of integrals. No need for more.")
       </take>
     </object>
     <object name="FRCH 404">
@@ -923,7 +898,10 @@
       <take type="script">
         msg (" Cours Ajouter. Cette classe est dans ton baguette! ")
         AddToInventory (FRCH 404)
-		player.num_classes=player.num_classes +1
+
+		player.num_classes=player.num_classes + 1
+
+
       </take>
       <givesingle type="script">
         msg ("Non, mon ami.")
@@ -947,7 +925,9 @@
       <take type="script">
         msg ("Course Added. Now you can become educated in the gnomery of the Netherlands. ")
         AddToInventory (HIST 307)
-		player.num_classes=player.num_classes +1
+
+		player.num_classes=player.num_classes + 1
+
       </take>
       <givesingle type="script">
         msg ("Wait, but how else will you learn about the gnomery of the Netherlands?!")
@@ -1062,10 +1042,8 @@
     </exit>
   </object>
   
-    
-    
 
- <object name="Financial Aid">
+  <object name="Financial Aid">
 
     <isroom />
 
@@ -1111,7 +1089,8 @@
 
   </object>
 
-  <object name="Mike's room">
+  
+  <object name="Mikes Room">
 
     <inherit name="editor_room" />
 
@@ -1119,7 +1098,7 @@
 
     <alias>Mike's Room</alias>
 
-    <descprefix>You are in your friend Mike's room. You like him because his name is short for Micycle.  It's just as small as yours, but because their bed is lofted it has the illusion of more space. </descprefix>
+    <descprefix>You are in your friend Mikes Room. You like him because his name is short for Micycle.  It's just as small as yours, but because their bed is lofted it has the illusion of more space. </descprefix>
 
     <objectslistprefix>You can see</objectslistprefix>
 
@@ -1145,6 +1124,7 @@
 
       </alt>
 
+
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things. 
 
 		AddToInventory (Coffee Mix)
@@ -1156,21 +1136,13 @@
       <feature_usegive />
 
       <take type="script">
-
         if (ListContains(ScopeVisible(), Mike)) {
-
           msg ("Mike yells at you, \"Hey! Don't take my stuff!\"")
-
         }
-
         else {
-
           msg ("You know it's not nice to take other people's things without their permission, right?")
-
           AddToInventory (Coffee Mix)
-
         }
-
       </take>
 
       <use type="script">
@@ -1222,21 +1194,13 @@
         <feature_usegive />
 
         <take type="script">
-
 		if (ListContains(ScopeVisible(), Mike)) {
-
           msg ("Mike yells at you, \"Hey! Don't take my stuff!\"")
-
         }
-
         else {
-
 		msg ("You know it's not nice to take other people's things without their permission, right?")
-
 		AddToInventory (Coffee Mix)
-
         }
-
         </take>
 
         <use type="script">
@@ -1260,31 +1224,31 @@
     </object>
 
     <object name="Mike">
-
       <inherit name="editor_object" />
-
       <inherit name="male" />
-
       <look>He's your friend Mike.  Earlier this week you heard him talk about all the different forms of caffeine he has stocked up. </look>
-
       <feature_usegive />
-
       <give type="scriptdictionary">
-
         <item key="Major Change Form">
-
-          msg ("Thanks! I was looking for this! Here's an energy drink to wake you up tomorrow morning.")
-
+          msg ("\"Thanks! I was looking for this! Here's an energy drink to wake you up tomorrow morning.\"")
           MoveObjectHere (Energy Drink)
-
           AddToInventory (Energy Drink)
-
           RemoveObject (Major Change Form)
-
         </item>
-
       </give>
-
+	  <speak type="script"><![CDATA[
+		if(Mike.parent = Mikes Room){
+		  if(player.intelligence > -1){
+			msg("\"Why are you in my room? My door was closed!\"")
+		  }
+		  else{
+			msg("\"Do you ever find it weird how much better 2D girls are than 3D girls? I think that's because each pixel of an anime girl is made with perfection while 3D girls are always flawed in some way\"")
+		  }
+		}
+		else{
+			msg("\"Why would you set off an alarm at this time!\"")
+		}
+	  ]]></speak>
     </object>
 
   </object>
@@ -1521,7 +1485,8 @@
 
           else {
 
-            msg ("That alarms you set just went off! Did you really think you would be asleep now?")
+            msg ("That alarms you set just went off! Mike steps out of his room to find you. He seems angry.")
+			MoveObject(Mike, player.parent)
 
           }
 
@@ -1696,29 +1661,17 @@
   </verb>
 
   <object name="Energy Drink">
-
     <inherit name="editor_object" />
-
     <usedefaultprefix type="boolean">false</usedefaultprefix>
-
     <alt type="stringlist">
-
       <value>drink</value>
-
     </alt>
-
     <feature_usegive />
-
     <look>It's a can of 2-Hour Power brand Energy Drink.</look>
-
     <use type="script">
-
       msg ("Tastes like sugar and artificial flavoring.")
-
       player.caffeine = player.caffeine + 2
-
     </use>
-
   </object>
 
 </asl>
