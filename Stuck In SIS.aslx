@@ -7,7 +7,14 @@
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
   </game>
-  <object name="bedroom">
+
+  <verb>
+	<property>set</property>
+	<pattern>set</pattern>
+	<defaultexpression>You cannot just set any object!</defaultexpression>
+  </verb>
+  
+ <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
     <object name="Laptop">
@@ -52,7 +59,7 @@
     <exit alias="south" to="hallway">
       <inherit name="southdirection" />
     </exit>
-    <object name="Alarm Clock">
+<object name="Alarm Clock">
       <inherit name="editor_object" />
       <alt type="stringlist">
         <value>clock</value>
@@ -62,7 +69,7 @@
       <feature_usegive />
       <attr name="feature_switchable" type="boolean">false</attr>
       <time type="int">0</time>
-      <attr type="list" />
+      <alarms type="list"></alarms>
       <look type="script"><![CDATA[
         time = "The current time is "
         if ((9 + Alarm Clock.time/60) % 12 = 0) {
@@ -80,6 +87,42 @@
       <switchedon type="boolean">false</switchedon>
       <use type="script">
       </use>
+      <set type="script">
+        msg ("Scheduling begins tomorrow at 7:00a.m. Do you want to set an alarm?")
+        get input {
+          if (IsRegexMatch("yes|y", LCase(result))) {
+            time = 0
+            msg ("How many hours from now?")
+            get input {
+              if (IsRegexMatch("^[0-9]*$", result)) {
+                time = time + ToInt(result) * 60
+                msg ("How many minutes?")
+                get input {
+                  if (IsRegexMatch("^[0-9]*$", result)) {
+                    time = time + ToInt(result)
+                    list add (Alarm Clock.alarms, time)
+                    msg ("Sucessfully added alarm")
+                  }
+                  else {
+                    msg ("Nice try, but that is not a number!")
+                  }
+                }
+              }
+              else {
+                msg ("Nice try, but that is not a number!")
+              }
+            }
+          }
+          else {
+            if (IsRegexMatch("no|n", LCase(result))) {
+              msg ("You choose to take the risk and not set an alarm")
+            }
+            else {
+              msg ("Could not parse input. Say yes or no next time")
+            }
+          }
+        }
+      </set>
     </object>
     <object name="Bed">
       <prefix>a</prefix>
@@ -112,7 +155,30 @@
         msg ("On the first page you flip open to you see some hastily scrawled notes.'Need a few CS courses, a SAGES and a humanities. Thank God that I don't need a math course.'")
       </use>
     </object>
+	<object name="Journal">
+		   <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>You see your journal which has some of your deepest darkest secrets...and some fanfiction.</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">common room</attr>
+      <take type="script">
+        msg ("Might have some important info in it.")
+        AddToInventory (Journal)
+      </take>
+	  <givesingle type="script">
+        msg ("You can't possibly let your Pride and Prejudice fanfiction fall into the wrong hands!")
+      </givesingle>
+	  <use type="script">
+       msg("On the first page you flip open to you see some hastily scrawled notes.'Need a few CS courses, a SAGES and a humanities. Thank God that I don't need a math course.'")
+      </use>
+     </object>
   </object>
+
   <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
@@ -128,7 +194,8 @@
       <inherit name="southdirection" />
     </exit>
   </object>
-  <object name="common room">
+
+ <object name="common room">
     <isroom />
     <object name="table">
       <look>Scratched up old table</look>
@@ -156,6 +223,7 @@
       <inherit name="westdirection" />
     </exit>
   </object>
+
   <object name="lounge">
     <isroom />
     <exit alias="east" to="hallway">
@@ -189,7 +257,8 @@
       </useon>
     </object>
   </object>
-  <object name="Desktop">
+
+ <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
     <description>You have several applications open. You definitely opened all of them for a reason, but have forgotten exactly why.</description>
@@ -205,6 +274,7 @@
       <suffix type="string"></suffix>
     </exit>
   </object>
+
   <object name="SIS home page">
     <isroom />
     <description>There are so many buttons on the home screen. Is this supposed to be a maze?</description>
@@ -220,6 +290,7 @@
     </exit>
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
   </object>
+
   <object name="Classes and Enrollment">
     <isroom />
     <description>Is there anything scarier than having to plan your future?</description>
@@ -309,8 +380,8 @@
       <take type="script">
         msg ("You've already had your lifetime's worth of integrals.No need for more.")
       </take>
-    </object>
-    <object name="FRCH 404">
+     </object>
+	 <object name="FRCH 404">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -344,11 +415,11 @@
         msg ("Course Added. Now you can become educated in the gnomery of the Netherlands. ")
         AddToInventory (HIST 307)
       </take>
-      <givesingle type="script">
+	  <givesingle type="script">
         msg ("Wait, but how else will you learn about the gnomery of the Netherlands?!")
       </givesingle>
-    </object>
-    <object name="An Interesting SAGES">
+	  </object>
+	  <object name="An Interesting SAGES">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -386,9 +457,10 @@
       </script>
     </command>
   </object>
+
   <object name="Mike's room">
     <inherit name="editor_room" />
-    <isroom />
+	<isroom />
     <alias>Mike's Room</alias>
     <descprefix>You are in your friend Mike's room. You like him because his name is short for Micycle.  It's just as small as yours, but because their bed is lofted it has the illusion of more space. </descprefix>
     <objectslistprefix>You can see</objectslistprefix>
@@ -418,6 +490,7 @@
       </selfuseon>
     </object>
   </object>
+
   <object name="Sleep">
     <isroom />
     <description>You hallucinate vividly. No you are not going crazy, you are just asleep.</description>
@@ -435,6 +508,7 @@
       ]]></script>
     </command>
   </object>
+
   <turnscript name="TimePass">
     <enabled />
     <script>
