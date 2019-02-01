@@ -1,404 +1,210 @@
-
 <!--Saved by Quest 5.8.6836.13983-->
-
 <asl version="580">
-
   <include ref="English.aslx" />
-
   <include ref="Core.aslx" />
-
   <game name="Stuck In SIS">
-
     <gameid>58b81593-fd5c-49a5-bd41-f5b3d0c127f8</gameid>
-
     <version>1.0</version>
-
     <firstpublished>2019</firstpublished>
-
   </game>
-
   <verb>
     <property>set</property>
     <pattern>set</pattern>
     <defaultexpression>You cannot just set any object!</defaultexpression>
   </verb>
-
   <verb>
     <property>click</property>
     <pattern>click</pattern>
     <defaultexpression>You seem to have spent so much time in the digital realm that you think you can click on anything. Pftshaw!</defaultexpression>
   </verb>
   <object name="bedroom">
-
     <inherit name="editor_room" />
-
     <isroom />
-
     <object name="Laptop">
-
       <inherit name="surface" />
-
       <inherit name="editor_object" />
-
       <prefix>a</prefix>
-
       <look>MacBookPro covered in anime stickers.</look>
-
       <feature_container />
-
       <hidechildren />
-
       <inventoryverbs type="stringlist">
-
         <value>Look at</value>
-
         <value>Use</value>
-
       </inventoryverbs>
-
       <inLaptop type="boolean">false</inLaptop>
-
       <feature_usegive />
-
       <alt type="stringlist">
-
         <value>computer</value>
-
         <value>Laptop</value>
-
         <value>Computer</value>
-
       </alt>
-
       <attr name="real_place" type="object">bedroom</attr>
-
       <take type="script">
-
         msg ("You turn it on and hastily close the embarassing tabs that you see")
-
         AddToInventory (Laptop)
-
       </take>
-
       <givesingle type="script">
-
         msg ("You cannot give away your laptop! The contents are... too embarassing!")
-
       </givesingle>
-
       <use type="script">
-
         if (not Laptop.inLaptop) {
-
           Laptop.real_place = player.parent
-
           Laptop.inLaptop = true
-
           MoveObject (player, Desktop)
-
         }
-
         else {
-
           msg ("You are already using the laptop!")
-
         }
-
       </use>
-
       <object name="Anime stickers">
-
         <prefix>a</prefix>
-
         <look>These stickers make you cringe for a bit. After that,you remember that they are part of who you are, and you cringe even more.</look>
-
         <alt type="stringlist">
-
           <value>stickers</value>
-
         </alt>
-
         <take type="script">
-
           msg ("As you look at the stickers you regret the direction your life has taken")
-
           AddToInventory (Anime stickers)
-
         </take>
-
       </object>
-
     </object>
-
     <object name="player">
-
       <inherit name="editor_object" />
-
       <inherit name="editor_player" />
-
       <attr name="num_classes" type="int">0</attr>
-
       <caffeine type="int">5</caffeine>
-	  <intelligence type="int">0</intelligence>
+      <intelligence type="int">0</intelligence>
     </object>
-
     <exit alias="south" to="hallway">
-
       <inherit name="southdirection" />
-
     </exit>
-
     <object name="Alarm Clock">
-
       <inherit name="editor_object" />
-
       <alt type="stringlist">
-
         <value>clock</value>
-
         <value>alarm</value>
-
         <value>Clock</value>
-
         <value>Alarm</value>
-
       </alt>
-
       <take type="boolean">false</take>
-
       <feature_usegive />
-
       <attr name="feature_switchable" type="boolean">false</attr>
-
       <snooze type="int">-1</snooze>
-
       <time type="int">0</time>
-
       <alarms type="list" />
-
       <switchedon type="boolean">false</switchedon>
-
       <look type="script"><![CDATA[
-
         time = "The current time is "
-
         if ((9 + Alarm Clock.time/60) % 12 = 0) {
-
           time = time + "12:"
-
         }
-
         else {
-
           time = time + ((9 + Alarm Clock.time/60) % 12) + ":"
-
         }
-
         if (Alarm Clock.time % 60 < 10) {
-
           time = time + "0"
-
         }
-
         time = time + Alarm Clock.time % 60
-
         msg (time)
-
       ]]></look>
-
       <use type="script">
-
       </use>
-
       <set type="script">
-
         msg ("Scheduling begins tomorrow at 7:00a.m. Do you want to set an alarm?")
-
         get input {
-
           if (IsRegexMatch("yes|y", LCase(result))) {
-
             time = 0
-
             msg ("How many hours from now?")
-
             get input {
-
               if (IsRegexMatch("^[0-9]*$", result)) {
-
                 time = time + ToInt(result) * 60
-
                 msg ("How many minutes?")
-
                 get input {
-
                   if (IsRegexMatch("^[0-9]*$", result)) {
-
                     time = time + ToInt(result)
-
                     list add (Alarm Clock.alarms, time)
-
                     msg ("Sucessfully added alarm")
-
                   }
-
                   else {
-
                     msg ("Nice try, but that is not a number!")
-
                   }
-
                 }
-
               }
-
               else {
-
                 msg ("Nice try, but that is not a number!")
-
               }
-
             }
-
           }
-
           else {
-
             if (IsRegexMatch("no|n", LCase(result))) {
-
               msg ("You choose to take the risk and not set an alarm")
-
             }
-
             else {
-
               msg ("Could not parse input. Say yes or no next time")
-
             }
-
           }
-
         }
-
       </set>
-
     </object>
-
     <object name="Bed">
-
       <prefix>a</prefix>
-
       <feature_usegive />
-
       <alt type="stringlist">
-
         <value>bed</value>
-
       </alt>
-
       <look type="script">
-
         msg ("The bed is as empty as you are.")
-
       </look>
-
       <use type="script">
-
         msg ("Time to sleep before the hellish nightmare that is tomorrow morning.")
-
         player.caffeine = 0
-
       </use>
-
     </object>
-
     <object name="Journal">
-
       <inherit name="surface" />
-
       <inherit name="editor_object" />
-
       <prefix>a</prefix>
-
       <look>You see your journal which has some of your deepest darkest secrets...and some fanfiction.</look>
-
       <inventoryverbs type="stringlist">
-
         <value>Look at</value>
-
         <value>Use</value>
-
       </inventoryverbs>
-
       <feature_usegive />
-
       <attr name="real_place" type="object">common room</attr>
-
       <take type="script">
-
         msg ("Might have some important info in it.")
-
         AddToInventory (Journal)
-
       </take>
-
       <givesingle type="script">
-
         msg ("You can't possibly let your Pride and Prejudice fanfiction fall into the wrong hands!")
-
       </givesingle>
-
       <use type="script">
-
         msg ("On the first page you flip open to you see some hastily scrawled notes.'Need a few CS courses, a SAGES and a humanities. Thank God that I don't need a math course.'")
-
       </use>
-
     </object>
-
   </object>
   <object name="hallway">
-
     <isroom />
-
     <exit alias="east" to="common room">
-
       <inherit name="eastdirection" />
-
     </exit>
-
     <exit alias="west" to="lounge">
-
       <inherit name="westdirection" />
-
     </exit>
-
     <exit alias="north" to="bedroom">
-
       <inherit name="northdirection" />
-
     </exit>
-
     <exit alias="south" to="Mikes Room">
       <inherit name="southdirection" />
-
     </exit>
-
   </object>
   <object name="common room">
-
     <isroom />
-
     <object name="table">
-
       <look>It's a scratched up old table</look>
-
       <alt type="stringlist">
-
         <value>Table</value>
-
       </alt>
-
     </object>
     <object name="Bottles">
       <inherit name="surface" />
@@ -421,225 +227,116 @@
     </object>
     <object name="Major Change Form">
       <inherit name="surface" />
-
       <inherit name="editor_object" />
-
       <prefix>a</prefix>
-
       <look>You see a major change form lying on the ground soaked in tears.  You try not to think about how this could be a bad omen.</look>
-
       <inventoryverbs type="stringlist">
-
         <value>Look at</value>
-
         <value>Use</value>
-
       </inventoryverbs>
-
       <feature_usegive />
-
       <alt type="stringlist">
-
         <value>form</value>
-
         <value>Form</value>
-
       </alt>
-
       <attr name="real_place" type="object">common room</attr>
-
       <take type="script">
-
         msg ("You shudder when you grab it.")
-
         AddToInventory (Major Change Form)
-
       </take>
-
       <givesingle type="script">
-
         msg ("Better keep this in case things go south.")
-
       </givesingle>
-
     </object>
-
     <exit alias="west" to="hallway">
-
       <inherit name="westdirection" />
-
     </exit>
-
     <object name="Trash Can">
-
       <inherit name="editor_object" />
-
       <inherit name="container_open" />
-
       <feature_container />
-
       <hidechildren />
-
       <open type="boolean">false</open>
-
       <close type="boolean">false</close>
-
       <alt type="stringlist">
-
         <value>garbage</value>
-
         <value>garbage can</value>
-
         <value>trash</value>
-
       </alt>
-
       <listchildren />
-
       <look>It's a trash can.  </look>
-
     </object>
-
   </object>
   <object name="lounge">
-
     <isroom />
-
     <exit alias="east" to="hallway">
-
       <inherit name="eastdirection" />
-
     </exit>
-
     <object name="Coffee Machine">
-
       <inherit name="surface" />
-
       <inherit name="editor_object" />
-
       <prefix>a</prefix>
-
       <look>A poorly cleaned Keurig that was recently used.</look>
-
       <feature_container />
-
       <hidechildren />
-
       <inventoryverbs type="stringlist">
-
         <value>Look at</value>
-
         <value>Use</value>
-
       </inventoryverbs>
-
       <feature_usegive />
-
       <use type="boolean">false</use>
-
       <alt type="stringlist">
-
         <value>coffee machine</value>
-
         <value>machine</value>
-
         <value>Machine</value>
-
         <value>coffee Machine</value>
-
         <value>Coffee Machine</value>
-
       </alt>
-
       <attr name="real_place" type="object">lounge</attr>
-
       <take type="script">
-
         msg ("It wouldn't be nice to steal it, but you know that you need it more than others do right now.")
-
         AddToInventory (Coffee Machine)
-
       </take>
-
       <useon type="scriptdictionary">
-
         <item key="Coffee Mix">
-
           MoveObjectHere (Coffee)
-
           AddToInventory (Coffee)
-
           RemoveObject (Coffee Machine)
-
           OutputTextNoBr ("One Caramel Macchiato with a doubleshot of espresso and vanilla topped coming up!")
-
         </item>
-
       </useon>
-
     </object>
-
   </object>
   <object name="Desktop">
-
     <inherit name="editor_room" />
-
     <isroom />
-
     <description>You have several applications open. You definitely opened all of them for a reason, but have forgotten exactly why.</description>
-
     <beforeenter type="script">
-
       create exit ("Leave", Desktop, Laptop.real_place)
-
     </beforeenter>
-
     <onexit type="script">
-
       MakeExitInvisible (GetObject(GetExitByLink(Desktop, Laptop.real_place )))
-
     </onexit>
-
     <enter type="script">
-
     </enter>
-
     <exit name="Web browser" alias="SIS home page" to="SIS home page">
-
       <suffix type="string"></suffix>
-
     </exit>
-
     <exit alias="Email" to="Email" />
-
   </object>
-
   <object name="SIS home page">
-
     <isroom />
-
     <description>There are so many buttons on the home screen. Is this supposed to be a maze?</description>
-
     <firstenter type="script">
-
       msg ("Wow, this is the SIS! It looks so incredibly messy. Who designed this?")
-
       game.autodescription_description = 4
-
     </firstenter>
-
     <beforefirstenter type="script">
-
       game.autodescription_description = 0
-
     </beforefirstenter>
-
     <exit name="Enrollment tab" alias="Enrollment tab" to="Classes and Enrollment">
-
       <suffix type="string"></suffix>
-
     </exit>
-
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
     <exit name="Grades and History Tab" alias="Grades and History Tab" to="GradesandHistory" />
     <exit alias="Desktop" to="SIS home page">
@@ -723,9 +420,6 @@
   <object name="Classes and Enrollment">
     <description>Is there anything scarier than having to plan your future?</description>
     <isroom />
-
-    <description>Is there anything scarier than having to plan your future?</description>
-
     <object name="EECS 340">
       <inherit name="surface" />
       <inherit name="editor_object" />
@@ -745,9 +439,8 @@
       <take type="script">
         msg ("Course Added. Better grab it before some freshman does.")
         AddToInventory (EECS 340)
-		player.num_classes=player.num_classes +1
-
-		player.num_classes=player.num_classes + 1
+        player.num_classes = player.num_classes +1
+        player.num_classes = player.num_classes + 1
       </take>
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
@@ -883,7 +576,7 @@
         msg ("Wait, but how else will you learn about the gnomery of the Netherlands?!")
       </givesingle>
     </object>
-    <object name="An Interesting SAGES">
+    <object name="Interesting SAGES">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -896,7 +589,6 @@
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Maybe you'll get the class if you sell your kidney to the professor.")
-
       </take>
     </object>
     <object name="ENGR 145">
@@ -913,7 +605,7 @@
       <take type="script">
         msg ("Course Added. At least you have another class to sleep in.")
         AddToInventory (ENGR 145)
-		player.num_classes=player.num_classes +1
+        player.num_classes = player.num_classes +1
       </take>
     </object>
     <object name="EMAE 160">
@@ -930,7 +622,7 @@
       <take type="script">
         msg ("Course Added. You're paying for thinkBox out of your tuition so you might as well use it.")
         AddToInventory (EMAE 160)
-		player.num_classes=player.num_classes +1
+        player.num_classes = player.num_classes +1
       </take>
     </object>
     <object name="DANC 315">
@@ -947,27 +639,18 @@
       <take type="script">
         msg ("Course Added. You might give your father a stroke.")
         AddToInventory (DANC 315)
-		player.num_classes=player.num_classes +1
+        player.num_classes = player.num_classes +1
       </take>
     </object>
-	  <exit alias="Shopping Cart Tab" to="Shopping Cart">
+    <exit alias="Shopping Cart Tab" to="Shopping Cart">
       <suffix type="string"></suffix>
     </exit>
   </object>
-  
   <object name="Shopping Cart">
-   <inherit name="editor_room" />
+    <inherit name="editor_room" />
     <isroom />
     <description>A page as empty and small as your prospects of getting all of your classes.</description>
-    <beforeenter type="script">
-      create exit ("Leave", Shopping Cart, Laptop.real_place)
-    </beforeenter>
-    <onexit type="script">
-      MakeExitInvisible (GetObject(GetExitByLink(Shopping Cart, Laptop.real_place )))
-    </onexit>
-    <enter type="script">
-    </enter>
-	 <script><![CDATA[
+    <script><![CDATA[
 	if(Alarm Clock.time>600 and Alarm Clock.time<620){
 		if(player.num_classes>3){
 		if(HasObject(Shopping Cart,EECS 340) and HasObject(Shopping Cart,EECS 255)and HasObject(Shopping Cart,HIST 307 and HasObject(Shopping Cart,Boring SAGES)){
@@ -986,99 +669,66 @@
 		msg("You're trying to register at the wrong time buddy.")
 		}
 		}
-		 ]]></script>
-		 <exit name="Enroll Tab" to="Enroll">
+		     ]]></script>
+    <beforeenter type="script">
+      create exit ("Leave", Shopping Cart, Laptop.real_place)
+    </beforeenter>
+    <onexit type="script">
+      MakeExitInvisible (GetObject(GetExitByLink(Shopping Cart, Laptop.real_place )))
+    </onexit>
+    <enter type="script">
+    </enter>
+    <exit name="Enroll Tab" to="Enroll">
       <locked />
     </exit>
     <exit alias="Back" to="SIS home page" />
   </object>
   <object name="Financial Aid">
-
     <isroom />
-
     <description>Your heart stops for a bit whenever you visit this page.</description>
-
     <exit name="view bill" alias="view bill" to="bill" />
-
   </object>
   <object name="bill">
-
     <isroom />
-
     <description>The bill is too high. You need to react to maintain your sanity.</description>
-
     <command name="sob">
-
       <pattern>cry+|sob+</pattern>
-
       <script>
-
         msg ("You cry as hard as you can, but the bill remains too high. You try to forget you looked at it and close the SIS page and go back to your desktop.")
-
         MoveObject (player, Desktop)
-
       </script>
-
     </command>
-
     <command name="yell">
-
       <pattern>yell+|scream+</pattern>
-
       <script>
-
         msg ("You let out your loudest scream, but Babs cannot hear it and thus nothing changes. You close SIS out of anger and go back to your desktop.")
-
         MoveObject (player, Desktop)
-
       </script>
-
     </command>
-
   </object>
   <object name="Mikes Room">
-
     <inherit name="editor_room" />
-
     <isroom />
-
     <alias>Mike's Room</alias>
-
     <descprefix>You are in your friend Mikes Room. You like him because his name is short for Micycle.  It's just as small as yours, but because their bed is lofted it has the illusion of more space. </descprefix>
-
     <objectslistprefix>You can see</objectslistprefix>
-
     <exit alias="north" to="hallway">
-
       <inherit name="northdirection" />
-
     </exit>
-
     <object name="Coffee Mix">
-
       <inherit name="editor_object" />
-
       <alt type="stringlist">
-
         <value>coffee</value>
-
         <value>mix</value>
-
         <value>Coffee</value>
-
         <value>Mix</value>
-
       </alt>
-
-
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things. 
 
 		AddToInventory (Coffee Mix)
-	                                                        </takemsg>
+	                                                              </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
-
       <feature_usegive />
-
       <take type="script">
         if (ListContains(ScopeVisible(), Mike)) {
           msg ("Mike yells at you, \"Hey! Don't take my stuff!\"")
@@ -1088,55 +738,30 @@
           AddToInventory (Coffee Mix)
         }
       </take>
-
       <use type="script">
-
       </use>
-
       <selfuseon type="scriptdictionary">
-
         <item key="Coffee Machine">
-
           msg ("One Caramel Macchiato with a doubleshot of espresso and vanilla coming up!")
-
           MoveObjectHere (Coffee)
-
           AddToInventory (Coffee)
-
           RemoveObject (Coffee Mix)
-
         </item>
-
       </selfuseon>
-
     </object>
-
     <object name="Desk">
-
       <inherit name="editor_object" />
-
       <inherit name="container_open" />
-
       <feature_container />
-
       <listchildren />
-
       <hidechildren />
-
       <isopen type="boolean">false</isopen>
-
       <openmsg>Opening Mike's desk drawer</openmsg>
-
       <closemsg>Closing Mike's desk drawer</closemsg>
-
       <object name="Chocolates">
-
         <inherit name="editor_object" />
-
         <look>Special chocolates that each contain as much caffeine as half a cup of coffee. </look>
-
         <feature_usegive />
-
         <take type="script">
           if (ListContains(ScopeVisible(), Mike)) {
             msg ("Mike yells at you, \"Hey! Don't take my stuff!\"")
@@ -1146,27 +771,16 @@
             AddToInventory (Coffee Mix)
           }
         </take>
-
         <use type="script">
-
           msg ("Eating a few these should keep me awake for a while.")
-
           player.caffeine = player.caffeine + 2
-
         </use>
-
       </object>
-
       <object name="Mikes Laptop">
-
         <inherit name="editor_object" />
-
         <alias>Mike's Laptop</alias>
-
       </object>
-
     </object>
-
     <object name="Mike">
       <inherit name="editor_object" />
       <inherit name="male" />
@@ -1194,411 +808,215 @@
         </item>
       </give>
     </object>
-
   </object>
-
   <object name="Sleep">
-
     <isroom />
-
     <description>You hallucinate vividly. No you are not going crazy, you are just asleep.</description>
-
     <command name="wake">
-
       <pattern>wake+|get{1}\sup{1}</pattern>
-
       <script><![CDATA[
-
         if (Alarm Clock.time < 720) {
-
           isAlarm = false
-
           foreach (alarm, Alarm Clock.alarms) {
-
             if (alarm < Alarm Clock.time) {
-
               isAlarm = true
-
             }
-
           }
-
           if (not isAlarm) {
-
             msg ("You feel like there is something you need to wake up for, but you are too tired. You can... just... sleep... a little longer.")
-
           }
-
           Alarm Clock.time = Alarm Clock.time + 10
-
         }
-
         else {
-
           msg ("You slept in too late! It's past scheduling time and your next semester might be ruined!")
-
           MoveObject (player, bedroom)
           Laptop.inLaptop = false
         }
-
       ]]></script>
-
     </command>
-
     <command name="sleep">
-
       <pattern>sleep|rest|pass</pattern>
-
       <script><![CDATA[
-
         isAlarm = false
-
         foreach (alarm, Alarm Clock.alarms) {
-
           if (alarm < Alarm Clock.time) {
-
             isAlarm = true
-
           }
-
         }
-
         if (not isAlarm) {
-
           msg ("You continute to rest peacefully")
-
         }
-
         Alarm Clock.time = Alarm Clock.time + 55
-
       ]]></script>
-
     </command>
-
   </object>
-
   <turnscript name="TimePass">
-
     <enabled />
-
     <script><![CDATA[
-
       Alarm Clock.time = Alarm Clock.time + 5
-
       if (player.parent = Laptop.real_place) {
-
         Laptop.inLaptop = false
-
       }
-
       if (Alarm Clock.time % 60 = 0) {
-
         player.caffeine = player.caffeine - 1
-
       }
-
       if (player.caffeine = 0) {
-
         MoveObject (player, Sleep)
-
         player.caffeine = 20
-
       }
-
       if (not (Alarm Clock.snooze = -1)) {
-
         Alarm Clock.time = Alarm Clock.snooze
-
         msg ("The snoozed alarm wakes you up. You desparately need to get up. What do you do?")
-
         get input {
-
           if (IsRegexMatch("get up|move|get off", LCase(result))) {
-
             msg ("You successfully woke up to the alarm!")
-
             MoveObject (player, bedroom)
-
             Alarm Clock.snooze = -1
-
           }
-
           else {
-
             msg ("You did not get up and thus fall asleep despite the constant alarm ringing")
-
             Alarm Clock.snooze = -1
-
           }
-
         }
-
       }
-
       removeTime = -1
-
       foreach (time, Alarm Clock.alarms) {
-
         if (time < Alarm Clock.time) {
-
           removeTime = time
-
           if (player.parent = Sleep) {
-
             msg ("You hear the distant buzz of an alarm... You're... supposed.. to schedule, right? You need to get to turn it off somehow but it's on the wrong side of the bed... What do you do?")
-
             get input {
-
               if (IsRegexMatch("turn|flip|roll", LCase(result))) {
-
                 msg ("Now you're lying with your face smothered in the pillow. It's rather uncomfortable, but you could still fall asleep like this. What do you do?")
-
                 get input {
-
                   if (IsRegexMatch("turn|flip|roll", LCase(result))) {
-
                     msg ("Well, you're on the right side now but you can't quite remember where you set your alarm. What should you do?")
-
                     get input {
-
                       if (IsRegexMatch("look|search|find", LCase(result))) {
-
                         msg ("Finally! You got your alarm clock. Do you want to turn the alarm off or put it on snooze?")
-
                         get input {
-
                           if (IsRegexMatch("snooze", LCase(result))) {
-
                             msg ("You fall asleep again with faith that your snoozed alarm will allow you to wake up.")
-
                             Alarm Clock.snooze = time + 10
-
                           }
-
                           else {
-
                             if (IsRegexMatch("turn off|switch off", LCase(result))) {
-
                               msg ("You turn off the alarm, only to immediately fall asleep again. You are just too tired...")
-
                             }
-
                             else {
-
                               msg ("You neither turn the alarm off nor snooze it and fall back asleep.")
-
                             }
-
                           }
-
                         }
-
                       }
-
                       else {
-
                         msg ("Your alarm clock is somewhere but you cannot be bothered to find it. Oh well, might as well go back to sleep")
-
                       }
-
                     }
-
                   }
-
                   else {
-
                     msg ("You manage to fall asleep even though the way you are laying is uncomfortable. Despicable")
-
                   }
-
                 }
-
               }
-
               else {
-
                 msg ("You cannot quite turn around and thus fall back asleep. It's.. too hard to get up.")
-
               }
-
             }
-
           }
-
           else {
-
             msg ("That alarms you set just went off! Mike steps out of his room to find you. He seems angry.")
             MoveObject (Mike, player.parent)
           }
-
         }
-
       }
-
       if (not (removeTime = -1)) {
-
         Alarm Clock.time = removeTime
-
         list remove (Alarm Clock.alarms, removeTime)
-
       }
-
     ]]></script>
-
   </turnscript>
-
   <object name="Coffee">
-
     <inherit name="editor_object" />
-
     <attr name="feature_edible" type="boolean">false</attr>
-
     <feature_usegive />
-
     <eatmsg>I'm probably going to pass out during my classes tomorrow, but at least I will be awake for registration.</eatmsg>
-
     <look>It's absolutely brimming with caffeine. Better drink it while its warm!</look>
-
     <take />
-
     <alt type="stringlist">
-
       <value>coffee</value>
-
       <value>caramel macchiato</value>
-
     </alt>
-
     <use type="script">
-
       RemoveObject (Coffee)
-
       player.caffeine = player.caffeine + 2
-
     </use>
-
   </object>
-
   <object name="Email">
-
     <inherit name="editor_room" />
-
     <descprefix>You are in your email page.</descprefix>
-
     <exit alias="outbox" to="Outbox" />
-
     <exit alias="inbox" to="Inbox" />
     <exit alias="Back" to="Desktop" />
   </object>
-
   <object name="Outbox">
-
     <inherit name="editor_room" />
-
     <description type="string"></description>
-
     <descprefix>You are in your outbox.  You could probably send an email from here.</descprefix>
-
     <object name="Email1">
-
       <inherit name="editor_object" />
-
       <alias>Email</alias>
-
       <usedefaultprefix type="boolean">false</usedefaultprefix>
-
       <prefix>unwritten</prefix>
-
+      <look>It's an unwritten email.   The subject line says "Please please please please lift my registration hold."</look>
       <send type="script">
-
         msg ("To Who?")
-
         get input {
-
           if (IsRegexMatch("advisor", LCase(result))) {
-
             if (Got(Major Change Form)) {
-
               msg ("Your advisor happened to be by their computer and liked your class selection. ")
-
               msg ("Your registration hold has been lifted!")
-
               UnlockExit (Enroll Tab)
-
               RemoveObject (Email)
-
             }
-
             else {
               msg ("You were lucky that your advisor managed to reply right away, but theydidn't think those were the best choices.  Time to try again.")
             }
-
           }
-
           else {
-
             msg ("Probably shouldn't right now.")
-
           }
-
         }
-
       </send>
-      <look>It's an unwritten email.   The subject line says "Please please please please lift my registration hold."</look>
     </object>
     <exit alias="Back" to="Email" />
   </object>
-
   <object name="Inbox">
-
     <inherit name="editor_room" />
-
     <object name="Email from Advisor">
-
       <inherit name="editor_object" />
-
       <look>Its a message from your advisor.  Your advisor thinks you should end up taking a MATH class, an EECS class, your last SAGES, and two humanities classes. </look>
-
     </object>
-
     <object name="Email from friend">
-
       <inherit name="editor_object" />
-
       <look>It's a message from your best friend.  It included a ViewTube link that they thought was funny.  You would watch it if you didn't have important stuff to do.</look>
-
     </object>
-
     <object name="Spam Email">
-
       <inherit name="editor_object" />
-
       <look>It's a spam advertisement from a shady website.  You might want to download a trusty computer security program. </look>
-
     </object>
     <exit alias="Back" to="Email" />
   </object>
-
   <object name="Enroll">
-
     <inherit name="editor_room" />
-
   </object>
-
   <verb>
-
     <pattern>send</pattern>
-
     <property>send</property>
-
     <defaultexpression>It's gonna be hard to send</defaultexpression>
-
     <scope>outbox</scope>
-
     <multiobjectmenu>To who?</multiobjectmenu>
-
   </verb>
-
   <object name="Energy Drink">
     <inherit name="editor_object" />
     <usedefaultprefix type="boolean">false</usedefaultprefix>
@@ -1612,5 +1030,4 @@
       player.caffeine = player.caffeine + 2
     </use>
   </object>
-
 </asl>
