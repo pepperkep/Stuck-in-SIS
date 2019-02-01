@@ -240,18 +240,6 @@
       </alt>
       <listchildren />
       <look>It's a trash can.  </look>
-      <object name="Energy Drink">
-        <inherit name="editor_object" />
-        <alt type="stringlist">
-          <value>drink</value>
-        </alt>
-        <feature_usegive />
-        <look>It's a can of 2-Hour Power brand Energy Drink.</look>
-        <use type="script">
-          msg ("Tastes like sugar and artificial flavoring.")
-          player.caffeine = player.caffeine + 2
-        </use>
-      </object>
     </object>
   </object>
   <object name="lounge">
@@ -580,6 +568,19 @@
         <alias>Mike's Laptop</alias>
       </object>
     </object>
+    <object name="Mike">
+      <inherit name="editor_object" />
+      <inherit name="male" />
+      <look>He's your friend Mike.  Earlier this week you heard him talk about all the different forms of caffeine he has stocked up. </look>
+      <feature_usegive />
+      <give type="scriptdictionary">
+        <item key="Major Change Form">
+          msg ("Thanks! I was looking for this! Here's an energy drink to wake you up tomorrow morning.")
+          MoveObjectHere (Energy Drink)
+          AddToInventory (Energy Drink)
+        </item>
+      </give>
+    </object>
   </object>
   <object name="Sleep">
     <isroom />
@@ -732,14 +733,6 @@
     <inherit name="editor_room" />
     <description type="string"></description>
     <descprefix>You are in your outbox.  You could probably send an email from here.</descprefix>
-    <object name="Advisor">
-      <inherit name="editor_object" />
-      <alt type="stringlist">
-        <value>advisor</value>
-      </alt>
-      <visible type="boolean">false</visible>
-      <scenery />
-    </object>
     <object name="Email1">
       <inherit name="editor_object" />
       <alias>Email</alias>
@@ -791,4 +784,17 @@
     <scope>outbox</scope>
     <multiobjectmenu>To who?</multiobjectmenu>
   </verb>
+  <object name="Energy Drink">
+    <inherit name="editor_object" />
+    <usedefaultprefix type="boolean">false</usedefaultprefix>
+    <alt type="stringlist">
+      <value>drink</value>
+    </alt>
+    <feature_usegive />
+    <look>It's a can of 2-Hour Power brand Energy Drink.</look>
+    <use type="script">
+      msg ("Tastes like sugar and artificial flavoring.")
+      player.caffeine = player.caffeine + 2
+    </use>
+  </object>
 </asl>
