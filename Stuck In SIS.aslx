@@ -26,7 +26,7 @@
         <value>Look at</value>
         <value>Use</value>
       </inventoryverbs>
-	  <inLaptop type="boolean">false</inLaptop>
+      <inLaptop type="boolean">false</inLaptop>
       <feature_usegive />
       <alt type="stringlist">
         <value>computer</value>
@@ -42,14 +42,14 @@
         msg ("You cannot give away your laptop! The contents are... too embarassing!")
       </givesingle>
       <use type="script">
-		if(not Laptop.inLaptop){
-			Laptop.real_place = player.parent
-			Laptop.inLaptop = true
-			MoveObject (player, Desktop)
-		}
-		else{
-			msg("You are already using the laptop!")
-		}
+        if (not Laptop.inLaptop) {
+          Laptop.real_place = player.parent
+          Laptop.inLaptop = true
+          MoveObject (player, Desktop)
+        }
+        else {
+          msg ("You are already using the laptop!")
+        }
       </use>
       <object name="Anime stickers">
         <prefix>a</prefix>
@@ -326,7 +326,6 @@
     </exit>
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
   </object>
-  
   <object name="Classes and Enrollment">
     <isroom />
     <description>Is there anything scarier than having to plan your future?</description>
@@ -498,14 +497,12 @@
     <exit name="Enroll Tab" to="Enroll">
       <locked />
     </exit>
-	
   </object>
   <object name="Financial Aid">
     <isroom />
-	<description>Your heart stops for a bit whenever you visit this page.</description>
+    <description>Your heart stops for a bit whenever you visit this page.</description>
     <exit name="view bill" alias="view bill" to="bill" />
   </object>
-  
   <object name="bill">
     <isroom />
     <description>The bill is too high. You need to react to maintain your sanity.</description>
@@ -524,7 +521,6 @@
       </script>
     </command>
   </object>
-  
   <object name="Mike's room">
     <inherit name="editor_room" />
     <isroom />
@@ -545,7 +541,7 @@
       <take />
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things. 
 		AddToInventory (Coffee Mix)
-	                          </takemsg>
+	                                      </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
       <use type="script">
@@ -558,6 +554,31 @@
           RemoveObject (Coffee Mix)
         </item>
       </selfuseon>
+    </object>
+    <object name="Desk">
+      <inherit name="editor_object" />
+      <inherit name="container_open" />
+      <feature_container />
+      <listchildren />
+      <hidechildren />
+      <isopen type="boolean">false</isopen>
+      <openmsg>Opening Mike's desk drawer</openmsg>
+      <closemsg>Closing Mike's desk drawer</closemsg>
+      <object name="Chocolates">
+        <inherit name="editor_object" />
+        <look>Special chocolates that each contain as much caffeine as half a cup of coffee. </look>
+        <feature_usegive />
+        <use type="script">
+          msg ("Eating a few these should keep me awake for a while.")
+          player.caffeine = player.caffeine + 2
+        </use>
+        <take />
+        <takemsg>I hope Mike doesn't get mad that I took his special chocolates. </takemsg>
+      </object>
+      <object name="Mikes Laptop">
+        <inherit name="editor_object" />
+        <alias>Mike's Laptop</alias>
+      </object>
     </object>
   </object>
   <object name="Sleep">
@@ -604,9 +625,9 @@
     <enabled />
     <script><![CDATA[
       Alarm Clock.time = Alarm Clock.time + 5
-	  if(player.parent = Laptop.real_place){
-		Laptop.inLaptop = false
-	  }
+      if (player.parent = Laptop.real_place) {
+        Laptop.inLaptop = false
+      }
       if (Alarm Clock.time % 60 = 0) {
         player.caffeine = player.caffeine - 1
       }
@@ -701,14 +722,12 @@
       player.caffeine = player.caffeine + 2
     </use>
   </object>
-  
   <object name="Email">
     <inherit name="editor_room" />
     <descprefix>You are in your email page.</descprefix>
     <exit alias="outbox" to="Outbox" />
     <exit alias="inbox" to="Inbox" />
   </object>
-  
   <object name="Outbox">
     <inherit name="editor_room" />
     <description type="string"></description>
@@ -747,7 +766,6 @@
       </send>
     </object>
   </object>
-  
   <object name="Inbox">
     <inherit name="editor_room" />
     <object name="Email from Advisor">
@@ -763,11 +781,9 @@
       <look>It's a spam advertisement from a shady website.  You might want to download a trusty computer security program. </look>
     </object>
   </object>
-  
   <object name="Enroll">
     <inherit name="editor_room" />
   </object>
-  
   <verb>
     <pattern>send</pattern>
     <property>send</property>
