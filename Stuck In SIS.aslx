@@ -6,6 +6,10 @@
     <gameid>58b81593-fd5c-49a5-bd41-f5b3d0c127f8</gameid>
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
+    <commandpane type="boolean">false</commandpane>
+    <start type="script">
+      msg ("Welcome to Stuck In SIS, a text adventure that helps to show the absurdities of college class registration.  Since the registration process can be really confusing, we will give you a little guidance in navigating this process. We suggest that you find some way to make sure you are awake when registration starts. Remember, registration starts at 7:00 am tomorrow!")
+    </start>
   </game>
   <verb>
     <property>set</property>
@@ -443,6 +447,7 @@
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
       </givesingle>
+      <not_all />
     </object>
     <object name="EECS 255">
       <inherit name="surface" />
@@ -466,6 +471,7 @@
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
       </givesingle>
+      <not_all />
     </object>
     <object name="Boring SAGES">
       <inherit name="surface" />
@@ -486,6 +492,7 @@
       <givesingle type="script">
         msg ("Yeah sure, if you want to spend an extra semester paying tuition.")
       </givesingle>
+      <not_all />
     </object>
     <object name="EECS 290">
       <inherit name="surface" />
@@ -507,6 +514,7 @@
       <take type="script">
         msg ("Why would you try to take a course that you're in currently. Do you have that litle faith in yourself, huh?!")
       </take>
+      <not_all />
     </object>
     <object name="MATH 122">
       <inherit name="surface" />
@@ -525,6 +533,7 @@
       <take type="script">
         msg ("You've already had your lifetime's worth of integrals. No need for more.")
       </take>
+      <not_all />
     </object>
     <object name="FRCH 404">
       <inherit name="surface" />
@@ -549,6 +558,7 @@
       <givesingle type="script">
         msg ("Non, mon ami.")
       </givesingle>
+      <not_all />
     </object>
     <object name="HIST 307">
       <inherit name="surface" />
@@ -573,6 +583,7 @@
       <givesingle type="script">
         msg ("Wait, but how else will you learn about the gnomery of the Netherlands?!")
       </givesingle>
+      <not_all />
     </object>
     <object name="Interesting SAGES">
       <inherit name="surface" />
@@ -588,6 +599,7 @@
       <take type="script">
         msg ("Maybe you'll get the class if you sell your kidney to the professor.")
       </take>
+      <not_all />
     </object>
     <object name="ENGR 145">
       <inherit name="surface" />
@@ -605,6 +617,7 @@
         AddToInventory (ENGR 145)
         player.num_classes = player.num_classes +1
       </take>
+      <not_all />
     </object>
     <object name="EMAE 160">
       <inherit name="surface" />
@@ -622,6 +635,7 @@
         AddToInventory (EMAE 160)
         player.num_classes = player.num_classes +1
       </take>
+      <not_all />
     </object>
     <object name="DANC 315">
       <inherit name="surface" />
@@ -639,6 +653,7 @@
         AddToInventory (DANC 315)
         player.num_classes = player.num_classes +1
       </take>
+      <not_all />
     </object>
     <exit alias="Shopping Cart Tab" to="Shopping Cart">
       <suffix type="string"></suffix>
@@ -653,6 +668,7 @@
       <ondrop type="script">
         MoveObject (MATH 364, Classes and Enrollment)
       </ondrop>
+      <not_all />
     </object>
   </object>
   <object name="Shopping Cart">
@@ -743,7 +759,7 @@
       </alt>
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things.
 		AddToInventory (Coffee Mix)
-	                                      </takemsg>
+	                                            </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
       <take type="script">
@@ -1006,19 +1022,17 @@
         else {
           msg ("It seems like you didn't quite figure things out in time.  Try again next semester?")
         }
-		MoveObject(player, void)
+        MoveObject (player, void)
       }
     ]]></script>
   </turnscript>
-  
   <object name="void">
-	<beforeenter type="script">
-	foreach (o, ScopeInventory()) {
-		RemoveObject(o)
-	}
-	</beforeenter>
+    <beforeenter type="script">
+      foreach (o, ScopeInventory()) {
+        RemoveObject (o)
+      }
+    </beforeenter>
   </object>
-  
   <object name="Coffee">
     <inherit name="editor_object" />
     <attr name="feature_edible" type="boolean">false</attr>
