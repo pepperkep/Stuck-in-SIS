@@ -449,12 +449,13 @@
       <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script"><![CDATA[
-        msg ("Course Added. Better grab it before some freshman does.")
-        AddToInventory (EECS 340)
-        player.num_classes = player.num_classes +1
         if (player.num_classes > 6) {
-          MoveObject (EECS 340, Classes and Enrollment)
           msg ("You can't take more than 6 classes you dingus. Do you want to go mad?")
+        }
+        else {
+          player.num_classes = player.num_classes +1
+          AddToInventory (EECS 340)
+          msg ("Course Added. Better grab it before some freshman does.")
         }
       ]]></take>
       <givesingle type="script">
@@ -462,7 +463,7 @@
       </givesingle>
       <ondrop type="script">
         if (not (game.pov.parent = Classes and Enrollment)) {
-          msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
+          msg ("I bet that you wish that you could drop classes outside of SIS, but you can't my friend.")
           AddToInventory (EECS 340)
         }
         else {
@@ -489,12 +490,13 @@
       <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script"><![CDATA[
-        msg ("Course Added.You grab it, thanking the gods for making add/drop. ")
-        AddToInventory (EECS 255)
-        player.num_classes = player.num_classes + 1
-		 if (player.num_classes > 6) {
-          MoveObject (EECS 255, Classes and Enrollment)
+        if (player.num_classes > 6) {
           msg ("You can't take more than 6 classes you dingus. Do you want to go mad?")
+        }
+        else {
+          player.num_classes = player.num_classes + 1
+          AddToInventory (EECS 255)
+          msg ("Course Added.You grab it, thanking the gods for making add/drop. ")
         }
       ]]></take>
       <givesingle type="script">
@@ -502,7 +504,7 @@
       </givesingle>
       <ondrop type="script">
         if (not game.pov.parent = Classes and Enrollment) {
-          msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
+          msg ("I bet that you wish that you could drop classes outside of SIS, but you can't my friend.")
           AddToInventory (EECS 255)
         }
         else {
@@ -524,12 +526,13 @@
       <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script"><![CDATA[
-        msg ("Taken. At least it's your last SAGES ")
-        AddToInventory (Boring SAGES)
-        player.num_classes = player.num_classes + 1
-		 if (player.num_classes > 6) {
-          MoveObject (Boring SAGES, Classes and Enrollment)
+        if (player.num_classes > 6) {
           msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
+        }
+        else {
+          msg ("Taken. At least it's your last SAGES ")
+          AddToInventory (Boring SAGES)
+          player.num_classes = player.num_classes + 1
         }
       ]]></take>
       <givesingle type="script">
@@ -537,7 +540,7 @@
       </givesingle>
       <ondrop type="script">
         if (not game.pov.parent = Classes and Enrollment) {
-          msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
+          msg ("I bet that you wish that you could drop classes outside of SIS, but you can't my friend.")
           AddToInventory (Boring SAGES)
         }
         else {
@@ -604,12 +607,13 @@
       <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script"><![CDATA[
-        msg (" Cours Ajouter. Cette classe est dans ton baguette! ")
-        AddToInventory (FRCH 404)
-        player.num_classes = player.num_classes + 1
-		if (player.num_classes > 6) {
-          MoveObject (FRCH 404, Classes and Enrollment)
-           msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
+        if (player.num_classes > 6) {
+          msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
+        }
+        else {
+          msg (" Cours Ajouter. Cette classe est dans ton baguette! ")
+          player.num_classes = player.num_classes + 1
+          AddToInventory (FRCH 404)
         }
       ]]></take>
       <givesingle type="script">
@@ -617,7 +621,7 @@
       </givesingle>
       <ondrop type="script">
         if (not game.pov.parent = Classes and Enrollment) {
-          msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
+          msg ("I bet that you wish that you could drop classes outside of SIS, but you can't my friend.")
           AddToInventory (FRCH 404)
         }
         else {
@@ -625,6 +629,7 @@
           player.num_classes = player.num_classes -1
         }
       </ondrop>
+      <drop />
     </object>
     <object name="HIST 307">
       <inherit name="surface" />
@@ -643,20 +648,21 @@
       <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script"><![CDATA[
-        msg ("Course Added. Now you can become educated in the gnomery of the Netherlands. ")
-        AddToInventory (HIST 307)
-        player.num_classes = player.num_classes + 1
-		if (player.num_classes > 6) {
-          MoveObject (HIST 307, Classes and Enrollment)
+        if (player.num_classes > 6) {
           msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
         }
-     ]]> </take>
+        else {
+          msg ("Course Added. Now you can become educated in the gnomery of the Netherlands. ")
+          AddToInventory (HIST 307)
+          player.num_classes = player.num_classes + 1
+        }
+      ]]></take>
       <givesingle type="script">
         msg ("Wait, but how else will you learn about the gnomery of the Netherlands?!")
       </givesingle>
       <ondrop type="script">
         if (not game.pov.parent = Classes and Enrollment) {
-          msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
+          msg ("I bet that you wish that you could drop classes outside of SIS, but you can't my friend.")
           AddToInventory (HIST 307)
         }
         else {
@@ -694,12 +700,13 @@
       <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script"><![CDATA[
-        msg ("Course Added. At least you have another class to sleep in.")
-        AddToInventory (ENGR 145)
-        player.num_classes = player.num_classes +1
-		if (player.num_classes > 6) {
-          MoveObject (ENGR 145, Classes and Enrollment)
+        if (player.num_classes > 6) {
           msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
+        }
+        else {
+          player.num_classes = player.num_classes +1
+          AddToInventory (ENGR 145)
+          msg ("Course Added. At least you have another class to sleep in.")
         }
       ]]></take>
       <givesingle type="script">
@@ -707,7 +714,7 @@
       </givesingle>
       <ondrop type="script">
         if (not game.pov.parent = Classes and Enrollment) {
-          msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
+          msg ("I bet that you wish that you could drop classes outside of SIS, but you can't my friend.")
           AddToInventory (ENGR 145)
         }
         else {
@@ -729,20 +736,21 @@
       <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script"><![CDATA[
-        msg ("Course Added. You're paying for thinkBox out of your tuition so you might as well use it.")
-        AddToInventory (EMAE 160)
-        player.num_classes = player.num_classes +1
-		if (player.num_classes > 6) {
-          MoveObject (EMAE 160, Classes and Enrollment)
+        if (player.num_classes > 6) {
           msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
         }
-     ]]> </take>
+        else {
+          AddToInventory (EMAE 160)
+          player.num_classes = player.num_classes +1
+          msg ("Course Added. You're paying for thinkBox out of your tuition so you might as well use it.")
+        }
+      ]]></take>
       <givesingle type="script">
         msg ("But, who's going to build the bridges?!")
       </givesingle>
       <ondrop type="script">
         if (not game.pov.parent = Classes and Enrollment) {
-          msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
+          msg ("I bet that you wish that you could drop classes outside of SIS, but you can't my friend.")
           AddToInventory (EMAE 160)
         }
         else {
@@ -764,12 +772,13 @@
       <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script"><![CDATA[
-        msg ("Course Added. You might give your father a stroke.")
-        AddToInventory (DANC 315)
-        player.num_classes = player.num_classes +1
-		if (player.num_classes > 6) {
-          MoveObject (DANC 315, Classes and Enrollment)
-           msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
+        if (player.num_classes > 6) {
+          msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
+        }
+        else {
+          player.num_classes = player.num_classes +1
+          AddToInventory (DANC 315)
+          msg ("Course Added. You might give your father a stroke.")
         }
       ]]></take>
       <givesingle type="script">
@@ -777,7 +786,7 @@
       </givesingle>
       <ondrop type="script">
         if (not game.pov.parent = Classes and Enrollment) {
-          msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
+          msg ("I bet that you wish that you could drop classes outside of SIS, but you can't my friend.")
           AddToInventory (DANC 315)
         }
         else {
@@ -794,11 +803,26 @@
       <look>Just reading the course description makes you long for when math used numbers, not letters. </look>
       <take />
       <not_all />
-      <ontake type="script">
-        AddToInventory (MATH 364)
-      </ontake>
+      <ontake type="script"><![CDATA[
+        if (player.num_classes > 6) {
+          msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
+        }
+        else {
+          player.num_classes = player.num_classes +1
+          AddToInventory (MATH 364)
+          msg ("Course Added. Soon you will only think in the form of numbers")
+        }
+      ]]></ontake>
       <ondrop type="script">
         MoveObject (MATH 364, Classes and Enrollment)
+        if (not game.pov.parent = Classes and Enrollment) {
+          msg ("I bet that you wish that you could drop classes outside of SIS, but you can't my friend.")
+          AddToInventory (MATH 364)
+        }
+        else {
+          msg ("Class Dropped. it's probably for the best that you aren't taking Abstract Probability Theory.")
+          player.num_classes = player.num_classes -1
+        }
       </ondrop>
     </object>
   </object>
@@ -890,7 +914,7 @@
       </alt>
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things.
 		AddToInventory (Coffee Mix)
-	                                                  </takemsg>
+	                                                        </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
       <take type="script">
@@ -1158,7 +1182,6 @@
         }
         else {
           msg ("It seems like you didn't quite figure things out in time. Want to restart?")
-          
         }
         MoveObject (player, void)
       }
