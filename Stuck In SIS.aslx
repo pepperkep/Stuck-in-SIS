@@ -42,6 +42,7 @@
         <value>Laptop</value>
         <value>Computer</value>
       </alt>
+      <canUse />
       <attr name="real_place" type="object">bedroom</attr>
       <take type="script">
         msg ("You turn it on and hastily close the embarassing tabs that you see")
@@ -51,13 +52,18 @@
         msg ("You cannot give away your laptop! The contents are... too embarassing!")
       </givesingle>
       <use type="script">
-        if (not Laptop.inLaptop) {
-          Laptop.real_place = player.parent
-          Laptop.inLaptop = true
-          MoveObject (player, Desktop)
+        if (Laptop.canUse) {
+          if (not Laptop.inLaptop) {
+            Laptop.real_place = player.parent
+            Laptop.inLaptop = true
+            MoveObject (player, Desktop)
+          }
+          else {
+            msg ("You are already using the laptop!")
+          }
         }
         else {
-          msg ("You are already using the laptop!")
+          msg ("It's a little hard to use that right now.")
         }
       </use>
       <object name="Anime stickers">
@@ -438,6 +444,7 @@
         <value>Algorithms</value>
         <value>algorithms</value>
       </alt>
+      <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Course Added. Better grab it before some freshman does.")
@@ -447,7 +454,6 @@
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
       </givesingle>
-      <not_all />
     </object>
     <object name="EECS 255">
       <inherit name="surface" />
@@ -462,6 +468,7 @@
       <alt type="stringlist">
         <value>255</value>
       </alt>
+      <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Course Added.You grab it, thanking the gods for making add/drop. ")
@@ -471,7 +478,6 @@
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
       </givesingle>
-      <not_all />
     </object>
     <object name="Boring SAGES">
       <inherit name="surface" />
@@ -483,6 +489,7 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Taken. At least it's your last SAGES ")
@@ -492,7 +499,6 @@
       <givesingle type="script">
         msg ("Yeah sure, if you want to spend an extra semester paying tuition.")
       </givesingle>
-      <not_all />
     </object>
     <object name="EECS 290">
       <inherit name="surface" />
@@ -510,11 +516,11 @@
         <value>Intro to Game Design</value>
         <value>290</value>
       </alt>
+      <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Why would you try to take a course that you're in currently. Do you have that litle faith in yourself, huh?!")
       </take>
-      <not_all />
     </object>
     <object name="MATH 122">
       <inherit name="surface" />
@@ -529,11 +535,11 @@
       <alt type="stringlist">
         <value>122</value>
       </alt>
+      <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("You've already had your lifetime's worth of integrals. No need for more.")
       </take>
-      <not_all />
     </object>
     <object name="FRCH 404">
       <inherit name="surface" />
@@ -549,6 +555,7 @@
         <value>404</value>
         <value>French</value>
       </alt>
+      <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg (" Cours Ajouter. Cette classe est dans ton baguette! ")
@@ -558,7 +565,6 @@
       <givesingle type="script">
         msg ("Non, mon ami.")
       </givesingle>
-      <not_all />
     </object>
     <object name="HIST 307">
       <inherit name="surface" />
@@ -574,6 +580,7 @@
         <value>307</value>
         <value>history</value>
       </alt>
+      <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Course Added. Now you can become educated in the gnomery of the Netherlands. ")
@@ -583,7 +590,6 @@
       <givesingle type="script">
         msg ("Wait, but how else will you learn about the gnomery of the Netherlands?!")
       </givesingle>
-      <not_all />
     </object>
     <object name="Interesting SAGES">
       <inherit name="surface" />
@@ -595,11 +601,11 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Maybe you'll get the class if you sell your kidney to the professor.")
       </take>
-      <not_all />
     </object>
     <object name="ENGR 145">
       <inherit name="surface" />
@@ -611,13 +617,13 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Course Added. At least you have another class to sleep in.")
         AddToInventory (ENGR 145)
         player.num_classes = player.num_classes +1
       </take>
-      <not_all />
     </object>
     <object name="EMAE 160">
       <inherit name="surface" />
@@ -629,13 +635,13 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Course Added. You're paying for thinkBox out of your tuition so you might as well use it.")
         AddToInventory (EMAE 160)
         player.num_classes = player.num_classes +1
       </take>
-      <not_all />
     </object>
     <object name="DANC 315">
       <inherit name="surface" />
@@ -647,13 +653,13 @@
         <value>Use</value>
       </inventoryverbs>
       <feature_usegive />
+      <not_all />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script">
         msg ("Course Added. You might give your father a stroke.")
         AddToInventory (DANC 315)
         player.num_classes = player.num_classes +1
       </take>
-      <not_all />
     </object>
     <exit alias="Shopping Cart Tab" to="Shopping Cart">
       <suffix type="string"></suffix>
@@ -662,13 +668,13 @@
       <inherit name="editor_object" />
       <look>Just reading the course description makes you long for when math used numbers, not letters. </look>
       <take />
+      <not_all />
       <ontake type="script">
         AddToInventory (MATH 364)
       </ontake>
       <ondrop type="script">
         MoveObject (MATH 364, Classes and Enrollment)
       </ondrop>
-      <not_all />
     </object>
   </object>
   <object name="Shopping Cart">
@@ -759,7 +765,7 @@
       </alt>
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things.
 		AddToInventory (Coffee Mix)
-	                                            </takemsg>
+	                                                  </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
       <take type="script">
@@ -846,6 +852,12 @@
   <object name="Sleep">
     <isroom />
     <description>You hallucinate vividly. No you are not going crazy, you are just asleep.</description>
+    <enter type="script">
+      Laptop.canUse = false
+    </enter>
+    <onexit type="script">
+      Laptop.canUse = true
+    </onexit>
     <command name="wake">
       <pattern>wake+|get{1}\sup{1}</pattern>
       <script><![CDATA[
