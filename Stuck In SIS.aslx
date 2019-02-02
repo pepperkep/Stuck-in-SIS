@@ -328,10 +328,10 @@
     <exit name="Web browser" alias="SIS home page" to="SIS home page">
       <suffix type="string"></suffix>
     </exit>
+    <exit alias="Email" to="Email" />
 	<exit name="Leave" alias="leave" to="bedroom">
       <suffix type="string"></suffix>
     </exit>
-    <exit alias="Email" to="Email" />
   </object>
   
   <object name="SIS home page">
