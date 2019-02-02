@@ -72,8 +72,10 @@
       <inherit name="editor_object" />
       <inherit name="editor_player" />
       <attr name="num_classes" type="int">0</attr>
+	  <attr name="isEnrolled" type="boolean">false</attr>
       <caffeine type="int">5</caffeine>
-      <intelligence type="int">0</intelligence>
+	  <intelligence type="int">0</intelligence>
+	  <happy type="boolean">false</happy>
     </object>
     <exit alias="south" to="hallway">
       <inherit name="southdirection" />
@@ -339,13 +341,10 @@
     </exit>
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
     <exit name="Grades and History Tab" alias="Grades and History Tab" to="GradesandHistory" />
-    <exit alias="Desktop" to="SIS home page">
-      <message>Huh.  Thats weird,  For whatever reason, you cannot close the SIS home page.</message>
-    </exit>
   </object>
   <object name="GradesandHistory">
     <isroom />
-    <alias>Grads and History</alias>
+    <alias>Grades and History</alias>
     <description>This is the part of the website where they store all the letters. I think they're supposed to represent something?</description>
     <exit name="View Grades" alias="View Grades" to="Grades" />
     <exit name="Look at Transcript" alias="Look at Transcript" to="View Transcript" />
@@ -440,7 +439,6 @@
         msg ("Course Added. Better grab it before some freshman does.")
         AddToInventory (EECS 340)
         player.num_classes = player.num_classes +1
-        player.num_classes = player.num_classes + 1
       </take>
       <givesingle type="script">
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
@@ -650,34 +648,42 @@
     <inherit name="editor_room" />
     <isroom />
     <description>A page as empty and small as your prospects of getting all of your classes.</description>
-    <script><![CDATA[
-	if(Alarm Clock.time>600 and Alarm Clock.time<620){
-		if(player.num_classes>3){
-		if(HasObject(Shopping Cart,EECS 340) and HasObject(Shopping Cart,EECS 255)and HasObject(Shopping Cart,HIST 307 and HasObject(Shopping Cart,Boring SAGES)){
-		 moveObject("Go to Enrollment", Shopping Cart, Enroll)
-		 }
-		 else {
-          msg ("You don't have the right classes pal.")
-          MoveObject (player, Classes and Enrollment)
-		}
-		else{
-		msg ("You need more classes mate.")
-          MoveObject (player, Classes and Enrollment)
-		}
-		
-		else{
-		msg("You're trying to register at the wrong time buddy.")
-		}
-		}
-		     ]]></script>
+
     <beforeenter type="script">
       create exit ("Leave", Shopping Cart, Laptop.real_place)
     </beforeenter>
     <onexit type="script">
       MakeExitInvisible (GetObject(GetExitByLink(Shopping Cart, Laptop.real_place )))
     </onexit>
-    <enter type="script">
-    </enter>
+    <enter type="script"><![CDATA[
+      if (not Got(EECS 340)) {
+        msg ("You're missing an important class. Maybe check your journal buddy.")
+      }
+      if (not Got(EECS 255)) {
+        msg ("Seriously, do you even want to graduate on time pal?")
+      }
+      if (not Got(ENGR 145)) {
+        msg ("C'mon you're missing essential requirements friendo!")
+      }
+      if (not Got(HIST 307)) {
+        msg ("You've got to get in all of your requirements amigo.")
+      }
+      if (not Got(Boring SAGES)) {
+        msg ("Even if the class might not be interesting,, you've still got to take it comrade.")
+      }
+      if ((Alarm Clock.time > 620) or (Alarm Clock.time < 600)) {
+        msg ("You can't register at this time. You messed up real good honey.")
+      }
+      if (player.num_classes = 0) {
+        msg ("Why would you come here without any classes? Do you not care for your future? What would Babs think?!")
+      }
+      if (not ListContains(ScopeReachable(), Enroll)) {
+        msg ("You might want to talk to your Advisor about your classes fam. It could help, maybe.")
+      }
+	  else{
+	  player.happy=true
+	  }
+    ]]></enter>
     <exit name="Enroll Tab" to="Enroll">
       <locked />
     </exit>
@@ -696,6 +702,7 @@
       <script>
         msg ("You cry as hard as you can, but the bill remains too high. You try to forget you looked at it and close the SIS page and go back to your desktop.")
         MoveObject (player, Desktop)
+        Laptop.inLaptop = false
       </script>
     </command>
     <command name="yell">
@@ -703,6 +710,7 @@
       <script>
         msg ("You let out your loudest scream, but Babs cannot hear it and thus nothing changes. You close SIS out of anger and go back to your desktop.")
         MoveObject (player, Desktop)
+        Laptop.inLaptop = false
       </script>
     </command>
   </object>
@@ -723,10 +731,9 @@
         <value>Coffee</value>
         <value>Mix</value>
       </alt>
-      <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things. 
-
+      <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things.
 		AddToInventory (Coffee Mix)
-	                                                              </takemsg>
+	        </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
       <take type="script">
@@ -768,7 +775,7 @@
           }
           else {
             msg ("You know it's not nice to take other people's things without their permission, right?")
-            AddToInventory (Coffee Mix)
+            AddToInventory (Chocolates)
           }
         </take>
         <use type="script">
@@ -786,6 +793,7 @@
       <inherit name="male" />
       <look>He's your friend Mike.  Earlier this week you heard him talk about all the different forms of caffeine he has stocked up. </look>
       <feature_usegive />
+      <mikeTime type="int">0</mikeTime>
       <speak type="script"><![CDATA[
         if (Mike.parent = Mikes Room) {
           if (player.intelligence > -1) {
@@ -926,7 +934,11 @@
           }
           else {
             msg ("That alarms you set just went off! Mike steps out of his room to find you. He seems angry.")
-            MoveObject (Mike, player.parent)
+            if (Laptop.inLaptop = false) {
+              MoveObject (Mike, player.parent)
+              Mike.mikeTime = 5
+            }
+            >>>>>>> 24ad42907090031b15668f3bb735de2a9907616e
           }
         }
       }
@@ -935,6 +947,61 @@
         list remove (Alarm Clock.alarms, removeTime)
       }
     ]]></script>
+  </turnscript>
+  <turnscript name="MikeScript">
+    <enabled />
+    <script>
+      if (not(Mike.mikeTime = 0)) {
+        Mike.mikeTime = Mike.mikeTime - 1
+        if (Mike.mikeTime = 0) {
+          if (player.parent = Mikes Room) {
+            msg ("You hear Mike yell. \n\"Hey! Get out of my room!\"")
+          }
+          else {
+            msg ("You the soft thumping of footsteps. Mike must be heading back to his room.")
+          }
+          MoveObject (Mike, Mikes Room)
+        }
+      }
+    </script>
+  </turnscript>
+  <turnscript name="GameEnd">
+
+	<enabled/>
+	<script><![CDATA[
+		if(player.num_classes > 5 or Alarm Clock.time > 839 or player.isEnrolled){
+			goodEnd = false
+			msg("As the time turns to 11:00am you realize that scheduling is over. You are stuck with the classes you have.")
+			if(player.num_classes = 0){
+				msg("You didn't schedule a single class! How could you be this bad at life? You lose! You get nothing! Good day sir!")
+			}
+			if(player.num_classes > 0 and player.num_classes < 3){
+				msg("These definitely are not enough classes! You will have to take an extra semester at some point, but that's fine right? Right? Right?! RIGHT?!")
+			}
+			if(player.num_classes > 2 and player.num_classes < 6){
+				if(player.happy){
+					msg("With absolutely no help from the website design, you somehow got all the classes you wanted. I think this means you won! However, somehow even with this success you still feel a little empty inside. Perhaps scheduling isn't everything...")
+					goodEnd = true
+				}
+				else{
+					msg("You go the number of classes you need, but they're not the ones you wanted. You want to both change majors and become a lighthouse attendant in equal measures")
+				}
+			}
+			if(player.num_class > 5){
+				msg("How can you live with this many classes. You begin to let out tears and speak in tongues. Your mind expands until your body can no longer hold it.")
+			}
+			msg("")
+			if(goodEnd){
+				msg("You beat the nightmare that is SIS. Thanks so much for playing!")
+				msg("Credits</br>Mamadi Jallow</br>Austin Keppers</br>Trey Starshak ")
+			}
+			else{
+				msg("It seems like you didn't quite figure things out in time. Want to restart?")
+				Get Input
+			}
+		}
+	]]></script>
+
   </turnscript>
   <object name="Coffee">
     <inherit name="editor_object" />
@@ -980,7 +1047,7 @@
               RemoveObject (Email)
             }
             else {
-              msg ("You were lucky that your advisor managed to reply right away, but theydidn't think those were the best choices.  Time to try again.")
+              msg ("You were lucky that your advisor managed to reply right away, but they didn't think those were the best choices. Time to try again.")
             }
           }
           else {
@@ -1009,6 +1076,30 @@
   </object>
   <object name="Enroll">
     <inherit name="editor_room" />
+    <classes_enrolled type="list" />
+    <beforeenter type="script">
+      msg ("Abandon Hope, All Ye Who Enter Here")
+    </beforeenter>
+    <enter type="script">
+    </enter>
+	<object name="Enroll Button">
+      <inherit name="surface" />
+      <inherit name="editor_object" />
+      <prefix>a</prefix>
+      <look>You're a click away from deciding your future</look>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </inventoryverbs>
+      <feature_usegive />
+      <attr name="real_place" type="object">common room</attr>
+      <take type="script">
+        msg ("You don't take enrollment. Enrollment takes you.")
+      </take>
+      <use type="script">
+		player.isEnrolled=true
+      </use>
+    </object>
   </object>
   <verb>
     <pattern>send</pattern>
