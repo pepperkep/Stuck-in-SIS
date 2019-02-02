@@ -1143,4 +1143,27 @@
       RemoveObject (Energy Drink)
     </use>
   </object>
+  <turnscript name="Late to Register">
+    <enabled />
+    <script><![CDATA[
+      if (Alarm Clock.time  >  644) {
+        RemoveObject (EECS 340)
+        RemoveObject (MATH 364)
+        RemoveObject (Interesting SAGES)
+        RemoveObject (DANC 315)
+      }
+      if (Alarm Clock.time >  759) {
+        RemoveObject (ENGR 145)
+        RemoveObject (HIST 307)
+        RemoveObject (EMAE 160)
+        RemoveObject (MATH 122)
+      }
+      if (Alarm Clock.time > 814) {
+        RemoveObject (Boring SAGES)
+        RemoveObject (EECS 255)
+        RemoveObject (EECS 290)
+        RemoveObject (FRCH 404)
+      }
+    ]]></script>
+  </turnscript>
 </asl>
