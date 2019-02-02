@@ -961,7 +961,7 @@
   
   <turnscript name="MikeScript">
 	<enabled/>
-	<script>
+	<script><![CDATA[
 		if(not(Mike.mikeTime = 0)){
 			Mike.mikeTime = Mike.mikeTime - 1
 			if(Mike.mikeTime = 0){
@@ -974,7 +974,22 @@
 				MoveObject(Mike, Mikes Room)
 			}
 		}
-	</script>
+	]]></script>
+  </turnscript>
+  
+  <turnscript name="GameEnd">
+	<enabled/>
+	<script><![CDATA[
+		if(player.num_classes > 5 or Alarm Clock.time > 839){
+			msg("As the time turns to 11:00am you realize that scheduling is over. You are stuck with the classes you have.")
+			if(player.num_classes = 0){
+				msg("You didn't schedule a single class! How could you be this bad at life? You lose! You get nothing! Good day sir!")
+			}
+			if(player.num_classes > 0 and player.num_classes < 3){
+				msg("")
+			}
+		}
+	]]></script>
   </turnscript>
   
   <object name="Coffee">
@@ -1050,6 +1065,7 @@
   </object>
   <object name="Enroll">
     <inherit name="editor_room" />
+	<classes_enrolled type="list"></classes_enrolled>
   </object>
   <verb>
     <pattern>send</pattern>
