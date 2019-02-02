@@ -7,19 +7,16 @@
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
   </game>
-  
   <verb>
     <property>set</property>
     <pattern>set</pattern>
     <defaultexpression>You cannot just set any object!</defaultexpression>
   </verb>
-  
   <verb>
     <property>click</property>
     <pattern>click</pattern>
     <defaultexpression>You seem to have spent so much time in the digital realm that you think you can click on anything. Pftshaw!</defaultexpression>
   </verb>
-  
   <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
@@ -188,7 +185,6 @@
       </use>
     </object>
   </object>
-  
   <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
@@ -204,7 +200,6 @@
       <inherit name="southdirection" />
     </exit>
   </object>
-  
   <object name="common room">
     <isroom />
     <object name="table">
@@ -253,8 +248,8 @@
       </take>
       <givesingle type="script">
         msg ("Better keep this in case things go south.")
-      </givesingle>  
-  </object>
+      </givesingle>
+    </object>
     <exit alias="west" to="hallway">
       <inherit name="westdirection" />
     </exit>
@@ -274,7 +269,6 @@
       <look>It's a trash can.  </look>
     </object>
   </object>
-  
   <object name="lounge">
     <isroom />
     <exit alias="east" to="hallway">
@@ -315,13 +309,12 @@
       </useon>
     </object>
   </object>
-  
   <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
     <description>You have several applications open. You definitely opened all of them for a reason, but have forgotten exactly why.</description>
     <beforeenter type="script">
-		Leave.to = Laptop.real_place
+      Leave.to = Laptop.real_place
     </beforeenter>
     <enter type="script">
     </enter>
@@ -329,11 +322,10 @@
       <suffix type="string"></suffix>
     </exit>
     <exit alias="Email" to="Email" />
-	<exit name="Leave" alias="leave" to="bedroom">
+    <exit name="Leave" alias="leave" to="bedroom">
       <suffix type="string"></suffix>
     </exit>
   </object>
-  
   <object name="SIS home page">
     <isroom />
     <description>There are so many buttons on the home screen. Is this supposed to be a maze?</description>
@@ -350,7 +342,6 @@
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
     <exit name="Grades and History Tab" alias="Grades and History Tab" to="GradesandHistory" />
   </object>
-  
   <object name="GradesandHistory">
     <isroom />
     <alias>Grades and History</alias>
@@ -752,7 +743,7 @@
       </alt>
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things.
 		AddToInventory (Coffee Mix)
-	                                </takemsg>
+	                                      </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
       <take type="script">
@@ -873,7 +864,7 @@
         if (not isAlarm) {
           msg ("You continute to rest peacefully")
         }
-        Alarm Clock.time = Alarm Clock.time + 55
+        Alarm Clock.time = Alarm Clock.time + 75
       ]]></script>
     </command>
   </object>
@@ -1005,7 +996,7 @@
             msg ("You go the number of classes you need, but they're not the ones you wanted. You want to both change majors and become a lighthouse attendant in equal measures")
           }
         }
-        if (player.num_class > 5) {
+        if (player.num_classes > 5) {
           msg ("How can you live with this many classes. You begin to let out tears and speak in tongues. Your mind expands until your body can no longer hold it.")
         }
         msg ("")
@@ -1014,8 +1005,7 @@
           msg ("Credits</br>Mamadi Jallow</br>Austin Keppers</br>Trey Starshak ")
         }
         else {
-          msg ("It seems like you didn't quite figure things out in time. Want to restart?")
-          Get Input
+          msg ("It seems like you didn't quite figure things out in time.  Try again next semester?")
         }
       }
     ]]></script>
@@ -1036,7 +1026,6 @@
       player.caffeine = player.caffeine + 2
     </use>
   </object>
-  
   <object name="Email">
     <inherit name="editor_room" />
     <descprefix>You are in your email page.</descprefix>
@@ -1148,58 +1137,57 @@
     <script><![CDATA[
       if (Alarm Clock.time  >  644) {
         if (Got(EECS 340)) {
-			player.num_classes = player.num_classes - 1
-		}
+          player.num_classes = player.num_classes - 1
+        }
         if (Got(MATH 364)) {
-			player.num_classes = player.num_classes - 1
+          player.num_classes = player.num_classes - 1
         }
         if (Got(DANC 315)) {
-			player.num_classes = player.num_classes - 1
+          player.num_classes = player.num_classes - 1
         }
         if (Got(Interesting SAGES)) {
-			player.num_classes = player.num_classes - 1
+          player.num_classes = player.num_classes - 1
         }
-		RemoveObject (Interesting SAGES)
+        RemoveObject (Interesting SAGES)
         RemoveObject (EECS 340)
-		RemoveObject (DANC 315)
-		RemoveObject (MATH 364)
+        RemoveObject (DANC 315)
+        RemoveObject (MATH 364)
       }
       if (Alarm Clock.time >  759) {
-		if (Got(EECS 145)) {
-			player.num_classes = player.num_classes - 1
+        if (Got(ENGR 145)) {
+          player.num_classes = player.num_classes - 1
         }
         if (Got(HIST 307)) {
-			player.num_classes = player.num_classes - 1
+          player.num_classes = player.num_classes - 1
         }
         if (Got(EMAE 160)) {
-			player.num_classes = player.num_classes - 1
-		}
-        if (Got(MATH 122)) {
-			player.num_classes = player.num_classes - 1
+          player.num_classes = player.num_classes - 1
         }
-		RemoveObject (MATH 122)
-		RemoveObject (ENGR 145)
-		RemoveObject (EMAE 160)
-		RemoveObject (HIST 307)
-        
+        if (Got(MATH 122)) {
+          player.num_classes = player.num_classes - 1
+        }
+        RemoveObject (MATH 122)
+        RemoveObject (ENGR 145)
+        RemoveObject (EMAE 160)
+        RemoveObject (HIST 307)
       }
       if (Alarm Clock.time > 814) {
-		if (Got(Boring SAGES)) {
-			player.num_classes = player.num_classes - 1
+        if (Got(Boring SAGES)) {
+          player.num_classes = player.num_classes - 1
         }
         if (Got(EECS 255)) {
-			player.num_classes = player.num_classes - 1
+          player.num_classes = player.num_classes - 1
         }
         if (Got(EECS 290)) {
-			player.num_classes = player.num_classes - 1
+          player.num_classes = player.num_classes - 1
         }
         if (Got(FRCH 404)) {
-			player.num_classes = player.num_classes - 1
-		}
+          player.num_classes = player.num_classes - 1
+        }
         RemoveObject (FRCH 404)
-		RemoveObject (Boring SAGES)
-		RemoveObject (EECS 290)
-		RemoveObject (EECS 255)
+        RemoveObject (Boring SAGES)
+        RemoveObject (EECS 290)
+        RemoveObject (EECS 255)
       }
     ]]></script>
   </turnscript>
