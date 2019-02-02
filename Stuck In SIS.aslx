@@ -948,7 +948,6 @@
               MoveObject (Mike, player.parent)
               Mike.mikeTime = 5
             }
-            >>>>>>> 24ad42907090031b15668f3bb735de2a9907616e
           }
         }
       }
@@ -1007,9 +1006,19 @@
         else {
           msg ("It seems like you didn't quite figure things out in time.  Try again next semester?")
         }
+		MoveObject(player, void)
       }
     ]]></script>
   </turnscript>
+  
+  <object name="void">
+	<beforeenter type="script">
+	foreach (o, ScopeInventory()) {
+		RemoveObject(o)
+	}
+	</beforeenter>
+  </object>
+  
   <object name="Coffee">
     <inherit name="editor_object" />
     <attr name="feature_edible" type="boolean">false</attr>
