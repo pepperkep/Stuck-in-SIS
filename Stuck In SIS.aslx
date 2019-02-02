@@ -315,17 +315,17 @@
     <isroom />
     <description>You have several applications open. You definitely opened all of them for a reason, but have forgotten exactly why.</description>
     <beforeenter type="script">
-      create exit ("Leave", Desktop, Laptop.real_place)
+      Leave.to = Laptop.real_place
     </beforeenter>
-    <onexit type="script">
-      MakeExitInvisible (GetObject(GetExitByLink(Desktop, Laptop.real_place )))
-    </onexit>
     <enter type="script">
     </enter>
     <exit name="Web browser" alias="SIS home page" to="SIS home page">
       <suffix type="string"></suffix>
     </exit>
     <exit alias="Email" to="Email" />
+    <exit name="Leave" alias="leave" to="bedroom">
+      <suffix type="string"></suffix>
+    </exit>
   </object>
   <object name="SIS home page">
     <isroom />
@@ -653,7 +653,7 @@
         }
       </ondrop>
     </object>
-    <object name="An Interesting SAGES">
+    <object name="Interesting SAGES">
       <inherit name="surface" />
       <inherit name="editor_object" />
       <prefix>a</prefix>
@@ -776,6 +776,17 @@
     <exit alias="Shopping Cart Tab" to="Shopping Cart">
       <suffix type="string"></suffix>
     </exit>
+    <object name="MATH 364">
+      <inherit name="editor_object" />
+      <look>Just reading the course description makes you long for when math used numbers, not letters. </look>
+      <take />
+      <ontake type="script">
+        AddToInventory (MATH 364)
+      </ontake>
+      <ondrop type="script">
+        MoveObject (MATH 364, Classes and Enrollment)
+      </ondrop>
+    </object>
   </object>
   <object name="Shopping Cart">
     <inherit name="editor_room" />
@@ -1070,7 +1081,6 @@
               MoveObject (Mike, player.parent)
               Mike.mikeTime = 5
             }
-            >>>>>>> 24ad42907090031b15668f3bb735de2a9907616e
           }
         }
       }
@@ -1170,7 +1180,7 @@
         msg ("To Who?")
         get input {
           if (IsRegexMatch("advisor", LCase(result))) {
-            if (Got(Major Change Form)) {
+            if ((Got(EECS 255) or Got(EECS 340)) and Got(HIST 307) and Got(ENGR 145) and (Got(Boring SAGES) or Got(Interesting SAGES)) and Got(MATH 364)) {
               msg ("Your advisor happened to be by their computer and liked your class selection. ")
               msg ("Your registration hold has been lifted!")
               UnlockExit (Enroll Tab)
@@ -1193,7 +1203,7 @@
     <inherit name="editor_room" />
     <object name="Email from Advisor">
       <inherit name="editor_object" />
-      <look>Its a message from your advisor.  Your advisor thinks you should end up taking a MATH class, an EECS class, your last SAGES, and two humanities classes. </look>
+      <look>Its a message from your advisor.  Your advisor thinks you should end up taking a high-level MATH class, an EECS class, your last Sages, one of your general engineering classes, and an academic arts or humanities class. </look>
     </object>
     <object name="Email from friend">
       <inherit name="editor_object" />
@@ -1255,6 +1265,66 @@
     <use type="script">
       msg ("Tastes like sugar and artificial flavoring.")
       player.caffeine = player.caffeine + 2
+      RemoveObject (Energy Drink)
     </use>
   </object>
+  <turnscript name="Late to Register">
+    <enabled />
+    <script><![CDATA[
+      if (Alarm Clock.time  >  644) {
+        if (Got(EECS 340)) {
+          player.num_classes = player.num_classes - 1
+        }
+        if (Got(MATH 364)) {
+          player.num_classes = player.num_classes - 1
+        }
+        if (Got(DANC 315)) {
+          player.num_classes = player.num_classes - 1
+        }
+        if (Got(Interesting SAGES)) {
+          player.num_classes = player.num_classes - 1
+        }
+        RemoveObject (Interesting SAGES)
+        RemoveObject (EECS 340)
+        RemoveObject (DANC 315)
+        RemoveObject (MATH 364)
+      }
+      if (Alarm Clock.time >  759) {
+        if (Got(ENGR 145)) {
+          player.num_classes = player.num_classes - 1
+        }
+        if (Got(HIST 307)) {
+          player.num_classes = player.num_classes - 1
+        }
+        if (Got(EMAE 160)) {
+          player.num_classes = player.num_classes - 1
+        }
+        if (Got(MATH 122)) {
+          player.num_classes = player.num_classes - 1
+        }
+        RemoveObject (MATH 122)
+        RemoveObject (ENGR 145)
+        RemoveObject (EMAE 160)
+        RemoveObject (HIST 307)
+      }
+      if (Alarm Clock.time > 814) {
+        if (Got(Boring SAGES)) {
+          player.num_classes = player.num_classes - 1
+        }
+        if (Got(EECS 255)) {
+          player.num_classes = player.num_classes - 1
+        }
+        if (Got(EECS 290)) {
+          player.num_classes = player.num_classes - 1
+        }
+        if (Got(FRCH 404)) {
+          player.num_classes = player.num_classes - 1
+        }
+        RemoveObject (FRCH 404)
+        RemoveObject (Boring SAGES)
+        RemoveObject (EECS 290)
+        RemoveObject (EECS 255)
+      }
+    ]]></script>
+  </turnscript>
 </asl>
