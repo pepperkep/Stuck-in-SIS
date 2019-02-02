@@ -1108,6 +1108,9 @@
         player.isEnrolled = true
       </use>
     </object>
+    <exit alias="Exit" to="Grades">
+      <message>Hmmm.  For some reason, leaving the enroll tab took you to look at your Grades.</message>
+    </exit>
   </object>
   <verb>
     <pattern>send</pattern>
