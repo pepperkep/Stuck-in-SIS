@@ -978,7 +978,7 @@
   <turnscript name="GameEnd">
     <enabled />
     <script><![CDATA[
-      if (player.num_classes > 5 or Alarm Clock.time > 839 or player.isEnrolled) {
+      if (Alarm Clock.time > 839 or player.isEnrolled) {
         goodEnd = false
         msg ("As the time turns to 11:00am you realize that scheduling is over. You are stuck with the classes you have.")
         if (player.num_classes = 0) {
@@ -1137,22 +1137,59 @@
     <enabled />
     <script><![CDATA[
       if (Alarm Clock.time  >  644) {
+        if (Got(EECS 340)) {
+			player.num_classes = player.num_classes - 1
+		}
+        if (Got(MATH 364)) {
+			player.num_classes = player.num_classes - 1
+        }
+        if (Got(DANC 315)) {
+			player.num_classes = player.num_classes - 1
+        }
+        if (Got(Interesting SAGES)) {
+			player.num_classes = player.num_classes - 1
+        }
+		RemoveObject (Interesting SAGES)
         RemoveObject (EECS 340)
-        RemoveObject (MATH 364)
-        RemoveObject (Interesting SAGES)
-        RemoveObject (DANC 315)
+		RemoveObject (DANC 315)
+		RemoveObject (MATH 364)
       }
       if (Alarm Clock.time >  759) {
-        RemoveObject (ENGR 145)
-        RemoveObject (HIST 307)
-        RemoveObject (EMAE 160)
-        RemoveObject (MATH 122)
+		if (Got(EECS 145)) {
+			player.num_classes = player.num_classes - 1
+        }
+        if (Got(HIST 307)) {
+			player.num_classes = player.num_classes - 1
+        }
+        if (Got(EMAE 160)) {
+			player.num_classes = player.num_classes - 1
+		}
+        if (Got(MATH 122)) {
+			player.num_classes = player.num_classes - 1
+        }
+		RemoveObject (MATH 122)
+		RemoveObject (ENGR 145)
+		RemoveObject (EMAE 160)
+		RemoveObject (HIST 307)
+        
       }
       if (Alarm Clock.time > 814) {
-        RemoveObject (Boring SAGES)
-        RemoveObject (EECS 255)
-        RemoveObject (EECS 290)
+		if (Got(Boring SAGES)) {
+			player.num_classes = player.num_classes - 1
+        }
+        if (Got(EECS 255)) {
+			player.num_classes = player.num_classes - 1
+        }
+        if (Got(EECS 290)) {
+			player.num_classes = player.num_classes - 1
+        }
+        if (Got(FRCH 404)) {
+			player.num_classes = player.num_classes - 1
+		}
         RemoveObject (FRCH 404)
+		RemoveObject (Boring SAGES)
+		RemoveObject (EECS 290)
+		RemoveObject (EECS 255)
       }
     ]]></script>
   </turnscript>
