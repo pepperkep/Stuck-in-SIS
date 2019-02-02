@@ -7,16 +7,19 @@
     <version>1.0</version>
     <firstpublished>2019</firstpublished>
   </game>
+  
   <verb>
     <property>set</property>
     <pattern>set</pattern>
     <defaultexpression>You cannot just set any object!</defaultexpression>
   </verb>
+  
   <verb>
     <property>click</property>
     <pattern>click</pattern>
     <defaultexpression>You seem to have spent so much time in the digital realm that you think you can click on anything. Pftshaw!</defaultexpression>
   </verb>
+  
   <object name="bedroom">
     <inherit name="editor_room" />
     <isroom />
@@ -185,6 +188,7 @@
       </use>
     </object>
   </object>
+  
   <object name="hallway">
     <isroom />
     <exit alias="east" to="common room">
@@ -200,6 +204,7 @@
       <inherit name="southdirection" />
     </exit>
   </object>
+  
   <object name="common room">
     <isroom />
     <object name="table">
@@ -248,8 +253,8 @@
       </take>
       <givesingle type="script">
         msg ("Better keep this in case things go south.")
-      </givesingle>
-    </object>
+      </givesingle>  
+  </object>
     <exit alias="west" to="hallway">
       <inherit name="westdirection" />
     </exit>
@@ -269,6 +274,7 @@
       <look>It's a trash can.  </look>
     </object>
   </object>
+  
   <object name="lounge">
     <isroom />
     <exit alias="east" to="hallway">
@@ -309,23 +315,25 @@
       </useon>
     </object>
   </object>
+  
   <object name="Desktop">
     <inherit name="editor_room" />
     <isroom />
     <description>You have several applications open. You definitely opened all of them for a reason, but have forgotten exactly why.</description>
     <beforeenter type="script">
-      create exit ("Leave", Desktop, Laptop.real_place)
+		Leave.to = Laptop.real_place
     </beforeenter>
-    <onexit type="script">
-      MakeExitInvisible (GetObject(GetExitByLink(Desktop, Laptop.real_place )))
-    </onexit>
     <enter type="script">
     </enter>
     <exit name="Web browser" alias="SIS home page" to="SIS home page">
       <suffix type="string"></suffix>
     </exit>
+	<exit name="Leave" alias="leave" to="bedroom">
+      <suffix type="string"></suffix>
+    </exit>
     <exit alias="Email" to="Email" />
   </object>
+  
   <object name="SIS home page">
     <isroom />
     <description>There are so many buttons on the home screen. Is this supposed to be a maze?</description>
@@ -342,6 +350,7 @@
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
     <exit name="Grades and History Tab" alias="Grades and History Tab" to="GradesandHistory" />
   </object>
+  
   <object name="GradesandHistory">
     <isroom />
     <alias>Grades and History</alias>
@@ -1027,6 +1036,7 @@
       player.caffeine = player.caffeine + 2
     </use>
   </object>
+  
   <object name="Email">
     <inherit name="editor_room" />
     <descprefix>You are in your email page.</descprefix>
