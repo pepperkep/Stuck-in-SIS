@@ -864,7 +864,7 @@
         if (not isAlarm) {
           msg ("You continute to rest peacefully")
         }
-        Alarm Clock.time = Alarm Clock.time + 75
+        Alarm Clock.time = Alarm Clock.time + 55
       ]]></script>
     </command>
   </object>
