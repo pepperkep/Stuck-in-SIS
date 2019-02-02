@@ -1005,7 +1005,7 @@
             msg ("You go the number of classes you need, but they're not the ones you wanted. You want to both change majors and become a lighthouse attendant in equal measures")
           }
         }
-        if (player.num_class > 5) {
+        if (player.num_classes > 5) {
           msg ("How can you live with this many classes. You begin to let out tears and speak in tongues. Your mind expands until your body can no longer hold it.")
         }
         msg ("")
@@ -1014,12 +1014,21 @@
           msg ("Credits</br>Mamadi Jallow</br>Austin Keppers</br>Trey Starshak ")
         }
         else {
-          msg ("It seems like you didn't quite figure things out in time. Want to restart?")
-          Get Input
+          msg ("It seems like you didn't quite figure things out in time. You should restart!")
         }
+		MoveObject(player, void)
       }
     ]]></script>
   </turnscript>
+  
+  <object name="void">
+	<beforeenter type="script">
+	foreach (o, ScopeInventory()) {
+		RemoveObject(o)
+	}
+	</beforeenter>
+  </object>
+  
   <object name="Coffee">
     <inherit name="editor_object" />
     <attr name="feature_edible" type="boolean">false</attr>
