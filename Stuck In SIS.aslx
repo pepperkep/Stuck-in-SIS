@@ -347,7 +347,7 @@
     <beforefirstenter type="script">
       game.autodescription_description = 0
     </beforefirstenter>
-    <exit name="Enrollment tab" alias="Enrollment tab" to="ClassesandEnrollment">
+    <exit name="Enrollment tab" alias="Enrollment tab" to="Classes and Enrollment">
       <suffix type="string"></suffix>
     </exit>
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
@@ -427,7 +427,7 @@
       </click>
     </object>
   </object>
-  <object name="ClassesandEnrollment">
+  <object name="Classes and Enrollment">
     <description>Is there anything scarier than having to plan your future?</description>
     <isroom />
     <alias>Classes and Enrollment</alias>
@@ -453,7 +453,7 @@
         AddToInventory (EECS 340)
         player.num_classes = player.num_classes +1
         if (player.num_classes > 6) {
-          MoveObject (EECS 340, ClassesandEnrollment)
+          MoveObject (EECS 340, Classes and Enrollment)
           msg ("You can't take more than 6 classes you dingus. Do you want to go mad?")
         }
       ]]></take>
@@ -461,7 +461,7 @@
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
       </givesingle>
       <ondrop type="script">
-        if (not (game.pov.parent = ClassesandEnrollment)) {
+        if (not (game.pov.parent = Classes and Enrollment)) {
           msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
           AddToInventory (EECS 340)
         }
@@ -493,7 +493,7 @@
         AddToInventory (EECS 255)
         player.num_classes = player.num_classes + 1
 		 if (player.num_classes > 6) {
-          MoveObject (EECS 255, ClassesandEnrollment)
+          MoveObject (EECS 255, Classes and Enrollment)
           msg ("You can't take more than 6 classes you dingus. Do you want to go mad?")
         }
       ]]></take>
@@ -501,7 +501,7 @@
         msg ("Are you kidding me?! Might as well become a Humanities major at this point.")
       </givesingle>
       <ondrop type="script">
-        if (not game.pov.parent = ClassesandEnrollment) {
+        if (not game.pov.parent = Classes and Enrollment) {
           msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
           AddToInventory (EECS 255)
         }
@@ -528,7 +528,7 @@
         AddToInventory (Boring SAGES)
         player.num_classes = player.num_classes + 1
 		 if (player.num_classes > 6) {
-          MoveObject (Boring SAGES, ClassesandEnrollment)
+          MoveObject (Boring SAGES, Classes and Enrollment)
           msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
         }
       ]]></take>
@@ -536,7 +536,7 @@
         msg ("Yeah sure, if you want to spend an extra semester paying tuition.")
       </givesingle>
       <ondrop type="script">
-        if (not game.pov.parent = ClassesandEnrollment) {
+        if (not game.pov.parent = Classes and Enrollment) {
           msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
           AddToInventory (Boring SAGES)
         }
@@ -608,7 +608,7 @@
         AddToInventory (FRCH 404)
         player.num_classes = player.num_classes + 1
 		if (player.num_classes > 6) {
-          MoveObject (FRCH 404, ClassesandEnrollment)
+          MoveObject (FRCH 404, Classes and Enrollment)
            msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
         }
       ]]></take>
@@ -616,7 +616,7 @@
         msg ("Non, mon ami.")
       </givesingle>
       <ondrop type="script">
-        if (not game.pov.parent = ClassesandEnrollment) {
+        if (not game.pov.parent = Classes and Enrollment) {
           msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
           AddToInventory (FRCH 404)
         }
@@ -647,7 +647,7 @@
         AddToInventory (HIST 307)
         player.num_classes = player.num_classes + 1
 		if (player.num_classes > 6) {
-          MoveObject (HIST 307, ClassesandEnrollment)
+          MoveObject (HIST 307, Classes and Enrollment)
           msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
         }
      ]]> </take>
@@ -655,7 +655,7 @@
         msg ("Wait, but how else will you learn about the gnomery of the Netherlands?!")
       </givesingle>
       <ondrop type="script">
-        if (not game.pov.parent = ClassesandEnrollment) {
+        if (not game.pov.parent = Classes and Enrollment) {
           msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
           AddToInventory (HIST 307)
         }
@@ -698,7 +698,7 @@
         AddToInventory (ENGR 145)
         player.num_classes = player.num_classes +1
 		if (player.num_classes > 6) {
-          MoveObject (ENGR 145, ClassesandEnrollment)
+          MoveObject (ENGR 145, Classes and Enrollment)
           msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
         }
       ]]></take>
@@ -706,7 +706,7 @@
         msg ("Man, you really don't care about this class, do you? Fair enough.")
       </givesingle>
       <ondrop type="script">
-        if (not game.pov.parent = ClassesandEnrollment) {
+        if (not game.pov.parent = Classes and Enrollment) {
           msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
           AddToInventory (ENGR 145)
         }
@@ -733,7 +733,7 @@
         AddToInventory (EMAE 160)
         player.num_classes = player.num_classes +1
 		if (player.num_classes > 6) {
-          MoveObject (EMAE 160, ClassesandEnrollment)
+          MoveObject (EMAE 160, Classes and Enrollment)
           msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
         }
      ]]> </take>
@@ -741,7 +741,7 @@
         msg ("But, who's going to build the bridges?!")
       </givesingle>
       <ondrop type="script">
-        if (not game.pov.parent = ClassesandEnrollment) {
+        if (not game.pov.parent = Classes and Enrollment) {
           msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
           AddToInventory (EMAE 160)
         }
@@ -768,7 +768,7 @@
         AddToInventory (DANC 315)
         player.num_classes = player.num_classes +1
 		if (player.num_classes > 6) {
-          MoveObject (DANC 315, ClassesandEnrollment)
+          MoveObject (DANC 315, Classes and Enrollment)
            msg ("Course Denied. You can't take more than 6 classes you dingus. Do you want to go mad?")
         }
       ]]></take>
@@ -776,7 +776,7 @@
         msg ("But, who's going to build the bridges?!")
       </givesingle>
       <ondrop type="script">
-        if (not game.pov.parent = ClassesandEnrollment) {
+        if (not game.pov.parent = Classes and Enrollment) {
           msg ("I bet that you wish that you could drop classes out of SIS, but you can't my friend.")
           AddToInventory (DANC 315)
         }
