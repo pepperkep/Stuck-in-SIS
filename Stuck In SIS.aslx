@@ -74,7 +74,12 @@
       <attr name="num_classes" type="int">0</attr>
 	  <attr name="isEnrolled" type="boolean">false</attr>
       <caffeine type="int">5</caffeine>
+<<<<<<< HEAD
       <intelligence type="int">0</intelligence>
+=======
+	  <intelligence type="int">0</intelligence>
+	  <happy type="boolean">false</happy>
+>>>>>>> 717a686b4cb19d09874a21f61061fe3597de6482
     </object>
     <exit alias="south" to="hallway">
       <inherit name="southdirection" />
@@ -678,6 +683,9 @@
       if (not ListContains(ScopeReachable(), Enroll)) {
         msg ("You might want to talk to your Advisor about your classes fam. It could help, maybe.")
       }
+	  else{
+	  player.happy=true
+	  }
     ]]></enter>
     <exit name="Enroll Tab" to="Enroll">
       <locked />
@@ -961,18 +969,42 @@
     </script>
   </turnscript>
   <turnscript name="GameEnd">
-    <enabled />
-    <script><![CDATA[
-      if (player.num_classes > 5 or Alarm Clock.time > 839 or player.isEnrolled) {
-        msg ("As the time turns to 11:00am you realize that scheduling is over. You are stuck with the classes you have.")
-        if (player.num_classes = 0) {
-          msg ("You didn't schedule a single class! How could you be this bad at life? You lose! You get nothing! Good day sir!")
-        }
-        if (player.num_classes > 0 and player.num_classes < 3) {
-          msg ("You've gotten half of your classes. An extra semester can't be that bad, right? Right? Right?! RIGHT?!")
-        }
-      }
-    ]]></script>
+
+	<enabled/>
+	<script><![CDATA[
+		if(player.num_classes > 5 or Alarm Clock.time > 839 or player.isEnrolled){
+			goodEnd = false
+			msg("As the time turns to 11:00am you realize that scheduling is over. You are stuck with the classes you have.")
+			if(player.num_classes = 0){
+				msg("You didn't schedule a single class! How could you be this bad at life? You lose! You get nothing! Good day sir!")
+			}
+			if(player.num_classes > 0 and player.num_classes < 3){
+				msg("These definitely are not enough classes! You will have to take an extra semester at some point, but that's fine right? Right? Right?! RIGHT?!")
+			}
+			if(player.num_classes > 2 and player.num_classes < 6){
+				if(player.happy){
+					msg("With absolutely no help from the website design, you somehow got all the classes you wanted. I think this means you won! However, somehow even with this success you still feel a little empty inside. Perhaps scheduling isn't everything...")
+					goodEnd = true
+				}
+				else{
+					msg("You go the number of classes you need, but they're not the ones you wanted. You want to both change majors and become a lighthouse attendant in equal measures")
+				}
+			}
+			if(player.num_class > 5){
+				msg("How can you live with this many classes. You begin to let out tears and speak in tongues. Your mind expands until your body can no longer hold it.")
+			}
+			msg("")
+			if(goodEnd){
+				msg("You beat the nightmare that is SIS. Thanks so much for playing!")
+				msg("Credits</br>Mamadi Jallow</br>Austin Keppers</br>Trey Starshak ")
+			}
+			else{
+				msg("It seems like you didn't quite figure things out in time. Want to restart?")
+				Get Input
+			}
+		}
+	]]></script>
+
   </turnscript>
   <object name="Coffee">
     <inherit name="editor_object" />
