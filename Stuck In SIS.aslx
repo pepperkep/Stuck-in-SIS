@@ -706,7 +706,9 @@
   </object>
   <object name="bill">
     <isroom />
-    <description>The bill is too high. You need to react to maintain your sanity.</description>
+    <description type="script"><![CDATA[
+      msg ("The bill is too high. <b>You need to react to maintain your sanity.</b>")
+    ]]></description>
     <command name="sob">
       <pattern>cry+|sob+</pattern>
       <script>
@@ -723,6 +725,14 @@
         Laptop.inLaptop = false
       </script>
     </command>
+	<command name="grin">
+		<pattern>grin+|smile+|laugh+</pattern>
+		<script>
+			msg ("You grin maniacally. You're a true millenial and all that unnecessary debt just adds to the challenge.")
+			MoveObject (player, Desktop)
+			Laptop.inLaptop = false
+		</script>
+	</command>
   </object>
   <object name="Mikes Room">
     <inherit name="editor_room" />
@@ -904,13 +914,13 @@
           if (player.parent = Sleep) {
             msg ("You hear the distant buzz of an alarm... You're... supposed.. to schedule, right? You need to get to turn it off somehow but it's on the wrong side of the bed... What do you do?")
             get input {
-              if (IsRegexMatch("turn|flip|roll", LCase(result))) {
+              if (IsRegexMatch("turn+|flip+|roll+", LCase(result))) {
                 msg ("Now you're lying with your face smothered in the pillow. It's rather uncomfortable, but you could still fall asleep like this. What do you do?")
                 get input {
-                  if (IsRegexMatch("turn|flip|roll", LCase(result))) {
+                  if (IsRegexMatch("turn+|flip+|roll+", LCase(result))) {
                     msg ("Well, you're on the right side now but you can't quite remember where you set your alarm. What should you do?")
                     get input {
-                      if (IsRegexMatch("look|search|find", LCase(result))) {
+                      if (IsRegexMatch("look+|search+|find+", LCase(result))) {
                         msg ("Finally! You got your alarm clock. Do you want to turn the alarm off or put it on snooze?")
                         get input {
                           if (IsRegexMatch("snooze", LCase(result))) {
