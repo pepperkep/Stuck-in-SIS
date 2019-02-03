@@ -361,7 +361,7 @@
     <beforefirstenter type="script">
       game.autodescription_description = 0
     </beforefirstenter>
-    <exit name="Enrollment tab" alias="Enrollment tab" to="Classes and Enrollment">
+    <exit name="Enrollment tab" alias="Enrollment tab" to="ClassesandEnrollment">
       <suffix type="string"></suffix>
     </exit>
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
