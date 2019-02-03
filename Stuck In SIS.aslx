@@ -175,8 +175,16 @@
         msg ("The bed is as empty as you are.")
       </look>
       <use type="script">
-        msg ("Time to sleep before the hellish nightmare that is tomorrow morning.")
-        player.caffeine = 0
+		msg("Are you sure you want to do that? Getting up is difficult and there is so much you need to do to schedule...")
+		get input{
+			if(IsRegexMatch("yes|y", LCase(result))){
+				msg ("Time to sleep before the hellish nightmare that is tomorrow morning.")
+				player.caffeine = 0
+			}
+			else{
+				msg("Phew! That was a close one. Sleep can wait for now.")
+			}
+		}
       </use>
     </object>
     <object name="Journal">
@@ -1071,6 +1079,9 @@
       if (Alarm Clock.time % 60 = 0) {
         player.caffeine = player.caffeine - 1
       }
+	  if(player.caffeine = 1){
+		msg("You are getting extremely tired. Seeing straight is difficult. You desparately need something to stay awake. Either that or an alarm.")
+	  }
       if (player.caffeine = 0) {
         MoveObject (player, Sleep)
         player.caffeine = 20
