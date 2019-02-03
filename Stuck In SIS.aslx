@@ -118,12 +118,12 @@
           time = time + "0"
         }
         time = time + Alarm Clock.time % 60
-		if (Alarm Clock.time < 180){
-			time = time + "pm"
-		}
-		else{
-			time = time + "am"
-		}
+        if (Alarm Clock.time < 180) {
+          time = time + "pm"
+        }
+        else {
+          time = time + "am"
+        }
         msg (time)
       ]]></look>
       <use type="script">
@@ -175,16 +175,16 @@
         msg ("The bed is as empty as you are.")
       </look>
       <use type="script">
-		msg("Are you sure you want to do that? Getting up is difficult and there is so much you need to do to schedule...")
-		get input{
-			if(IsRegexMatch("yes|y", LCase(result))){
-				msg ("Time to sleep before the hellish nightmare that is tomorrow morning.")
-				player.caffeine = 0
-			}
-			else{
-				msg("Phew! That was a close one. Sleep can wait for now.")
-			}
-		}
+        msg ("Are you sure you want to do that? Getting up is difficult and there is so much you need to do to schedule...")
+        get input {
+          if (IsRegexMatch("yes|y", LCase(result))) {
+            msg ("Time to sleep before the hellish nightmare that is tomorrow morning.")
+            player.caffeine = 0
+          }
+          else {
+            msg ("Phew! That was a close one. Sleep can wait for now.")
+          }
+        }
       </use>
     </object>
     <object name="Journal">
@@ -372,7 +372,6 @@
     <alias>Grades and History</alias>
     <description>This is the part of the website where they store all the letters. I think they're supposed to represent something?</description>
     <exit name="View Grades" alias="View Grades" to="Grades" />
-    <exit name="Look at Transcript" alias="Look at Transcript" to="View Transcript" />
   </object>
   <object name="View Transcript">
     <description>You created a copy of your {object:Transcript}?! Why would you? You must get rid of it while you can!</description>
@@ -440,6 +439,7 @@
         MoveObject (player, Sleep)
       </click>
     </object>
+    <exit name="Look at Transcript" alias="Look at Transcript" to="View Transcript" />
   </object>
   <object name="Classes and Enrollment">
     <description>Is there anything scarier than having to plan your future?</description>
@@ -619,6 +619,7 @@
         <value>French</value>
       </alt>
       <not_all />
+      <drop />
       <attr name="real_place" type="object">Classes and Enrollment</attr>
       <take type="script"><![CDATA[
         if (player.num_classes > 6) {
@@ -643,7 +644,6 @@
           player.num_classes = player.num_classes -1
         }
       </ondrop>
-      <drop />
     </object>
     <object name="HIST 307">
       <inherit name="surface" />
@@ -891,9 +891,9 @@
   </object>
   <object name="bill">
     <isroom />
-    <description type="script"><![CDATA[
+    <description type="script">
       msg ("The bill is too high. You want to cry and scream and grin at the same time, but can only do one. What do you do?")
-    ]]></description>
+    </description>
     <command name="sob">
       <pattern>cry+|sob+</pattern>
       <script>
@@ -910,14 +910,14 @@
         Laptop.inLaptop = false
       </script>
     </command>
-	<command name="grin">
-		<pattern>grin+|smile+|laugh+</pattern>
-		<script>
-			msg ("You grin maniacally. You're a true millenial and all that unnecessary debt just adds to the challenge.")
-			MoveObject (player, Desktop)
-			Laptop.inLaptop = false
-		</script>
-	</command>
+    <command name="grin">
+      <pattern>grin+|smile+|laugh+</pattern>
+      <script>
+        msg ("You grin maniacally. You're a true millenial and all that unnecessary debt just adds to the challenge.")
+        MoveObject (player, Desktop)
+        Laptop.inLaptop = false
+      </script>
+    </command>
   </object>
   <object name="Mikes Room">
     <inherit name="editor_room" />
@@ -938,7 +938,7 @@
       </alt>
       <takemsg>You took your friend Mike's coffee. Most people ask before taking other people's things.
 		AddToInventory (Coffee Mix)
-	                                                        </takemsg>
+	                                                              </takemsg>
       <look>It's a bag of hyper-caffeinated coffee.  A cup of this could probably keep you awake for hours. </look>
       <feature_usegive />
       <take type="script">
@@ -1079,9 +1079,9 @@
       if (Alarm Clock.time % 60 = 0) {
         player.caffeine = player.caffeine - 1
       }
-	  if(player.caffeine = 1){
-		msg("You are getting extremely tired. Seeing straight is difficult. You desparately need something to stay awake. Either that or an alarm.")
-	  }
+      if (player.caffeine = 1) {
+        msg ("You are getting extremely tired. Seeing straight is difficult. You desparately need something to stay awake. Either that or an alarm.")
+      }
       if (player.caffeine = 0) {
         MoveObject (player, Sleep)
         player.caffeine = 20
