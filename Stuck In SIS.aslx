@@ -463,7 +463,7 @@
       <not_all />
       <attr name="real_place" type="object">ClassesandEnrollment</attr>
       <take type="script"><![CDATA[
-        if (player.num_classes > 6) {
+        if (player.num_classes > 5) {
           msg ("You can't take more than 6 classes you dingus. Do you want to go mad?")
         }
         else {
