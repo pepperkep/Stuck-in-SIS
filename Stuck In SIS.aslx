@@ -441,7 +441,7 @@
       </click>
     </object>
   </object>
-  <object name="Classes and Enrollment">
+  <object name="ClassesandEnrollment">
     <description>Is there anything scarier than having to plan your future?</description>
     <isroom />
     <alias>Classes and Enrollment</alias>
