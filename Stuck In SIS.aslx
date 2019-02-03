@@ -175,8 +175,16 @@
         msg ("The bed is as empty as you are.")
       </look>
       <use type="script">
-        msg ("Time to sleep before the hellish nightmare that is tomorrow morning.")
-        player.caffeine = 0
+		msg("Are you sure you want to do that? Getting up is difficult and there is so much you need to do to schedule...")
+		get input{
+			if(IsRegexMatch("yes|y", LCase(result))){
+				msg ("Time to sleep before the hellish nightmare that is tomorrow morning.")
+				player.caffeine = 0
+			}
+			else{
+				msg("Phew! That was a close one. Sleep can wait for now.")
+			}
+		}
       </use>
     </object>
     <object name="Journal">
@@ -353,7 +361,7 @@
     <beforefirstenter type="script">
       game.autodescription_description = 0
     </beforefirstenter>
-    <exit name="Enrollment tab" alias="Enrollment tab" to="ClassesandEnrollment">
+    <exit name="Enrollment tab" alias="Enrollment tab" to="Classes and Enrollment">
       <suffix type="string"></suffix>
     </exit>
     <exit name="Financial Aid Tab" alias="Financial Aid Tab" to="Financial Aid" />
@@ -433,7 +441,7 @@
       </click>
     </object>
   </object>
-  <object name="ClassesandEnrollment">
+  <object name="Classes and Enrollment">
     <description>Is there anything scarier than having to plan your future?</description>
     <isroom />
     <alias>Classes and Enrollment</alias>
@@ -884,7 +892,7 @@
   <object name="bill">
     <isroom />
     <description type="script"><![CDATA[
-      msg ("The bill is too high. <b>You need to react to maintain your sanity.</b>")
+      msg ("The bill is too high. You want to cry and scream and grin at the same time, but can only do one. What do you do?")
     ]]></description>
     <command name="sob">
       <pattern>cry+|sob+</pattern>
@@ -1071,6 +1079,9 @@
       if (Alarm Clock.time % 60 = 0) {
         player.caffeine = player.caffeine - 1
       }
+	  if(player.caffeine = 1){
+		msg("You are getting extremely tired. Seeing straight is difficult. You desparately need something to stay awake. Either that or an alarm.")
+	  }
       if (player.caffeine = 0) {
         MoveObject (player, Sleep)
         player.caffeine = 20
@@ -1193,11 +1204,11 @@
         }
         msg ("")
         if (goodEnd) {
-          msg ("You beat the nightmare that is SIS. Thanks so much for playing!")
+          msg ("<b>You beat the nightmare that is SIS. Thanks so much for playing!</b>")
           msg ("Credits</br>Jean ValJallow</br>Dallas Keppers</br>Trey Cruise ")
         }
         else {
-          msg ("It seems like you didn't quite figure things out in time. Want to restart?")
+          msg ("<b>It seems like you didn't quite figure things out in time. Maybe you should restart.</b>")
         }
         MoveObject (player, void)
       }
