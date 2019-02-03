@@ -108,6 +108,12 @@
           time = time + "0"
         }
         time = time + Alarm Clock.time % 60
+		if (Alarm Clock.time < 180){
+			time = time + "pm"
+		}
+		else{
+			time = time + "am"
+		}
         msg (time)
       ]]></look>
       <use type="script">
