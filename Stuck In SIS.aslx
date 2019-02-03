@@ -892,7 +892,7 @@
   <object name="bill">
     <isroom />
     <description type="script"><![CDATA[
-      msg ("The bill is too high. <b>You need to react to maintain your sanity.</b>")
+      msg ("The bill is too high. You want to cry and scream and grin at the same time, but can only do one. What do you do?")
     ]]></description>
     <command name="sob">
       <pattern>cry+|sob+</pattern>
@@ -1204,11 +1204,11 @@
         }
         msg ("")
         if (goodEnd) {
-          msg ("You beat the nightmare that is SIS. Thanks so much for playing!")
+          msg ("<b>You beat the nightmare that is SIS. Thanks so much for playing!</b>")
           msg ("Credits</br>Jean ValJallow</br>Dallas Keppers</br>Trey Cruise ")
         }
         else {
-          msg ("It seems like you didn't quite figure things out in time. Want to restart?")
+          msg ("<b>It seems like you didn't quite figure things out in time. Maybe you should restart.</b>")
         }
         MoveObject (player, void)
       }
